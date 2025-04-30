@@ -1,0 +1,4 @@
+com\mycompany\locadoramanutencao\App.class
+module-info.class
+com\mycompany\locadoramanutencao\PrimaryController.class
+com\mycompany\locadoramanutencao\SecondaryController.class
