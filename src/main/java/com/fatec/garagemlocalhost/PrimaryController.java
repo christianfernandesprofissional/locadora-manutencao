@@ -1,4 +1,4 @@
-package com.mycompany.locadoramanutencao;
+package com.fatec.garagemlocalhost;
 
 import java.io.IOException;
 import javafx.fxml.FXML;

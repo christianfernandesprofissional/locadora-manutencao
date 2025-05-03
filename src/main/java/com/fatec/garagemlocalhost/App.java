@@ -1,4 +1,4 @@
-package com.mycompany.locadoramanutencao;
+package com.fatec.garagemlocalhost;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

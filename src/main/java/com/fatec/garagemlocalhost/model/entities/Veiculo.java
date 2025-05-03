@@ -1,0 +1,125 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.fatec.garagemlocalhost.model.entities;
+
+import java.util.Objects;
+
+/**
+ *
+ * @author chris
+ */
+public class Veiculo {
+    private String placa; 
+    private String marca; 
+    private String cor; 
+    private Integer ano; 
+    private String chassi;
+    private String modelo; 
+    private Integer quilometragem; 
+    private String categoria; 
+    
+    public Veiculo(){
+        
+    }
+
+    public Veiculo(String placa, String marca, String cor, Integer ano, String chassi, String modelo, Integer quilometragem, String categoria) {
+        this.placa = placa;
+        this.marca = marca;
+        this.cor = cor;
+        this.ano = ano;
+        this.chassi = chassi;
+        this.modelo = modelo;
+        this.quilometragem = quilometragem;
+        this.categoria = categoria;
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public Integer getAno() {
+        return ano;
+    }
+
+    public void setAno(Integer ano) {
+        this.ano = ano;
+    }
+
+    public String getChassi() {
+        return chassi;
+    }
+
+    public void setChassi(String chassi) {
+        this.chassi = chassi;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public Integer getQuilometragem() {
+        return quilometragem;
+    }
+
+    public void setQuilometragem(Integer quilometragem) {
+        this.quilometragem = quilometragem;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.placa);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Veiculo other = (Veiculo) obj;
+        return Objects.equals(this.placa, other.placa);
+    }
+    
+    
+}

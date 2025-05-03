@@ -1,4 +1,4 @@
-com\mycompany\locadoramanutencao\App.class
+com\fatec\garagemlocalhost\App.class
+com\fatec\garagemlocalhost\SecondaryController.class
 module-info.class
-com\mycompany\locadoramanutencao\PrimaryController.class
-com\mycompany\locadoramanutencao\SecondaryController.class
+com\fatec\garagemlocalhost\PrimaryController.class
