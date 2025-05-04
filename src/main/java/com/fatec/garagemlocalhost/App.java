@@ -1,5 +1,6 @@
 package com.fatec.garagemlocalhost;
 
+import com.fatec.garagemlocalhost.database.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,9 +18,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Database db = new Database();
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
         stage.show();
+    
     }
 
     static void setRoot(String fxml) throws IOException {
