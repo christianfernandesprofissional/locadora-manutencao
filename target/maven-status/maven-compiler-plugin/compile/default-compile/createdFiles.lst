@@ -7,7 +7,6 @@ com\fatec\garagemlocalhost\SecondaryController.class
 com\fatec\garagemlocalhost\model\entities\Manutencao.class
 com\fatec\garagemlocalhost\database\Database.class
 com\fatec\garagemlocalhost\model\entities\Item.class
-module-info.class
 com\fatec\garagemlocalhost\model\entities\CategoriaVeiculo.class
 com\fatec\garagemlocalhost\model\entities\Veiculo.class
 com\fatec\garagemlocalhost\model\entities\Usuario.class
