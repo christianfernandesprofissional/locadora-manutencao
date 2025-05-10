@@ -9,12 +9,12 @@ import com.fatec.garagemlocalhost.database.Database;
 import com.fatec.garagemlocalhost.model.entities.CategoriaVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Veiculo;
 import java.math.BigDecimal;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Classe contendo o CRUD relacionado a tabela veiculos
@@ -60,8 +60,7 @@ public class VeiculoDAO {
         return veiculos;
     }
     
-    public Veiculo findByPlaca(String placa)throws DBException{
-        Veiculo veiculo = null;
+    public Optional<Veiculo> findByPlaca(String placa)throws DBException{
         try{
             String sql = "SELECT * FROM veiculos INNER JOIN categorias_veiculos ON veiculos.id_categoria = categorias_veiculos.id_categoria WHERE placa = ?;";
             PreparedStatement ps = database.getConn().prepareStatement(sql);
@@ -69,6 +68,7 @@ public class VeiculoDAO {
             
             ResultSet rs = ps.executeQuery();
             
+            Veiculo veiculo = null;
             if(rs.next()){
                 veiculo = new Veiculo();
                 veiculo.setPlaca(rs.getString("placa"));
@@ -84,12 +84,11 @@ public class VeiculoDAO {
                 veiculo.setPrecoBase(precoBase);
             }
             
+            return Optional.ofNullable(veiculo);
+            
         }catch(SQLException e){
             throw new DBException("Erro ao encontrar veiculo: " + e.getMessage());
         }
-        
-        return veiculo;
-        
     }
     
     public void createVeiculo(Veiculo veiculo)throws DBException{
