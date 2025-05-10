@@ -114,12 +114,12 @@ public class Veiculo {
     public String toString() {
         return "Veiculo{" + "placa=" + placa + ", marca=" + marca + ", cor=" + cor + ", ano=" + ano + ", chassi=" + chassi + ", modelo=" + modelo + ", quilometragem=" + quilometragem + ", categoria=" + categoria + ", precoBase=" + precoBase + '}';
     }
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 89 * hash + Objects.hashCode(this.placa);
+        hash = 97 * hash + Objects.hashCode(this.placa);
+        hash = 97 * hash + Objects.hashCode(this.chassi);
         return hash;
     }
 
@@ -135,8 +135,10 @@ public class Veiculo {
             return false;
         }
         final Veiculo other = (Veiculo) obj;
-        return Objects.equals(this.placa, other.placa);
+        if (!Objects.equals(this.placa, other.placa)) {
+            return false;
+        }
+        return Objects.equals(this.chassi, other.chassi);
     }
-    
     
 }
