@@ -2,6 +2,7 @@ com\fatec\garagemlocalhost\model\entities\ItemManutencao.class
 com\fatec\garagemlocalhost\model\entities\SaidaVeiculo.class
 com\fatec\garagemlocalhost\PrimaryController.class
 com\fatec\garagemlocalhost\App.class
+com\fatec\garagemlocalhost\model\dao\VeiculoDAO.class
 com\fatec\garagemlocalhost\model\entities\DevolucaoVeiculo.class
 com\fatec\garagemlocalhost\SecondaryController.class
 com\fatec\garagemlocalhost\model\entities\Manutencao.class
@@ -9,4 +10,5 @@ com\fatec\garagemlocalhost\database\Database.class
 com\fatec\garagemlocalhost\model\entities\Item.class
 com\fatec\garagemlocalhost\model\entities\CategoriaVeiculo.class
 com\fatec\garagemlocalhost\model\entities\Veiculo.class
+com\fatec\garagemlocalhost\database\DBException.class
 com\fatec\garagemlocalhost\model\entities\Usuario.class

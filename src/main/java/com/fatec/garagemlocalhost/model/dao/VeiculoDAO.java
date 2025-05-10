@@ -1,0 +1,173 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.fatec.garagemlocalhost.model.dao;
+
+import com.fatec.garagemlocalhost.database.DBException;
+import com.fatec.garagemlocalhost.database.Database;
+import com.fatec.garagemlocalhost.model.entities.CategoriaVeiculo;
+import com.fatec.garagemlocalhost.model.entities.Veiculo;
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Classe contendo o CRUD relacionado a tabela veiculos
+ * 
+ * @author Christian
+ */
+public class VeiculoDAO {
+    private final Database database;
+    
+    public VeiculoDAO(Database database){
+        this.database = database;
+    }
+    
+    public List<Veiculo> findAll()throws DBException{
+        List<Veiculo> veiculos = new ArrayList<>();
+        try{
+            String sql = "SELECT * FROM veiculos INNER JOIN categorias_veiculos ON veiculos.id_categoria = categorias_veiculos.id_categoria;";
+            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Veiculo veiculo = new Veiculo();
+                veiculo.setPlaca(rs.getString("placa"));
+                veiculo.setMarca(rs.getString("marca"));
+                veiculo.setCor(rs.getString("cor"));
+                veiculo.setAno(rs.getInt("ano"));
+                veiculo.setChassi(rs.getString("chassi"));
+                veiculo.setModelo(rs.getString("modelo"));
+                veiculo.setQuilometragem(rs.getInt("quilometragem"));
+                CategoriaVeiculo categoria = new CategoriaVeiculo(rs.getInt("id_categoria"), rs.getString("descricao"));
+                veiculo.setCategoria(categoria);
+                BigDecimal precoBase = new BigDecimal(rs.getDouble("preco_base"));
+                veiculo.setPrecoBase(precoBase);
+                veiculos.add(veiculo);
+            }
+            
+   
+        }catch(SQLException e){
+            throw new DBException("Erro ao encontrar dados dos veículos: " + e.getMessage());
+        }
+        
+        return veiculos;
+    }
+    
+    public Veiculo findByPlaca(String placa)throws DBException{
+        Veiculo veiculo = null;
+        try{
+            String sql = "SELECT * FROM veiculos INNER JOIN categorias_veiculos ON veiculos.id_categoria = categorias_veiculos.id_categoria WHERE placa = ?;";
+            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            ps.setString(1, placa);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                veiculo = new Veiculo();
+                veiculo.setPlaca(rs.getString("placa"));
+                veiculo.setMarca(rs.getString("marca"));
+                veiculo.setCor(rs.getString("cor"));
+                veiculo.setAno(rs.getInt("ano"));
+                veiculo.setChassi(rs.getString("chassi"));
+                veiculo.setModelo(rs.getString("modelo"));
+                veiculo.setQuilometragem(rs.getInt("quilometragem"));
+                CategoriaVeiculo categoria = new CategoriaVeiculo(rs.getInt("id_categoria"), rs.getString("descricao"));
+                veiculo.setCategoria(categoria);
+                BigDecimal precoBase = new BigDecimal(rs.getDouble("preco_base"));
+                veiculo.setPrecoBase(precoBase);
+            }
+            
+        }catch(SQLException e){
+            throw new DBException("Erro ao encontrar veiculo: " + e.getMessage());
+        }
+        
+        return veiculo;
+        
+    }
+    
+    public void createVeiculo(Veiculo veiculo)throws DBException{
+        try{
+            if(veiculo == null) throw new DBException("Veículo não pode ser nulo!");
+            
+            String sql = "INSERT INTO veiculos(placa,marca,cor,ano,chassi,modelo,quilometragem,id_categoria, preco_base) VALUES (?,?,?,?,?,?,?,?,?);";
+            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            
+            ps.setString(1, veiculo.getPlaca());
+            ps.setString(2, veiculo.getMarca());
+            ps.setString(3, veiculo.getCor());
+            ps.setInt(4, veiculo.getAno());
+            ps.setString(5, veiculo.getChassi());
+            ps.setString(6, veiculo.getModelo());
+            ps.setInt(7, veiculo.getQuilometragem());
+            ps.setInt(8, veiculo.getCategoria().getId());
+            ps.setDouble(9, veiculo.getPrecoBase().doubleValue());
+            
+            
+            int rows = ps.executeUpdate();
+            
+            if(rows > 0){
+                System.out.println("Linhas afetadas: " + rows);
+            }
+            
+        }catch(SQLException e){
+            throw new DBException("Erro ao cadastrar veículo: " + e.getMessage());
+        }
+    }
+    
+    public void updateVeiculo(Veiculo veiculo)throws DBException{
+        if(veiculo == null) throw new DBException("Veiculo não pode ser nulo!");
+        if(veiculo.getPlaca() == null) throw new DBException("A placa não pode ser nula!");
+        if(veiculo.getPlaca().isBlank()) throw new DBException("A placa não pode estar vazia!");
+        try{
+            String sql = "UPDATE veiculos SET marca = ?, cor = ?, ano = ?, chassi =?,modelo = ?,quilometragem = ?,id_categoria = ?, preco_base = ?  WHERE placa = ?;";
+            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            
+           
+            ps.setString(1, veiculo.getMarca());
+            ps.setString(2, veiculo.getCor());
+            ps.setInt(3, veiculo.getAno());
+            ps.setString(4, veiculo.getChassi());
+            ps.setString(5, veiculo.getModelo());
+            ps.setInt(6, veiculo.getQuilometragem());
+            ps.setInt(7, veiculo.getCategoria().getId());
+            ps.setDouble(8, veiculo.getPrecoBase().doubleValue());
+            ps.setString(9, veiculo.getPlaca());
+            
+            int rows = ps.executeUpdate();
+            
+            if(rows > 0){
+                System.out.println("Linhas afetadas: " + rows);
+            }
+            
+        }catch(SQLException e){
+            throw new DBException("Erro ao atualizar veículo: " + e.getMessage());
+        }
+    }
+    
+    public void deleteVeiculo(String placa)throws DBException{
+        try{
+            String sql = "DELETE FROM veiculos where placa = ?;";
+            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            
+            ps.setString(1, placa);
+            
+            int rows = ps.executeUpdate();
+            
+            if(rows > 0){
+                System.out.println("Linhas afetadas: " + rows);
+            }
+            
+        }catch(SQLException e){
+            throw new DBException("Erro ao atualizar veículo: " + e.getMessage());
+        }
+    }
+    
+        
+}

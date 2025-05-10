@@ -4,11 +4,12 @@
  */
 package com.fatec.garagemlocalhost.model.entities;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
  *
- * @author chris
+ * @author Christian
  */
 public class Veiculo {
     private String placa; 
@@ -18,13 +19,14 @@ public class Veiculo {
     private String chassi;
     private String modelo; 
     private Integer quilometragem; 
-    private String categoria; 
+    private CategoriaVeiculo categoria; 
+    private BigDecimal precoBase;
     
     public Veiculo(){
         
     }
 
-    public Veiculo(String placa, String marca, String cor, Integer ano, String chassi, String modelo, Integer quilometragem, String categoria) {
+    public Veiculo(String placa, String marca, String cor, Integer ano, String chassi, String modelo, Integer quilometragem, CategoriaVeiculo categoria, BigDecimal precoBase) {
         this.placa = placa;
         this.marca = marca;
         this.cor = cor;
@@ -33,6 +35,7 @@ public class Veiculo {
         this.modelo = modelo;
         this.quilometragem = quilometragem;
         this.categoria = categoria;
+        this.precoBase = precoBase;
     }
 
     public String getPlaca() {
@@ -91,14 +94,28 @@ public class Veiculo {
         this.quilometragem = quilometragem;
     }
 
-    public String getCategoria() {
+    public CategoriaVeiculo getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(CategoriaVeiculo categoria) {
         this.categoria = categoria;
     }
 
+    public BigDecimal getPrecoBase() {
+        return precoBase;
+    }
+
+    public void setPrecoBase(BigDecimal precoBase) {
+        this.precoBase = precoBase;
+    }
+
+    @Override
+    public String toString() {
+        return "Veiculo{" + "placa=" + placa + ", marca=" + marca + ", cor=" + cor + ", ano=" + ano + ", chassi=" + chassi + ", modelo=" + modelo + ", quilometragem=" + quilometragem + ", categoria=" + categoria + ", precoBase=" + precoBase + '}';
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 5;
