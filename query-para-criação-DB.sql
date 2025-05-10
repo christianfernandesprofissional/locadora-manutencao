@@ -69,7 +69,7 @@ CREATE TABLE manutencoes (
 	finalizado BOOLEAN DEFAULT FALSE, 
 	instante_chegada DATETIME, 
 	instante_saida DATETIME,
-	valor DECIMAL(10,2), 
+	total DECIMAL(10,2),
 	FOREIGN KEY(placa) REFERENCES veiculos(placa)
 	ON UPDATE CASCADE
 );
@@ -80,7 +80,6 @@ CREATE TABLE servicos(
     id_manutencao INT NOT NULL,
     preco DECIMAL(10,2) NOT NULL,
     descricao TEXT NOT NULL,
-    total DECIMAL(10,2),
     PRIMARY KEY(id_servico, id_manutencao),
     FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
     ON UPDATE CASCADE
