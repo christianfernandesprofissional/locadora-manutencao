@@ -109,10 +109,10 @@ public class VeiculoDAO {
             ps.setDouble(9, veiculo.getPrecoBase().doubleValue());
             
             
-            int rows = ps.executeUpdate();
+            int linhas = ps.executeUpdate();
             
-            if(rows > 0){
-                System.out.println("Linhas afetadas: " + rows);
+            if(linhas > 0){
+                System.out.println("Linhas afetadas: " + linhas);
             }
             
         }catch(SQLException e){
@@ -139,10 +139,10 @@ public class VeiculoDAO {
             ps.setDouble(8, veiculo.getPrecoBase().doubleValue());
             ps.setString(9, veiculo.getPlaca());
             
-            int rows = ps.executeUpdate();
+            int linhas = ps.executeUpdate();
             
-            if(rows > 0){
-                System.out.println("Linhas afetadas: " + rows);
+            if(linhas > 0){
+                System.out.println("Linhas afetadas: " + linhas);
             }
             
         }catch(SQLException e){
@@ -157,10 +157,10 @@ public class VeiculoDAO {
             
             ps.setString(1, placa);
             
-            int rows = ps.executeUpdate();
+            int linhas = ps.executeUpdate();
             
-            if(rows > 0){
-                System.out.println("Linhas afetadas: " + rows);
+            if(linhas > 0){
+                System.out.println("Linhas afetadas: " + linhas);
             }
             
         }catch(SQLException e){
