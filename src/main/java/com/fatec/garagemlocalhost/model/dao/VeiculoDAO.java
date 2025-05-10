@@ -32,7 +32,7 @@ public class VeiculoDAO {
         List<Veiculo> veiculos = new ArrayList<>();
         try{
             String sql = "SELECT * FROM veiculos INNER JOIN categorias_veiculos ON veiculos.id_categoria = categorias_veiculos.id_categoria;";
-            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
             ResultSet rs = ps.executeQuery();
             
@@ -63,7 +63,7 @@ public class VeiculoDAO {
     public Optional<Veiculo> findByPlaca(String placa)throws DBException{
         try{
             String sql = "SELECT * FROM veiculos INNER JOIN categorias_veiculos ON veiculos.id_categoria = categorias_veiculos.id_categoria WHERE placa = ?;";
-            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             ps.setString(1, placa);
             
             ResultSet rs = ps.executeQuery();
@@ -96,7 +96,7 @@ public class VeiculoDAO {
             if(veiculo == null) throw new DBException("Veículo não pode ser nulo!");
             
             String sql = "INSERT INTO veiculos(placa,marca,cor,ano,chassi,modelo,quilometragem,id_categoria, preco_base) VALUES (?,?,?,?,?,?,?,?,?);";
-            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
             ps.setString(1, veiculo.getPlaca());
             ps.setString(2, veiculo.getMarca());
@@ -126,7 +126,7 @@ public class VeiculoDAO {
         if(veiculo.getPlaca().isBlank()) throw new DBException("A placa não pode estar vazia!");
         try{
             String sql = "UPDATE veiculos SET marca = ?, cor = ?, ano = ?, chassi =?,modelo = ?,quilometragem = ?,id_categoria = ?, preco_base = ?  WHERE placa = ?;";
-            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
            
             ps.setString(1, veiculo.getMarca());
@@ -153,7 +153,7 @@ public class VeiculoDAO {
     public void deleteVeiculo(String placa)throws DBException{
         try{
             String sql = "DELETE FROM veiculos WHERE placa = ?;";
-            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
             ps.setString(1, placa);
             

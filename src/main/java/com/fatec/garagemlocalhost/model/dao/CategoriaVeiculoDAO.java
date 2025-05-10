@@ -30,7 +30,7 @@ public class CategoriaVeiculoDAO {
         List<CategoriaVeiculo> categorias = null;
         try{
             String sql = "SELECT * FROM categorias_veiculos;";
-            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
             ResultSet rs   = ps.executeQuery();
             categorias = new ArrayList<>();
@@ -53,7 +53,7 @@ public class CategoriaVeiculoDAO {
          
         try{
             String sql = "SELECT * FROM categorias_veiculos WHERE id_categoria = ?;";
-            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
             ps.setInt(1, id);
             
@@ -74,7 +74,7 @@ public class CategoriaVeiculoDAO {
         if(categoria == null) throw new DBException("Categoria não pode ser nula");
         try{
             String sql = "INSERT INTO categorias_veiculos(id_categoria, descricao) VALUES (null, ?);";
-            PreparedStatement ps = database.getConn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, categoria.getDescricao());
             
             int  linhas = ps.executeUpdate();
@@ -97,7 +97,7 @@ public class CategoriaVeiculoDAO {
         
         try{
             String sql = "UPDATE FROM categorias_veiculos SET descricao = ? WHERE id_categoria = ?;";
-            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
             ps.setString(1, categoria.getDescricao());
             ps.setInt(2, categoria.getId());
@@ -116,7 +116,7 @@ public class CategoriaVeiculoDAO {
     public void deleteCategoria(Integer id)throws DBException{
         try{
             String sql = "DELETE FROM categorias_veiculos WHERE id_categoria = ?;";
-            PreparedStatement ps = database.getConn().prepareStatement(sql);
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
             ps.setInt(1, id);
             
