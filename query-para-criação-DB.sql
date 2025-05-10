@@ -10,7 +10,7 @@ CREATE TABLE categorias_veiculos (
     descricao VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE tipo_seguro (
+CREATE TABLE tipos_seguro (
 	id_seguro INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nome VARCHAR(30) UNIQUE NOT NULL,
     descricao TEXT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE meios_de_pagamento (
    	descricao VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE tb_usuarios (
+CREATE TABLE usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
     nome VARCHAR(80) NOT NULL, 
     email VARCHAR(80) UNIQUE NOT NULL,
@@ -57,12 +57,12 @@ CREATE TABLE veiculos (
     quilometragem INT NOT NULL, 
     id_categoria INT NOT NULL, 
     preco_base DECIMAL(10,2) NOT NULL, 
-    FOREIGN KEY(id_categoria) REFERENCES categorias_carros(id_categoria)
+    FOREIGN KEY(id_categoria) REFERENCES categorias_veiculos(id_categoria)
     ON UPDATE CASCADE
 );
 
 -- TABELAS DE MANUTENÇÃO
-CREATE TABLE manutencao (
+CREATE TABLE manutencoes (
 	id_manutencao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	placa CHAR(7) NOT NULL, 
 	descricao TEXT NOT NULL, 
@@ -74,26 +74,20 @@ CREATE TABLE manutencao (
 	ON UPDATE CASCADE
 );
 
-CREATE TABLE servico (
-	id_servico INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	descricao TEXT NOT NULL,
-	valor_unitario DECIMAL(10,2) NOT NULL
-);
 
-CREATE TABLE servicos_manutencao (
+CREATE TABLE servicos(
 	id_servico INT NOT NULL,
     id_manutencao INT NOT NULL,
-    quantidade INT,
+    preco DECIMAL(10,2) NOT NULL,
+    descricao TEXT NOT NULL,
     total DECIMAL(10,2),
     PRIMARY KEY(id_servico, id_manutencao),
-    FOREIGN KEY(id_servico) REFERENCES servico(id_servico)
-    ON UPDATE CASCADE,
-    FOREIGN KEY(id_manutencao) REFERENCES manutencao(id_manutencao)
+    FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
     ON UPDATE CASCADE
 );
 
 -- TABELAS DE LOCAÇÃO (pedido vem depois das dependentes)
-CREATE TABLE pedido_locacao (
+CREATE TABLE pedidos_locacao (
 	id_pedido INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_atendente INT NOT NULL,
     id_cliente INT NOT NULL,
@@ -105,7 +99,7 @@ CREATE TABLE pedido_locacao (
     forma_de_pagamento INT NOT NULL, 
     finalizado BOOLEAN DEFAULT FALSE, 
     valor_total DECIMAL(10,2) NOT NULL,
-    FOREIGN KEY(id_atendente) REFERENCES tb_usuarios(id_usuario)
+    FOREIGN KEY(id_atendente) REFERENCES usuarios(id_usuario)
     ON UPDATE CASCADE,
 	FOREIGN KEY(id_cliente) REFERENCES clientes(id_cliente)
     ON UPDATE CASCADE, 
@@ -113,7 +107,7 @@ CREATE TABLE pedido_locacao (
     ON UPDATE CASCADE, 
     FOREIGN KEY(forma_de_pagamento) REFERENCES meios_de_pagamento(id_pagamento)
     ON UPDATE CASCADE,
-    FOREIGN KEY(id_seguro) REFERENCES tipo_seguro(id_seguro)
+    FOREIGN KEY(id_seguro) REFERENCES tipos_seguro(id_seguro)
     ON UPDATE CASCADE
 );
 
@@ -125,11 +119,11 @@ CREATE TABLE devolucoes_veiculos (
 	instante_devolucao DATETIME, 
 	km_chegada INT,
 	id_manutencao INT, 
-	FOREIGN KEY(id_pedido) REFERENCES pedido_locacao(id_pedido)
+	FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido)
 	ON UPDATE CASCADE,
-	FOREIGN KEY(id_assistente) REFERENCES tb_usuarios(id_usuario)
+	FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario)
 	ON UPDATE CASCADE, 
-	FOREIGN KEY(id_manutencao) REFERENCES manutencao(id_manutencao)
+	FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
 	ON UPDATE CASCADE
 );
 
@@ -139,14 +133,14 @@ CREATE TABLE saidas_veiculos (
 	id_assistente INT NOT NULL, 
 	instante_saida DATETIME, 
 	km_saida INT,
-	FOREIGN KEY(id_pedido) REFERENCES pedido_locacao(id_pedido)
+	FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido)
 	ON UPDATE CASCADE,
-	FOREIGN KEY(id_assistente) REFERENCES tb_usuarios(id_usuario)
+	FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario)
 	ON UPDATE CASCADE
 );
 
 -- Atualizar chaves estrangeiras que fazem referência às tabelas criadas por último
-ALTER TABLE pedido_locacao
+ALTER TABLE pedidos_locacao
 	ADD CONSTRAINT fk_saida FOREIGN KEY(id_saida) REFERENCES saidas_veiculos(id_saida)
 	ON UPDATE CASCADE,
 	ADD CONSTRAINT fk_devolucao FOREIGN KEY(id_devolucao) REFERENCES devolucoes_veiculos(id_devolucao)
