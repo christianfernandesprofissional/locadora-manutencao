@@ -60,6 +60,12 @@ public class CategoriaVeiculo {
         final CategoriaVeiculo other = (CategoriaVeiculo) obj;
         return Objects.equals(this.id, other.id);
     }
+
+    @Override
+    public String toString() {
+        return "CategoriaVeiculo{" + "id=" + id + ", descricao=" + descricao + '}';
+    }
+    
     
     
 }
