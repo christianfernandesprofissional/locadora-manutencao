@@ -4,29 +4,31 @@
  */
 package com.fatec.garagemlocalhost.model.entities;
 
+import com.fatec.garagemlocalhost.exceptions.LoginValidacaoException;
+import com.fatec.garagemlocalhost.model.enums.TipoUsuario;
 import java.util.Objects;
 
 /**
  *
- * @author chris
+ * @author Christian
  */
 public class Usuario {
     private Integer id;
     private String nome;
-    private String nomeUsuario;
     private String email;
     private String senha;
+    private TipoUsuario tipoUsuario;
     
     public Usuario(){
         
     }
-
-    public Usuario(Integer id, String nome, String nomeUsuario, String email, String senha) {
-        this.id = id;
+    
+    public Usuario(String nome, String email, String senha, TipoUsuario tipoUsuario) throws LoginValidacaoException {
+        id = null;
         this.nome = nome;
-        this.nomeUsuario = nomeUsuario;
-        this.email = email;
-        this.senha = senha;
+        setEmail(email);
+        setSenha(senha);
+        this.tipoUsuario = tipoUsuario;
     }
 
     public Integer getId() {
@@ -45,19 +47,14 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getNomeUsuario() {
-        return nomeUsuario;
-    }
-
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws LoginValidacaoException {
+        if(!email.contains("@") || !email.contains(".com")){
+            throw new LoginValidacaoException("Email inválido");
+        }
         this.email = email;
     }
 
@@ -65,14 +62,28 @@ public class Usuario {
         return senha;
     }
 
-    public void setSenha(String senha) {
+    public void setSenha(String senha) throws LoginValidacaoException {
+        if(senha.length() < 8){
+            throw new LoginValidacaoException("A senha deve ter ao menos 8 digitos");
+        }
         this.senha = senha;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) throws LoginValidacaoException {
+        if(tipoUsuario == null){
+            throw new LoginValidacaoException("É preciso definir um nível de acesso");
+        }
+        this.tipoUsuario = tipoUsuario;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -89,6 +100,11 @@ public class Usuario {
         }
         final Usuario other = (Usuario) obj;
         return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + ", tipoUsuario=" + tipoUsuario + '}';
     }
     
     
