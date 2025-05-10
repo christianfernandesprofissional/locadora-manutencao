@@ -153,7 +153,7 @@ public class VeiculoDAO {
     
     public void deleteVeiculo(String placa)throws DBException{
         try{
-            String sql = "DELETE FROM veiculos where placa = ?;";
+            String sql = "DELETE FROM veiculos WHERE placa = ?;";
             PreparedStatement ps = database.getConn().prepareStatement(sql);
             
             ps.setString(1, placa);
