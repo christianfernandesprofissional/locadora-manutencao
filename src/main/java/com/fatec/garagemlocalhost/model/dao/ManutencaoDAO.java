@@ -48,7 +48,7 @@ public class ManutencaoDAO {
                 manutencao.setDescricao(rs.getString("descricao"));
                 manutencao.setIsfinalizado(rs.getBoolean("finalizado"));
                 manutencao.setInstanteChegada(LocalDateTime.parse(rs.getString("instante_chegada")));
-                manutencao.setInstanteSaida(LocalDateTime.parse(rs.getString("instante_sainda")));
+                manutencao.setInstanteSaida(LocalDateTime.parse(rs.getString("instante_saida")));
                 BigDecimal total = new BigDecimal(rs.getDouble("total"));
                 manutencao.setValorTotal(total);
             }
@@ -77,7 +77,7 @@ public class ManutencaoDAO {
                 manutencao.setDescricao(rs.getString("descricao"));
                 manutencao.setIsfinalizado(rs.getBoolean("finalizado"));
                 manutencao.setInstanteChegada(LocalDateTime.parse(rs.getString("instante_chegada")));
-                manutencao.setInstanteSaida(LocalDateTime.parse(rs.getString("instante_sainda")));
+                manutencao.setInstanteSaida(LocalDateTime.parse(rs.getString("instante_saida")));
                 BigDecimal total = new BigDecimal(rs.getDouble("total"));
                 manutencao.setValorTotal(total);
             }

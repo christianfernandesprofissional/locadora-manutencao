@@ -15,6 +15,7 @@ public class SaidaVeiculo {
     private Integer id; 
     private Integer idPedido; 
     private Usuario usuario; 
+    private Veiculo veiculo;
     private LocalDateTime instanteSaida; 
     private Integer kmSaida;
     
@@ -22,10 +23,11 @@ public class SaidaVeiculo {
         
     }
 
-    public SaidaVeiculo(Integer id, Integer idPedido, Usuario usuario, LocalDateTime instanteSaida, Integer kmSaida) {
+    public SaidaVeiculo(Integer id, Integer idPedido, Usuario usuario, Veiculo veiculo, LocalDateTime instanteSaida, Integer kmSaida) {
         this.id = id;
         this.idPedido = idPedido;
         this.usuario = usuario;
+        this.veiculo = veiculo;
         this.instanteSaida = instanteSaida;
         this.kmSaida = kmSaida;
     }
@@ -52,6 +54,14 @@ public class SaidaVeiculo {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
 
     public LocalDateTime getInstanteSaida() {

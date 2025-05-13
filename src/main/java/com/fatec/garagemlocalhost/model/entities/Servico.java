@@ -14,19 +14,20 @@ import java.util.Objects;
 public class Servico {
     
     private Integer idServico;
-    private Manutencao manutencao;
-    private BigDecimal preco;
     private String descricao;
+    private BigDecimal preco;
+    private Boolean isComum;
+    private Manutencao manutencao;
     
     public Servico(){
         
     }
 
-    public Servico(Integer idServico, Manutencao manutencao, BigDecimal preco, String descricao) {
+    public Servico(Integer idServico, String descricao, BigDecimal preco, Boolean isComum) {
         this.idServico = idServico;
-        this.manutencao = manutencao;
         this.preco = preco;
         this.descricao = descricao;
+        this.isComum = isComum;
     }
 
     public Integer getIdServico() {
@@ -59,6 +60,14 @@ public class Servico {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public Boolean getIsComum() {
+        return isComum;
+    }
+
+    public void setIsComum(Boolean isComum) {
+        this.isComum = isComum;
     }
 
     @Override
