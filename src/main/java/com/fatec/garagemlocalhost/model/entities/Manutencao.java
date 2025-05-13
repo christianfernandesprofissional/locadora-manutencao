@@ -6,6 +6,7 @@ package com.fatec.garagemlocalhost.model.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,20 +20,22 @@ public class Manutencao {
     private Boolean isfinalizado;
     private LocalDateTime instanteChegada; 
     private LocalDateTime instanteSaida; 
-    private BigDecimal valor;
+    private BigDecimal valorTotal;
+    
+    private List<Servico> servicos;
 
     public Manutencao(){
         
     }
     
-    public Manutencao(Integer id, Veiculo veiculo, String descricao, Boolean isfinalizado, LocalDateTime instanteChegada, LocalDateTime instanteSaida, BigDecimal valor) {
+    public Manutencao(Integer id, Veiculo veiculo, String descricao, Boolean isfinalizado, LocalDateTime instanteChegada, LocalDateTime instanteSaida, BigDecimal valorTotal) {
         this.id = id;
         this.veiculo = veiculo;
         this.descricao = descricao;
         this.isfinalizado = isfinalizado;
         this.instanteChegada = instanteChegada;
         this.instanteSaida = instanteSaida;
-        this.valor = valor;
+        this.valorTotal = valorTotal;
     }
 
     public Integer getId() {
@@ -83,13 +86,23 @@ public class Manutencao {
         this.instanteSaida = instanteSaida;
     }
 
-    public BigDecimal getValor() {
-        return valor;
+    public BigDecimal getValorTotal() {
+        return valorTotal;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
+
+    public List<Servico> getServicos() {
+        return servicos;
+    }
+
+    public void setServicos(List<Servico> servicos) {
+        this.servicos = servicos;
+    }
+    
+    
 
     @Override
     public int hashCode() {
