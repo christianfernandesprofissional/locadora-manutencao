@@ -75,14 +75,28 @@ CREATE TABLE manutencoes (
 );
 
 
-CREATE TABLE servicos(
-	id_servico INT NOT NULL,
-    id_manutencao INT NOT NULL,
-    preco DECIMAL(10,2) NOT NULL,
-    descricao TEXT NOT NULL,
-    PRIMARY KEY(id_servico, id_manutencao),
-    FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
+CREATE TABLE manutencoes_servicos(
+	idMS INT PRIMARY KEY AUTO_INCREMENT, 
+    id_manutencao int, 
+    id_servico int,
+    valor_item decimal(10,2),
+    CONSTRAINT fk_id_manutencao FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE, 
+    CONSTRAINT fk_id_servico FOREIGN KEY(id_servico) REFERENCES servicos(id_servico)
+    ON DELETE CASCADE
     ON UPDATE CASCADE
+    );
+
+CREATE TABLE servicos(
+	id_servico INT PRIMARY KEY AUTO_INCREMENT,
+    -- id_manutencao INT NOT NULL,
+    descricao TEXT NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    isComum BOOLEAN DEFAULT FALSE
+    -- PRIMARY KEY(id_servico, id_manutencao),
+    -- FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
+    -- ON UPDATE CASCADE
 );
 
 -- TABELAS DE LOCAÇÃO (pedido vem depois das dependentes)
