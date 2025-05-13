@@ -3,7 +3,7 @@ DROP DATABASE IF EXISTS db_locadora;
 CREATE DATABASE db_locadora;
 USE db_locadora;
 
--- TABELAS AUXILIARES PRIMEIRO
+-- TABELAS AUXILIARES
 
 CREATE TABLE categorias_veiculos (
 	id_categoria INT PRIMARY KEY AUTO_INCREMENT NOT NULL, 
@@ -57,11 +57,12 @@ CREATE TABLE veiculos (
     quilometragem INT NOT NULL, 
     id_categoria INT NOT NULL, 
     preco_base DECIMAL(10,2) NOT NULL, 
-    CONSTRAINT fk_id_categoria FOREIGN KEY(id_categoria) REFERENCES categorias_veiculos(id_categoria)
+    CONSTRAINT fk_veiculo_categoria FOREIGN KEY(id_categoria) REFERENCES categorias_veiculos(id_categoria)
     ON UPDATE CASCADE
 );
 
 -- TABELAS DE MANUTENÇÃO
+
 CREATE TABLE manutencoes (
 	id_manutencao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	placa CHAR(7) NOT NULL, 
@@ -70,36 +71,30 @@ CREATE TABLE manutencoes (
 	instante_chegada DATETIME, 
 	instante_saida DATETIME,
 	total DECIMAL(10,2),
-	CONSTRAINT fk_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
+	CONSTRAINT fk_manutencao_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
 	ON UPDATE CASCADE
 );
 
-
-CREATE TABLE manutencoes_servicos(
-	idMS INT PRIMARY KEY AUTO_INCREMENT, 
-    id_manutencao int, 
-    id_servico int,
-    valor_item decimal(10,2),
-    CONSTRAINT fk_id_manutencao FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE, 
-    CONSTRAINT fk_id_servico FOREIGN KEY(id_servico) REFERENCES servicos(id_servico)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-    );
-
 CREATE TABLE servicos(
 	id_servico INT PRIMARY KEY AUTO_INCREMENT,
-    -- id_manutencao INT NOT NULL,
     descricao TEXT NOT NULL,
     preco DECIMAL(10,2) NOT NULL,
     isComum BOOLEAN DEFAULT FALSE
-    -- PRIMARY KEY(id_servico, id_manutencao),
-    -- FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
-    -- ON UPDATE CASCADE
 );
 
--- TABELAS DE LOCAÇÃO (pedido vem depois das dependentes)
+CREATE TABLE manutencoes_servicos(
+	idMS INT PRIMARY KEY AUTO_INCREMENT, 
+    id_manutencao INT, 
+    id_servico INT,
+    valor_item DECIMAL(10,2),
+    CONSTRAINT fk_ms_manutencao FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
+    ON DELETE CASCADE ON UPDATE CASCADE, 
+    CONSTRAINT fk_ms_servico FOREIGN KEY(id_servico) REFERENCES servicos(id_servico)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- TABELAS DE LOCAÇÃO
+
 CREATE TABLE pedidos_locacao (
 	id_pedido INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     id_atendente INT NOT NULL,
@@ -112,35 +107,35 @@ CREATE TABLE pedidos_locacao (
     forma_de_pagamento INT NOT NULL, 
     finalizado BOOLEAN DEFAULT FALSE, 
     valor_total DECIMAL(10,2) NOT NULL,
-    CONSTRAINT fk_id_assistente FOREIGN KEY(id_atendente) REFERENCES usuarios(id_usuario)
+    CONSTRAINT fk_pedido_atendente FOREIGN KEY(id_atendente) REFERENCES usuarios(id_usuario)
     ON UPDATE CASCADE,
-	CONSTRAINT fk_id_cliente FOREIGN KEY(id_cliente) REFERENCES clientes(id_cliente)
+	CONSTRAINT fk_pedido_cliente FOREIGN KEY(id_cliente) REFERENCES clientes(id_cliente)
     ON UPDATE CASCADE, 
-    CONSTRAINT fk_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
+    CONSTRAINT fk_pedido_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
     ON UPDATE CASCADE, 
-    CONSTRAINT fk__forma_de_pagamento FOREIGN KEY(forma_de_pagamento) REFERENCES meios_de_pagamento(id_pagamento)
+    CONSTRAINT fk_pedido_pagamento FOREIGN KEY(forma_de_pagamento) REFERENCES meios_de_pagamento(id_pagamento)
     ON UPDATE CASCADE,
-    CONSTRAINT fk_id_seguro FOREIGN KEY(id_seguro) REFERENCES tipos_seguro(id_seguro)
+    CONSTRAINT fk_pedido_seguro FOREIGN KEY(id_seguro) REFERENCES tipos_seguro(id_seguro)
     ON UPDATE CASCADE
 );
 
 -- TABELAS QUE DEPENDEM DO PEDIDO
+
 CREATE TABLE devolucoes_veiculos (
 	id_devolucao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	id_pedido INT NOT NULL,
 	id_assistente INT NOT NULL,
 	instante_devolucao DATETIME, 
-    placa char(7) not null,
+    placa CHAR(7) NOT NULL,
 	km_chegada INT,
 	id_manutencao INT, 
-    CONSTRAINT fk_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
-    ON DELETE CASCADE
+    CONSTRAINT fk_devolucao_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_devolucao_pedido FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido)
 	ON UPDATE CASCADE,
-	CONSTRAINT fk_id_pedido FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido)
-	ON UPDATE CASCADE,
-	CONSTRAINT fk_id_assistente FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario)
+	CONSTRAINT fk_devolucao_assistente FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario)
 	ON UPDATE CASCADE, 
-	CONSTRAINT fk_id_manutencao FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
+	CONSTRAINT fk_devolucao_manutencao FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
 	ON UPDATE CASCADE
 );
 
@@ -151,18 +146,18 @@ CREATE TABLE saidas_veiculos (
     placa CHAR(7) NOT NULL,
 	instante_saida DATETIME, 
 	km_saida INT,
-    CONSTRAINT fk_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
-    ON DELETE CASCADE
+    CONSTRAINT fk_saida_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_saida_pedido FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido)
 	ON UPDATE CASCADE,
-	CONSTRAINT fk_id_pedido FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido)
-	ON UPDATE CASCADE,
-	CONSTRAINT fk_id_assistente FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario)
+	CONSTRAINT fk_saida_assistente FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario)
 	ON UPDATE CASCADE
 );
 
 -- Atualizar chaves estrangeiras que fazem referência às tabelas criadas por último
+
 ALTER TABLE pedidos_locacao
-	ADD CONSTRAINT fk_saida FOREIGN KEY(id_saida) REFERENCES saidas_veiculos(id_saida)
+	ADD CONSTRAINT fk_pedido_saida FOREIGN KEY(id_saida) REFERENCES saidas_veiculos(id_saida)
 	ON UPDATE CASCADE,
-	ADD CONSTRAINT fk_devolucao FOREIGN KEY(id_devolucao) REFERENCES devolucoes_veiculos(id_devolucao)
+	ADD CONSTRAINT fk_pedido_devolucao FOREIGN KEY(id_devolucao) REFERENCES devolucoes_veiculos(id_devolucao)
 	ON UPDATE CASCADE;
