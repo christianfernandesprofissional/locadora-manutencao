@@ -14,20 +14,25 @@ import java.util.Objects;
 public class DevolucaoVeiculo {
     private Integer idDevolucao;
     private Integer idPedido; 
-    private Integer idAssistente;
     private LocalDateTime instanteDevolucao;
-    private Integer kmSaida;
+    private Integer kmChegada;
+    
+    private Usuario assistente;
+    private Veiculo veiculo;
+    private Manutencao manutencao;
     
     public DevolucaoVeiculo(){
         
     }
 
-    public DevolucaoVeiculo(Integer idDevolucao, Integer idPedido, Integer idAssistente, LocalDateTime instanteDevolucao, Integer kmSaida) {
+    public DevolucaoVeiculo(Integer idDevolucao, Integer idPedido, LocalDateTime instanteDevolucao, Integer kmChegada, Usuario assistente, Veiculo veiculo, Manutencao manutencao) {
         this.idDevolucao = idDevolucao;
         this.idPedido = idPedido;
-        this.idAssistente = idAssistente;
         this.instanteDevolucao = instanteDevolucao;
-        this.kmSaida = kmSaida;
+        this.kmChegada = kmChegada;
+        this.assistente = assistente;
+        this.veiculo = veiculo;
+        this.manutencao = manutencao;
     }
 
     public Integer getIdDevolucao() {
@@ -46,12 +51,12 @@ public class DevolucaoVeiculo {
         this.idPedido = idPedido;
     }
 
-    public Integer getIdAssistente() {
-        return idAssistente;
+    public Usuario getAssistente() {
+        return assistente;
     }
 
-    public void setIdAssistente(Integer idAssistente) {
-        this.idAssistente = idAssistente;
+    public void setAssistente(Usuario assistente) {
+        this.assistente = assistente;
     }
 
     public LocalDateTime getInstanteDevolucao() {
@@ -62,12 +67,28 @@ public class DevolucaoVeiculo {
         this.instanteDevolucao = instanteDevolucao;
     }
 
-    public Integer getKmSaida() {
-        return kmSaida;
+    public Integer getKmChegada() {
+        return kmChegada;
     }
 
-    public void setKmSaida(Integer kmSaida) {
-        this.kmSaida = kmSaida;
+    public void setKmChegada(Integer kmChegada) {
+        this.kmChegada = kmChegada;
+    }
+
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
+    }
+
+    public Manutencao getManutencao() {
+        return manutencao;
+    }
+
+    public void setManutencao(Manutencao manutencao) {
+        this.manutencao = manutencao;
     }
 
     @Override
