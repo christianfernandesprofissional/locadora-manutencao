@@ -124,7 +124,7 @@ CREATE TABLE pedidos_locacao (
 CREATE TABLE devolucoes_veiculos (
 	id_devolucao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	id_pedido INT NOT NULL,
-	id_assistente INT NOT NULL,
+	id_assistente INT,
 	instante_devolucao DATETIME, 
     placa CHAR(7) NOT NULL,
 	km_chegada INT,
