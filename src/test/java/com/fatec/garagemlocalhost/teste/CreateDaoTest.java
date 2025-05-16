@@ -26,8 +26,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- *
- * @author chris
+ * Classe de teste referente aos metodos Create
+ * de todas classes DAO.
+ * 
+ * @author Christian
  */
 public class CreateDaoTest {
     private static UsuarioDAO usuarioDao; 
@@ -126,5 +128,21 @@ public class CreateDaoTest {
         }catch(DBException e){
             System.out.println("ERRO ao criar DevolucaoVeiculo: " + e.getMessage());
         }
+    }
+    
+    /**
+     * Chama todas os metodos de teste desta classe,
+     * caso um novo seja criado, adicionar aqui.
+     * 
+     * @author Christian
+     */
+    public void createAll(){
+        createCategoriaVeiculo();
+        createVeiculo();
+        createUsuario();
+        createServico();
+        createSaidaVeiculo();
+        createDevolucaoVeiculo();
+        createManutencao();
     }
 }

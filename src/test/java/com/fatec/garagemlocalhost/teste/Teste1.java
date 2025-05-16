@@ -23,13 +23,8 @@ public class Teste1 {
         try{
            
             CreateDaoTest test = new CreateDaoTest(db);
-            test.createUsuario();
-            test.createServico();
-            test.createCategoriaVeiculo();
-            test.createVeiculo();
-            test.createSaidaVeiculo();
-            test.createDevolucaoVeiculo();
-            test.createManutencao();
+           
+            test.createAll();
            
             
             System.out.println("Teste 1");
