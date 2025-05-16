@@ -164,19 +164,19 @@ INSERT INTO meios_de_pagamento (descricao) VALUES
 
 -- usuarios
 INSERT INTO usuarios (nome, email, senha, tipo_usuario) VALUES
-('João Silva', 'joao@email.com', '1234', 1),
-('Maria Souza', 'maria@email.com', '1234', 2),
-('Carlos Lima', 'carlos@email.com', '1234', 1),
-('Ana Costa', 'ana@email.com', '1234', 2),
-('Rafael Dias', 'rafael@email.com', '1234', 1);
+('João Silva', 'joao@email.com', '12345678', 1),
+('Maria Souza', 'maria@email.com', '12345678', 2),
+('Carlos Lima', 'carlos@email.com', '12345678', 1),
+('Ana Costa', 'ana@email.com', '12345678', 2),
+('Rafael Dias', 'rafael@email.com', '12345678', 1);
 
 -- clientes
 INSERT INTO clientes (cpf, nome, email, cep, rua, numero, complemento, bairro, cidade, estado, dataNascimento, telefone, ativo) VALUES
-('12345678901', 'Cliente A', 'clientea@email.com', '12345678', 'Rua 1', '100', 'Apto 1', 'Bairro A', 'Cidade A', 'Estado A', '1990-01-01', '11999990000', TRUE),
-('23456789012', 'Cliente B', 'clienteb@email.com', '23456789', 'Rua 2', '101', NULL, 'Bairro B', 'Cidade B', 'Estado B', '1985-02-02', '21999990000', TRUE),
-('34567890123', 'Cliente C', 'clientec@email.com', '34567890', 'Rua 3', '102', '', 'Bairro C', 'Cidade C', 'Estado C', '1995-03-03', '31999990000', TRUE),
-('45678901234', 'Cliente D', 'cliented@email.com', '45678901', 'Rua 4', '103', 'Casa', 'Bairro D', 'Cidade D', 'Estado D', '1980-04-04', '41999990000', TRUE),
-('56789012345', 'Cliente E', 'clientee@email.com', '56789012', 'Rua 5', '104', '', 'Bairro E', 'Cidade E', 'Estado E', '2000-05-05', '51999990000', TRUE);
+('12345678901', 'Cliente A', 'clientea@email.com', '12345678', 'Rua 1', '100', 'Apto 1', 'Bairro A', 'Cidade A', 'Estado A', '1990-01-01', '+55(11)999990000', TRUE),
+('23456789012', 'Cliente B', 'clienteb@email.com', '23456789', 'Rua 2', '101', NULL, 'Bairro B', 'Cidade B', 'Estado B', '1985-02-02', '+55(21)999990000', TRUE),
+('34567890123', 'Cliente C', 'clientec@email.com', '34567890', 'Rua 3', '102', '', 'Bairro C', 'Cidade C', 'Estado C', '1995-03-03', '+55(31)999990000', TRUE),
+('45678901234', 'Cliente D', 'cliented@email.com', '45678901', 'Rua 4', '103', 'Casa', 'Bairro D', 'Cidade D', 'Estado D', '1980-04-04', '+55(41)999990000', TRUE),
+('56789012345', 'Cliente E', 'clientee@email.com', '56789012', 'Rua 5', '104', '', 'Bairro E', 'Cidade E', 'Estado E', '2000-05-05', '+55(51)999990000', TRUE);
 
 -- veiculos
 INSERT INTO veiculos (placa, marca, cor, ano, chassi, modelo, quilometragem, id_categoria, preco_base) VALUES

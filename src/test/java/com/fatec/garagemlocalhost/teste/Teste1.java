@@ -20,16 +20,17 @@ public class Teste1 {
    public static void main(String[] args) {
         Database db = new Database(true);
         
-        UsuarioDAO userDao = new UsuarioDAO(db);
-        
         try{
-            Usuario usuario = new Usuario();
-            usuario.setNome("Aurivam packet tracer");
-            usuario.setEmail("cisco@gmail.com");
-            usuario.setSenha("12345678");
-            usuario.setTipoUsuario(TipoUsuario.AUXILIAR);
-            userDao.create(usuario);
-            Scanner sc = new Scanner(System.in);
+           
+            CreateDaoTest test = new CreateDaoTest(db);
+            test.createUsuario();
+            test.createServico();
+            test.createCategoriaVeiculo();
+            test.createVeiculo();
+            test.createSaidaVeiculo();
+            test.createDevolucaoVeiculo();
+            test.createManutencao();
+           
             
             System.out.println("Teste 1");
         }catch(Exception e){
