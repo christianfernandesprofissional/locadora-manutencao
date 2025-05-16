@@ -73,7 +73,7 @@ public class CategoriaVeiculoDAO {
     public void createCategoria(CategoriaVeiculo categoria)throws DBException{
         if(categoria == null) throw new DBException("Categoria não pode ser nula");
         try{
-            String sql = "INSERT INTO categorias_veiculos(id_categoria, descricao) VALUES (null, ?);";
+            String sql = "INSERT INTO categorias_veiculos(descricao) VALUES (?);";
             PreparedStatement ps = database.getConnnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, categoria.getDescricao());
             

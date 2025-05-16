@@ -78,7 +78,7 @@ public class ServicoDAO {
     
     public void createServico(Servico servico)throws DBException{
         try{
-            String sql = "INSERT INTO servicos values (null, ?,?,?);";
+            String sql = "INSERT INTO servicos(descricao, preco, isComum) values (?,?,?);";
             PreparedStatement ps = database.getConnnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, servico.getDescricao());
             ps.setDouble(2, servico.getPreco().doubleValue());

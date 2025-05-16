@@ -90,7 +90,7 @@ public class ManutencaoDAO {
     public void createManutencao(Manutencao manutencao)throws DBException{
         if(manutencao == null) throw new DBException("A manutenção não pode ser nula!");
         try{
-            String sql = "INSERT INTO manutencoes VALUES(null, ?,?,?,?,?,?);";
+            String sql = "INSERT INTO manutencoes(placa, descricao, finalizado, instante_chegada, instante_saida, total) VALUES(?,?,?,?,?,?);";
             PreparedStatement ps = database.getConnnection().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, manutencao.getVeiculo().getPlaca());

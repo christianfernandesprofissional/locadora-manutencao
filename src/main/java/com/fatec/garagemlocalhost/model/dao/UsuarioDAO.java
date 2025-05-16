@@ -57,7 +57,7 @@ public class UsuarioDAO {
     
     public Optional<Usuario> findById(Integer id) throws DBException {
         try{
-            String sql = "SELECT FROM usuarios WHERE id_usuario = ?";
+            String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
             PreparedStatement st = database.getConnnection().prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();

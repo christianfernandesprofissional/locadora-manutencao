@@ -89,7 +89,7 @@ public class SaidaVeiculoDAO {
     
     public void createSaida(SaidaVeiculo saida)throws DBException{
         try{
-            String sql = "INSERT INTO saidas_veiculos VALUES(null, ?,?,?,?,?);";
+            String sql = "INSERT INTO saidas_veiculos(id_pedido, id_assistente, placa, instante_saida, km_saida) VALUES( ?,?,?,?,?);";
             PreparedStatement ps = database.getConnnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, saida.getIdPedido());
             ps.setInt(2, saida.getUsuario().getId());
