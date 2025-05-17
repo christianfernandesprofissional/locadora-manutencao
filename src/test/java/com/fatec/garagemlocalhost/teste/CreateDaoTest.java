@@ -31,26 +31,14 @@ import java.time.LocalDateTime;
  * 
  * @author Christian
  */
-public class CreateDaoTest {
-    private static UsuarioDAO usuarioDao; 
-    private static CategoriaVeiculoDAO categoriaDao;
-    private static VeiculoDAO veiculoDao;
-    private static ServicoDAO servicoDao; 
-    private static SaidaVeiculoDAO saidaDao; 
-    private static DevolucaoVeiculoDAO devolucaoDao; 
-    private static ManutencaoDAO manutencaoDao; 
+public class CreateDaoTest extends DaoFactory{    
+    
     
     public CreateDaoTest(Database database){
-        usuarioDao = new UsuarioDAO(database);
-        veiculoDao = new VeiculoDAO(database);
-        servicoDao = new ServicoDAO(database);
-        saidaDao = new SaidaVeiculoDAO(database);
-        devolucaoDao = new DevolucaoVeiculoDAO(database);
-        categoriaDao = new CategoriaVeiculoDAO(database);
-        manutencaoDao = new ManutencaoDAO(database);
+        super(database);
     }
-    
-    public void createUsuario(){
+
+    public void createUsuario() {
         try{
             Usuario usuario = new Usuario("Anderson", "anderson@gmail.com", "12345678", TipoUsuario.AUXILIAR);
             usuarioDao.create(usuario);
