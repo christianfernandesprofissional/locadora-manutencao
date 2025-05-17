@@ -59,7 +59,7 @@ public class ManutencaoDAO {
         return manutencoes;
     }
     
-    public Optional<Manutencao> FindById(Integer id)throws DBException{
+    public Optional<Manutencao> findById(Integer id)throws DBException{
         try{
             String sql = "SELECT * FROM manutencoes WHERE id_manutencao = ?;";
             PreparedStatement ps = database.getConnnection().prepareStatement(sql);
@@ -76,8 +76,21 @@ public class ManutencaoDAO {
                 manutencao.setVeiculo(veiculo);
                 manutencao.setDescricao(rs.getString("descricao"));
                 manutencao.setIsfinalizado(rs.getBoolean("finalizado"));
-                manutencao.setInstanteChegada(LocalDateTime.parse(rs.getString("instante_chegada")));
-                manutencao.setInstanteSaida(LocalDateTime.parse(rs.getString("instante_saida")));
+                
+                if (rs.getTimestamp("instante_chegada") == null){
+                    manutencao.setInstanteSaida(null);
+                }
+                else{
+                    manutencao.setInstanteChegada(rs.getTimestamp("instante_chegada").toLocalDateTime());
+                }
+                
+                if (rs.getTimestamp("instante_saida") == null){
+                    manutencao.setInstanteSaida(null);
+                }
+                else{
+                    manutencao.setInstanteSaida(rs.getTimestamp("instante_saida").toLocalDateTime());
+                }
+                
                 BigDecimal total = new BigDecimal(rs.getDouble("total"));
                 manutencao.setValorTotal(total);
             }

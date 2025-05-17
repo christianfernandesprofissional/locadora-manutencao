@@ -55,7 +55,7 @@ public class DevolucaoVeiculoDAO {
                 
                 //devolucao.setInstanteDevolucao(rs.getTimestamp("instante_devolucao"));
                 devolucao.setKmChegada(rs.getInt("km_chegada"));
-                Manutencao manutencao = manutencaoDao.FindById(rs.getInt("id_manutencao")).get();
+                Manutencao manutencao = manutencaoDao.findById(rs.getInt("id_manutencao")).get();
                 devolucao.setManutencao(manutencao);
                 
                 Veiculo veiculo = veiculoDao.findByPlaca(rs.getString("placa")).get();
@@ -92,7 +92,7 @@ public class DevolucaoVeiculoDAO {
                 devolucao.setAssistente(usuarioDao.findById(rs.getInt("id_assistente")).get());
                 devolucao.setInstanteDevolucao(rs.getTimestamp("instante_devolucao").toLocalDateTime());
                 devolucao.setKmChegada(rs.getInt("km_chegada"));
-                devolucao.setManutencao(manutencaoDao.FindById(rs.getInt("id_manutencao")).get());
+                devolucao.setManutencao(manutencaoDao.findById(rs.getInt("id_manutencao")).get());
                 devolucao.setVeiculo(veiculoDao.findByPlaca(rs.getString("placa")).get());
             }
 

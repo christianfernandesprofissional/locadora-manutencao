@@ -22,9 +22,12 @@ public class Teste1 {
         
         try{
            
-            CreateDaoTest test = new CreateDaoTest(db);
+            CreateDaoTest create = new CreateDaoTest(db);
+            ReadDaoTest read = new ReadDaoTest(db);
            
-            test.createAll();
+            //create.createAll();
+            //System.out.println("==============================================");
+            read.readAll();
            
             
             System.out.println("Teste 1");
