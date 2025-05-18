@@ -21,13 +21,15 @@ public class Teste1 {
         Database db = new Database(true);
         
         try{
+            DeleteDaoTest test1 = new DeleteDaoTest(db);
+            //CreateDaoTest test = new CreateDaoTest(db);
            
-            CreateDaoTest test = new CreateDaoTest(db);
-           
-            test.createAll();
+           // test.createAll();
            
             
-            System.out.println("Teste 1");
+           // System.out.println("Teste Christian");
+            test1.deleteAll();
+            System.out.println("Teste Gustavo");
         }catch(Exception e){
             System.out.println("ERRO: " + e.getMessage());
         }

@@ -53,6 +53,8 @@ CREATE TABLE veiculos (
     id_categoria INT NOT NULL, 
     preco_base DECIMAL(10,2) NOT NULL, 
     CONSTRAINT fk_veiculo_categoria FOREIGN KEY(id_categoria) REFERENCES categorias_veiculos(id_categoria)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
 );
 
 -- TABELAS DE MANUTENÇÃO
@@ -66,6 +68,8 @@ CREATE TABLE manutencoes (
 	instante_saida TIMESTAMP,
 	total DECIMAL(10,2),
 	CONSTRAINT fk_manutencao_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
+	ON DELETE SET NULL
+   	ON UPDATE CASCADE
 );
 
 CREATE TABLE servicos(
@@ -81,9 +85,11 @@ CREATE TABLE manutencoes_servicos(
     id_servico INT,
     valor_item DECIMAL(10,2),
     CONSTRAINT fk_ms_manutencao FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
-    ON DELETE CASCADE, 
+    ON DELETE SET NULL
+    ON UPDATE CASCADE,
     CONSTRAINT fk_ms_servico FOREIGN KEY(id_servico) REFERENCES servicos(id_servico)
-    ON DELETE CASCADE
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
 );
 
 -- TABELAS DE LOCAÇÃO
@@ -100,11 +106,16 @@ CREATE TABLE pedidos_locacao (
     forma_de_pagamento INT NOT NULL, 
     finalizado BOOLEAN DEFAULT FALSE, 
     valor_total DECIMAL(10,2) NOT NULL,
-    CONSTRAINT fk_pedido_atendente FOREIGN KEY(id_atendente) REFERENCES usuarios(id_usuario),
-	CONSTRAINT fk_pedido_cliente FOREIGN KEY(id_cliente) REFERENCES clientes(id_cliente),
-    CONSTRAINT fk_pedido_placa FOREIGN KEY(placa) REFERENCES veiculos(placa), 
-    CONSTRAINT fk_pedido_pagamento FOREIGN KEY(forma_de_pagamento) REFERENCES meios_de_pagamento(id_pagamento),
-    CONSTRAINT fk_pedido_seguro FOREIGN KEY(id_seguro) REFERENCES tipos_seguro(id_seguro)
+    CONSTRAINT fk_pedido_atendente FOREIGN KEY(id_atendente) REFERENCES usuarios(id_usuario)ON DELETE SET NULL
+    ON UPDATE CASCADE,
+	CONSTRAINT fk_pedido_cliente FOREIGN KEY(id_cliente) REFERENCES clientes(id_cliente)ON DELETE SET NULL
+    ON UPDATE CASCADE,
+    CONSTRAINT fk_pedido_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)ON DELETE SET NULL
+    ON UPDATE CASCADE, 
+    CONSTRAINT fk_pedido_pagamento FOREIGN KEY(forma_de_pagamento) REFERENCES meios_de_pagamento(id_pagamento)ON DELETE SET NULL
+    ON UPDATE CASCADE,
+    CONSTRAINT fk_pedido_seguro FOREIGN KEY(id_seguro) REFERENCES tipos_seguro(id_seguro)ON DELETE SET NULL
+    ON UPDATE CASCADE
 );
 
 -- TABELAS QUE DEPENDEM DO PEDIDO
@@ -117,11 +128,14 @@ CREATE TABLE devolucoes_veiculos (
     placa CHAR(7) NOT NULL,
 	km_chegada INT,
 	id_manutencao INT, 
-    CONSTRAINT fk_devolucao_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
-    ON DELETE CASCADE,
-	CONSTRAINT fk_devolucao_pedido FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido),
-	CONSTRAINT fk_devolucao_assistente FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario),
-	CONSTRAINT fk_devolucao_manutencao FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)
+    CONSTRAINT fk_devolucao_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)ON DELETE SET NULL
+    ON UPDATE CASCADE,
+	CONSTRAINT fk_devolucao_pedido FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido)ON DELETE SET NULL
+    ON UPDATE CASCADE,
+	CONSTRAINT fk_devolucao_assistente FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario)ON DELETE SET NULL
+    ON UPDATE CASCADE,
+	CONSTRAINT fk_devolucao_manutencao FOREIGN KEY(id_manutencao) REFERENCES manutencoes(id_manutencao)ON DELETE SET NULL
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE saidas_veiculos (
@@ -131,19 +145,21 @@ CREATE TABLE saidas_veiculos (
     placa CHAR(7) NOT NULL,
 	instante_saida TIMESTAMP, 
 	km_saida INT,
-    CONSTRAINT fk_saida_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)
-    ON DELETE CASCADE,
-	CONSTRAINT fk_saida_pedido FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido),
-	CONSTRAINT fk_saida_assistente FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario)
+    CONSTRAINT fk_saida_placa FOREIGN KEY(placa) REFERENCES veiculos(placa)ON DELETE SET NULL
+    ON UPDATE CASCADE,
+	CONSTRAINT fk_saida_pedido FOREIGN KEY(id_pedido) REFERENCES pedidos_locacao(id_pedido)ON DELETE SET NULL
+    ON UPDATE CASCADE,
+	CONSTRAINT fk_saida_assistente FOREIGN KEY(id_assistente) REFERENCES usuarios(id_usuario)ON DELETE SET NULL
+    ON UPDATE CASCADE
 );
 
 -- Atualizar chaves estrangeiras que fazem referência às tabelas criadas por último
 
 ALTER TABLE pedidos_locacao
-	ADD CONSTRAINT fk_pedido_saida FOREIGN KEY(id_saida) REFERENCES saidas_veiculos(id_saida);
+	ADD CONSTRAINT fk_pedido_saida FOREIGN KEY(id_saida) REFERENCES saidas_veiculos(id_saida) ON DELETE SET NULL ON UPDATE CASCADE;
 
 ALTER TABLE pedidos_locacao
-	ADD CONSTRAINT fk_pedido_devolucao FOREIGN KEY(id_devolucao) REFERENCES devolucoes_veiculos(id_devolucao);
+	ADD CONSTRAINT fk_pedido_devolucao FOREIGN KEY(id_devolucao) REFERENCES devolucoes_veiculos(id_devolucao) ON DELETE SET NULL ON UPDATE CASCADE;
 
 
 

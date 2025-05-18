@@ -158,7 +158,7 @@ public class UsuarioDAO {
         }
     }
     
-    public void removeById(Integer id) throws DBException {
+    public void deleteById(Integer id) throws DBException {
         try{
             String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
             PreparedStatement st = database.getConnnection().prepareStatement(sql);
