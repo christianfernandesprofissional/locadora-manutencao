@@ -23,12 +23,9 @@ public class Teste1 {
         try{
            
             CreateDaoTest create = new CreateDaoTest(db);
-            ReadDaoTest read = new ReadDaoTest(db);
-           
-            //create.createAll();
-            //System.out.println("==============================================");
-            read.readAll();
-           
+            
+            create.createAll();
+                       
             
             System.out.println("Teste 1");
         }catch(Exception e){
