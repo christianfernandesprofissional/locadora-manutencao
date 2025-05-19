@@ -22,10 +22,10 @@ public class Teste1 {
         
         try{
            
-            CreateDaoTest test = new CreateDaoTest(db);
-           
-            test.createAll();
-           
+            CreateDaoTest create = new CreateDaoTest(db);
+            
+            create.createAll();
+                       
             
             System.out.println("Teste 1");
         }catch(Exception e){
