@@ -24,8 +24,15 @@ public class Teste1 {
             DeleteDaoTest test1 = new DeleteDaoTest(db);
             //CreateDaoTest test = new CreateDaoTest(db);
            
+<<<<<<< HEAD
            // test.createAll();
            
+=======
+            CreateDaoTest create = new CreateDaoTest(db);
+            
+            create.createAll();
+                       
+>>>>>>> main
             
            // System.out.println("Teste Christian");
             test1.deleteAll();
