@@ -90,6 +90,23 @@ public class CategoriaVeiculoDAO {
             throw new DBException("Erro ao cadastrar categoria: " + e.getMessage());
         }
     }
+    public void createWithId(CategoriaVeiculo categoria)throws DBException{
+        if(categoria == null) throw new DBException("Categoria não pode ser nula");
+        try{
+            String sql = "INSERT INTO categorias_veiculos(id_categoria,descricao) VALUES (?,?);";
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
+            ps.setInt(1,categoria.getId());
+            ps.setString(2,categoria.getDescricao());
+            int  linhas = ps.executeUpdate();
+            
+            if(linhas > 0){
+                System.out.println("Linhas afetadas: " + linhas);
+            }
+            
+        }catch(SQLException e){
+            throw new DBException("Erro ao cadastrar categoria: " + e.getMessage());
+        }
+    }
     
     public void updateCategoria(CategoriaVeiculo categoria)throws DBException{
         if(categoria == null) throw new DBException("A categoria não pode ser nula!");
@@ -119,6 +136,20 @@ public class CategoriaVeiculoDAO {
             PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
             ps.setInt(1, id);
+            
+            int linhas = ps.executeUpdate();
+            
+            if(linhas > 0){
+                System.out.println("Linhas afetadas: " + linhas);
+            }
+        }catch(SQLException e){
+            throw new DBException("Erro ao deletar categoria: " + e.getMessage());
+        }
+    }
+    public void deleteAll()throws DBException{
+        try{
+            String sql = "DELETE FROM categorias_veiculos;";
+            PreparedStatement ps = database.getConnnection().prepareStatement(sql);
             
             int linhas = ps.executeUpdate();
             
