@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="534.0" prefWidth="354.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.LoginController">
+   <children>
+      <ImageView fitHeight="209.0" fitWidth="217.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/Logo-Garagem-semfundo.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtUsuario" prefHeight="25.0" prefWidth="175.0" promptText="Usuario" />
+      <Pane>
+         <children>
+            <PasswordField fx:id="txtMaskSenha" prefHeight="25.0" prefWidth="175.0" promptText="Senha" />
+            <TextField fx:id="txtUnmaskSenha" prefHeight="25.0" prefWidth="175.0" promptText="Senha" visible="false" />
+         </children>
+      </Pane>
+      <CheckBox fx:id="cbExibirSenha" mnemonicParsing="false" onAction="#exibirSenha" prefHeight="25.0" prefWidth="175.0" text="Exibir senha" />
+      <Button fx:id="btnLogin" mnemonicParsing="false" text="Fazer Login" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>
