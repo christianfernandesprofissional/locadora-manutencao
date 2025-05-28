@@ -1,0 +1,47 @@
+
+/*CSS DA TELA HOME*/
+
+.home{
+    -fx-background-color:#ffffff;
+}
+.menu-button{
+     -fx-background-color: transparent;
+}
+.button{
+    -fx-background-color: transparent;
+}
+
+.button:hover{
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: transparent transparent #1da1f2 transparent;
+}
+
+.menu-button:hover{
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: transparent transparent #1da1f2 transparent;
+}
+
+.hbox{
+    -fx-border-width: 0 0 2 0;
+    -fx-border-color: transparent transparent #ffa726 transparent;
+}
+
+.context-menu{
+     -fx-background-radius: 10px;  /* Borda arredondada do fundo */
+    -fx-border-radius: 10px;
+}
+
+.menu-item {
+    -fx-font-family: "Calibri";
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-text-fill: black;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 10px; 
+}
+
+.menu-item:hover{
+    -fx-background-color: #007afd;
+}
+/*FIM CSS TELA HOME*/

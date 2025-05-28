@@ -24,7 +24,7 @@
             <TextField fx:id="txtUnmaskSenha" prefHeight="25.0" prefWidth="175.0" promptText="Senha" visible="false" />
          </children>
       </Pane>
-      <CheckBox fx:id="cbExibirSenha" mnemonicParsing="false" onAction="#exibirSenha" prefHeight="25.0" prefWidth="175.0" text="Exibir senha" />
+      <CheckBox fx:id="cbExibirSenha" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Exibir senha" />
       <Button fx:id="btnLogin" mnemonicParsing="false" text="Fazer Login" />
    </children>
    <padding>
