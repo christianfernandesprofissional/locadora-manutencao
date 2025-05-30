@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="843.0" prefWidth="1246.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.PrimaryController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <children>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Veículos Disponíveis">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="22">
+                     <font>
+                        <Font name="Calibri Bold" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Veículos Alugados">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="22">
+                     <font>
+                        <Font name="Calibri Bold" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Em manutenção">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="22">
+                     <font>
+                        <Font name="Calibri Bold" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Total da Frota">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="22">
+                     <font>
+                        <Font name="Calibri Bold" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </VBox>
+         </children></HBox>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <children>
+            <Button mnemonicParsing="false" text="+ Novo Veículo" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" text="+ Registrar Devoluçaõ" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" text="+ Nova Manutenção" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="520.0" prefWidth="1206.0">
+         <children>
+            <TableView prefHeight="272.0" prefWidth="389.0" HBox.hgrow="ALWAYS">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </TableView>
+            <TableView prefHeight="272.0" prefWidth="389.0" HBox.hgrow="ALWAYS">
+              <columns>
+                <TableColumn prefWidth="75.0" text="C1" />
+                <TableColumn prefWidth="75.0" text="C2" />
+              </columns>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </TableView>
+         </children>
+      </HBox>
+   </children>
+</VBox>

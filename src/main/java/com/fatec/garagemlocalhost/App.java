@@ -21,6 +21,7 @@ public class App extends Application {
         Database db = new Database();
         scene = new Scene(loadFXML("home"));
         stage.setScene(scene);
+        stage.setMinWidth(1125);
         stage.setMaximized(true);
         stage.show();
     
