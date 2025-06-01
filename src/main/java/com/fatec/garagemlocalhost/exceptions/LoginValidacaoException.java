@@ -8,7 +8,7 @@ package com.fatec.garagemlocalhost.exceptions;
  *
  * @author chris
  */
-public class LoginValidacaoException extends Exception{
+public class LoginValidacaoException extends RuntimeException{
     
     public LoginValidacaoException(String msg){
         super(msg);
