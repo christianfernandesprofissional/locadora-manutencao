@@ -8,12 +8,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="492.0" prefWidth="826.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.ManutencoesController">
+<VBox alignment="CENTER" prefHeight="536.0" prefWidth="826.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.ManutencoesController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="35.0" prefWidth="786.0">
          <children>
             <RadioButton fx:id="rbFinalizadas" mnemonicParsing="false" text="Finalizadas" HBox.hgrow="ALWAYS" />
             <RadioButton fx:id="rbPendentes" mnemonicParsing="false" text="Pendentes" HBox.hgrow="ALWAYS" />
