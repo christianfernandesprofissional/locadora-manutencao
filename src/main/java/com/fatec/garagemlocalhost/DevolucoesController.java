@@ -15,17 +15,9 @@ import javafx.scene.control.TableView;
  *
  * @author Christian
  */
-public class SaidasController implements Initializable{
-    
-    
-    @FXML
-    private TableView<?> tabelaSaida;
-    
+public class DevolucoesController implements Initializable{
     @FXML
     private TableColumn<?, ?> colunaAno;
-    
-    @FXML
-    private TableColumn<?, ?> colunaKmSaida;
 
     @FXML
     private TableColumn<?, ?> colunaAtualizar;
@@ -40,6 +32,9 @@ public class SaidasController implements Initializable{
     private TableColumn<?, ?> colunaInstante;
 
     @FXML
+    private TableColumn<?, ?> colunaKmChegada;
+
+    @FXML
     private TableColumn<?, ?> colunaModelo;
 
     @FXML
@@ -48,9 +43,11 @@ public class SaidasController implements Initializable{
     @FXML
     private TableColumn<?, ?> colunaStatus;
 
+    @FXML
+    private TableView<?> tabelaDevolucoes;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Necessário implementação ao carregar a tela
+        
     }
-
 }
