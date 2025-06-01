@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="492.0" prefWidth="826.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.ManutencoesController">
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <RadioButton fx:id="rbFinalizadas" mnemonicParsing="false" text="Finalizadas" HBox.hgrow="ALWAYS" />
+            <RadioButton fx:id="rbPendentes" mnemonicParsing="false" text="Pendentes" HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnAtualizar" mnemonicParsing="false" text="Atualizar" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <TableView fx:id="tabelaDevolucoes" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="452.0" prefWidth="782.0" VBox.vgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="colunaIdManutencao" prefWidth="128.0" text="ID MANUTENÇÃO" />
+          <TableColumn fx:id="colunaPlaca" prefWidth="68.0" text="PLACA" />
+            <TableColumn fx:id="colunaModelo" prefWidth="104.0" text="MODELO" />
+            <TableColumn fx:id="colunaDescricao" minWidth="0.0" prefWidth="0.0" text="DESCRIÇÃO" />
+            <TableColumn fx:id="colunaServicosRealizados" prefWidth="193.0" text="SERVIÇOS REALIZADOS" />
+            <TableColumn fx:id="colunaDataSaida" prefWidth="114.0" text="DATA SAÍDA" />
+            <TableColumn fx:id="colunaValorTotal" prefWidth="105.0" text="VALOR TOTAL" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
