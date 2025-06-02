@@ -4,8 +4,9 @@
  */
 package com.fatec.garagemlocalhost.teste;
 
-import com.fatec.garagemlocalhost.database.DBException;
+
 import com.fatec.garagemlocalhost.database.Database;
+import java.sql.SQLException;
 
 /**
  *
@@ -25,7 +26,7 @@ public class DeleteDaoTest extends DaoFactory{
         try{
             categoriaDao.deleteCategoria(teste);
             System.out.println("DELETEI CATEGORIA");
-        }catch(DBException e){
+        }catch(SQLException e){
             System.out.println("ERRO categoriaVeiculo"+ e.getMessage());
         }
         
@@ -34,7 +35,7 @@ public class DeleteDaoTest extends DaoFactory{
         try{
             devolucaoDao.deleteDevolucao(teste);
             System.out.println("DELETEI DEVOLUCAO");
-        }catch(DBException e){
+        }catch(SQLException e){
             System.out.println("ERRO debolucaoVeiculo" + e.getMessage());
         }
         
@@ -43,7 +44,7 @@ public class DeleteDaoTest extends DaoFactory{
         try{
             manutencaoDao.deleteManutencao(teste);
             System.out.println("DELETEI MANUTENCAO");
-        }catch(DBException e){
+        }catch(SQLException e){
             System.out.println("ERRO manutencao" + e.getMessage());
         }
     }
@@ -51,7 +52,7 @@ public class DeleteDaoTest extends DaoFactory{
         try{
             saidaDao.deleteSaida(teste);
             System.out.println("DELETEI SAIDA");
-        }catch(DBException e){
+        }catch(SQLException e){
              System.out.println("ERRO saidaVeiculo" + e.getMessage());
         }
        
@@ -60,7 +61,7 @@ public class DeleteDaoTest extends DaoFactory{
         try{
             servicoDao.deleteServico(teste);
             System.out.println("DELETEI SERVICO");
-        }catch(DBException e){
+        }catch(SQLException e){
              System.out.println("ERRO servico" + e.getMessage());
         }
     }
@@ -68,7 +69,7 @@ public class DeleteDaoTest extends DaoFactory{
         try{
             usuarioDao.deleteById(teste);
             System.out.println("DELETEI USUARIO");
-        }catch(DBException e){
+        }catch(SQLException e){
              System.out.println("ERRO usuario" + e.getMessage());
         }
     }
@@ -76,7 +77,7 @@ public class DeleteDaoTest extends DaoFactory{
         try{
             veiculoDao.deleteVeiculo(placa);
             System.out.println("DELETEI VEICULO");
-        }catch(DBException e){
+        }catch(SQLException e){
              System.out.println("ERRO veiculo" + e.getMessage());
         }
     }

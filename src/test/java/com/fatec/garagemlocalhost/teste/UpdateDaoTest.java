@@ -4,7 +4,7 @@
  */
 package com.fatec.garagemlocalhost.teste;
 
-import com.fatec.garagemlocalhost.database.DBException;
+
 import com.fatec.garagemlocalhost.database.Database;
 import com.fatec.garagemlocalhost.exceptions.LoginValidacaoException;
 import com.fatec.garagemlocalhost.model.entities.CategoriaVeiculo;
@@ -15,9 +15,8 @@ import com.fatec.garagemlocalhost.model.entities.Servico;
 import com.fatec.garagemlocalhost.model.entities.Usuario;
 import com.fatec.garagemlocalhost.model.entities.Veiculo;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -36,7 +35,7 @@ public class UpdateDaoTest extends DaoFactory {
             usuario.setEmail("anderson_novo@gmail.com");
             usuarioDao.update(usuario);
             System.out.println("Atualizar usuario OK!");
-        } catch (DBException | LoginValidacaoException e) {
+        } catch (SQLException | LoginValidacaoException e) {
             System.out.println("ERRO ao atualizar usuário: " + e.getMessage());
         }
     }
@@ -47,7 +46,7 @@ public class UpdateDaoTest extends DaoFactory {
             categoria.setDescricao("SUV Atualizado");
             categoriaDao.updateCategoria(categoria);
             System.out.println("Atualizar categoria OK!");
-        } catch (DBException e) {
+        } catch (SQLException e) {
             System.out.println("ERRO ao atualizar categoria: " + e.getMessage());
         }
     }
@@ -60,7 +59,7 @@ public class UpdateDaoTest extends DaoFactory {
             veiculo.setPrecoBase(new BigDecimal("250.00"));
             veiculoDao.updateVeiculo(veiculo);
             System.out.println("Atualizar veiculo OK!");
-        } catch (DBException e) {
+        } catch (SQLException e) {
             System.out.println("ERRO ao atualizar veiculo: " + e.getMessage());
         }
     }
@@ -72,7 +71,7 @@ public class UpdateDaoTest extends DaoFactory {
             servico.setPreco(new BigDecimal("30.00"));
             servicoDao.updateServico(servico);
             System.out.println("Atualizar servico OK!");
-        } catch (DBException e) {
+        } catch (SQLException e) {
             System.out.println("ERRO ao atualizar servico: " + e.getMessage());
         }
     }
@@ -84,7 +83,7 @@ public class UpdateDaoTest extends DaoFactory {
             saida.setInstanteSaida(LocalDateTime.now().minusHours(1));
             saidaDao.updateSaida(saida);
             System.out.println("Atualizar saida veiculo OK!");
-        } catch (DBException e) {
+        } catch (SQLException e) {
             System.out.println("ERRO ao atualizar saída veiculo: " + e.getMessage());
         }
     }
@@ -96,7 +95,7 @@ public class UpdateDaoTest extends DaoFactory {
             devolucao.setInstanteDevolucao(LocalDateTime.now());
             devolucaoDao.updateDevolucao(devolucao);
             System.out.println("Atualizar devolucao veiculo OK!");
-        } catch (DBException e) {
+        } catch (SQLException e) {
             System.out.println("ERRO ao atualizar devolução veículo: " + e.getMessage());
         }
     }
@@ -109,7 +108,7 @@ public class UpdateDaoTest extends DaoFactory {
             manutencao.setValorTotal(new BigDecimal("450.00"));
             manutencaoDao.updateManutencao(manutencao);
             System.out.println("Atualizar manutencao OK!");
-        } catch (DBException e) {
+        } catch (SQLException e) {
             System.out.println("ERRO ao atualizar manutenção: " + e.getMessage());
         }
     }

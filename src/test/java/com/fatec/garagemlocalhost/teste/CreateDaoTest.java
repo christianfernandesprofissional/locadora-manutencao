@@ -4,16 +4,9 @@
  */
 package com.fatec.garagemlocalhost.teste;
 
-import com.fatec.garagemlocalhost.database.DBException;
+
 import com.fatec.garagemlocalhost.database.Database;
 import com.fatec.garagemlocalhost.exceptions.LoginValidacaoException;
-import com.fatec.garagemlocalhost.model.dao.CategoriaVeiculoDAO;
-import com.fatec.garagemlocalhost.model.dao.DevolucaoVeiculoDAO;
-import com.fatec.garagemlocalhost.model.dao.ManutencaoDAO;
-import com.fatec.garagemlocalhost.model.dao.SaidaVeiculoDAO;
-import com.fatec.garagemlocalhost.model.dao.ServicoDAO;
-import com.fatec.garagemlocalhost.model.dao.UsuarioDAO;
-import com.fatec.garagemlocalhost.model.dao.VeiculoDAO;
 import com.fatec.garagemlocalhost.model.entities.CategoriaVeiculo;
 import com.fatec.garagemlocalhost.model.entities.DevolucaoVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Manutencao;
@@ -23,6 +16,7 @@ import com.fatec.garagemlocalhost.model.entities.Usuario;
 import com.fatec.garagemlocalhost.model.entities.Veiculo;
 import com.fatec.garagemlocalhost.model.enums.TipoUsuario;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 /**
@@ -43,7 +37,7 @@ public class CreateDaoTest extends DaoFactory{
             Usuario usuario = new Usuario("Anderson", "anderson@gmail.com", "12345678", TipoUsuario.AUXILIAR);
             usuarioDao.create(usuario);
             System.out.println("Criar usuário OK!");
-        }catch(DBException | LoginValidacaoException e){
+        }catch(SQLException | LoginValidacaoException e){
             System.out.println("ERRO ao criar usuario: " + e.getMessage());
         }
     }
@@ -53,7 +47,7 @@ public class CreateDaoTest extends DaoFactory{
             CategoriaVeiculo categoria = new CategoriaVeiculo(null, "Hatch Conversível");
             categoriaDao.createCategoria(categoria);
             System.out.println("Criar categoria OK!");
-        }catch(DBException e){
+        }catch(SQLException e){
             System.out.println("ERRO ao criar categoria: " + e.getMessage());
         }
     }
@@ -64,7 +58,7 @@ public class CreateDaoTest extends DaoFactory{
             Veiculo veiculo = new Veiculo("1426DFG", "Volkswagen", "Branco", 1950,"358654fsdv831","Fusca",532165,cat, new BigDecimal("204.89") );
             veiculoDao.createVeiculo(veiculo);
             System.out.println("Criar veiculo OK!");
-        }catch(DBException e){
+        }catch(SQLException e){
             System.out.println("ERRO ao criar veiculo: " + e.getMessage());
         }
     }
@@ -74,7 +68,7 @@ public class CreateDaoTest extends DaoFactory{
             Servico servico = new Servico(null, "Limpar vidro", new BigDecimal("20.85"), true);
             servicoDao.createServico(servico);
             System.out.println("Criar servico OK!");
-        }catch(DBException e){
+        }catch(SQLException e){
             System.out.println("ERRO ao criar servico: " + e.getMessage());
         }
     }
@@ -88,7 +82,7 @@ public class CreateDaoTest extends DaoFactory{
             SaidaVeiculo saida = new SaidaVeiculo(null, 1, usuario, veiculo, LocalDateTime.now(), 100123);
             saidaDao.createSaida(saida);
             System.out.println("Criar saida veiculo OK!");
-        }catch(DBException e){
+        }catch(SQLException e){
             System.out.println("ERRO ao criar saidaVeiculo: " + e.getMessage());
         }
     }
@@ -101,7 +95,7 @@ public class CreateDaoTest extends DaoFactory{
             DevolucaoVeiculo dv = new DevolucaoVeiculo(null,1,LocalDateTime.now(), 100321, usuario, veiculo, null);
             devolucaoDao.createDevolucao(dv);
             System.out.println("Criar devolucao veiculo OK!");
-        }catch(DBException e){
+        }catch(SQLException e){
             System.out.println("ERRO ao criar DevolucaoVeiculo: " + e.getMessage());
         }
     }
@@ -113,7 +107,7 @@ public class CreateDaoTest extends DaoFactory{
             Manutencao manutencao = new Manutencao(null, veiculo, "pedidoTeste", false, LocalDateTime.now(), LocalDateTime.now(), new BigDecimal("300.00"));
             manutencaoDao.createManutencao(manutencao);
             System.out.println("Criar manutencao OK!");
-        }catch(DBException e){
+        }catch(SQLException e){
             System.out.println("ERRO ao criar DevolucaoVeiculo: " + e.getMessage());
         }
     }

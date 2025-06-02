@@ -4,7 +4,7 @@
  */
 package com.fatec.garagemlocalhost.teste;
 
-import com.fatec.garagemlocalhost.database.DBException;
+
 import com.fatec.garagemlocalhost.database.Database;
 import com.fatec.garagemlocalhost.model.entities.CategoriaVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Manutencao;
@@ -12,7 +12,7 @@ import com.fatec.garagemlocalhost.model.entities.SaidaVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Servico;
 import com.fatec.garagemlocalhost.model.entities.Usuario;
 import com.fatec.garagemlocalhost.model.entities.Veiculo;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -37,7 +37,7 @@ public class ReadDaoTest extends DaoFactory{
             listarRetorno(usuarioDao.findAll());
             System.out.println("Ler usuários OK!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao listar todos os usuários: " + e.getMessage());            
         }
     }
@@ -48,7 +48,7 @@ public class ReadDaoTest extends DaoFactory{
             System.out.println(u);
             System.out.println(u.getNome() + "Lido pelo Id com sucesso!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao ler usuário pelo ID: " + e.getMessage());                 
         }
     }
@@ -58,7 +58,7 @@ public class ReadDaoTest extends DaoFactory{
             listarRetorno(usuarioDao.findByNome(nome));
             System.out.println("Lido pelo Nome com sucesso!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao ler usuário pelo Nome: " + e.getMessage());                 
         }
     }
@@ -68,7 +68,7 @@ public class ReadDaoTest extends DaoFactory{
             listarRetorno(categoriaDao.findAll());
             System.out.println("Ler categorias OK!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao listar todas as categorias: " + e.getMessage());
         }
     }
@@ -79,7 +79,7 @@ public class ReadDaoTest extends DaoFactory{
             System.out.println(c);
             System.out.println(c.getDescricao() + "Lido pelo Id com sucesso!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao ler categoria pelo ID: " + e.getMessage());                 
         }
     }
@@ -89,7 +89,7 @@ public class ReadDaoTest extends DaoFactory{
             listarRetorno(devolucaoDao.findAll());
             System.out.println("Ler devoluções OK!");
         } 
-        catch (DBException e) {
+        catch (SQLException e) {
             System.out.println("ERRO ao listar devoluções: " + e.getMessage());
         }
     }
@@ -100,7 +100,7 @@ public class ReadDaoTest extends DaoFactory{
             System.out.println(c);
             System.out.println(c.getDescricao() + "Lido pelo Id com sucesso!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao ler devolução pelo ID: " + e.getMessage());                 
         }
     }
@@ -110,7 +110,7 @@ public class ReadDaoTest extends DaoFactory{
             listarRetorno(manutencaoDao.findAll());
             System.out.println("Ler manutenções OK!");
         } 
-        catch (DBException e) {
+        catch (SQLException e) {
             System.out.println("ERRO ao listar manutenções: " + e.getMessage());
         }
     }
@@ -121,7 +121,7 @@ public class ReadDaoTest extends DaoFactory{
             System.out.println(m);
             System.out.println(m.getDescricao() + "Lido pelo Id com sucesso!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao ler manutenção pelo ID: " + e.getMessage());                 
         }
     }
@@ -131,7 +131,7 @@ public class ReadDaoTest extends DaoFactory{
             listarRetorno(saidaDao.findAll());
             System.out.println("Ler manutenções OK!");
         } 
-        catch (DBException e) {
+        catch (SQLException e) {
             System.out.println("ERRO ao listar saídas: " + e.getMessage());
         }
     }
@@ -142,7 +142,7 @@ public class ReadDaoTest extends DaoFactory{
             System.out.println(s);
             System.out.println(s.getIdPedido()+ "Lido pelo Id com sucesso!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao ler saída pelo ID: " + e.getMessage());                 
         }
     }
@@ -152,7 +152,7 @@ public class ReadDaoTest extends DaoFactory{
             listarRetorno(servicoDao.findAll());
             System.out.println("Ler serviços OK!");
         } 
-        catch (DBException e) {
+        catch (SQLException e) {
             System.out.println("ERRO ao listar serviços: " + e.getMessage());
         }
     }
@@ -163,7 +163,7 @@ public class ReadDaoTest extends DaoFactory{
             System.out.println(s);
             System.out.println(s.getDescricao()+ "Lido pelo Id com sucesso!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao ler serviço pelo ID: " + e.getMessage());                 
         }
     }
@@ -174,7 +174,7 @@ public class ReadDaoTest extends DaoFactory{
             listarRetorno(veiculoDao.findAll());
             System.out.println("Ler veículos OK!");
         } 
-        catch (DBException e) {
+        catch (SQLException e) {
             System.out.println("ERRO ao listar veículos: " + e.getMessage());
         }
     }
@@ -185,7 +185,7 @@ public class ReadDaoTest extends DaoFactory{
             System.out.println(v);
             System.out.println(v.getModelo()+ "Lido pelo Id com sucesso!");
         }
-        catch (DBException e){
+        catch (SQLException e){
             System.out.println("ERRO ao ler veículo pelo ID: " + e.getMessage());                 
         }
     }
