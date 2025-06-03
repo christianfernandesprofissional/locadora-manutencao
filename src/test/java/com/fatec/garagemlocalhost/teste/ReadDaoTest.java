@@ -55,7 +55,7 @@ public class ReadDaoTest extends DaoFactory{
     
     public void readUsuarioPorNome(String nome){
         try{
-            listarRetorno(usuarioDao.findByNome(nome));
+            listarRetorno(usuarioDao.findAllByNome(nome));
             System.out.println("Lido pelo Nome com sucesso!");
         }
         catch (SQLException e){
