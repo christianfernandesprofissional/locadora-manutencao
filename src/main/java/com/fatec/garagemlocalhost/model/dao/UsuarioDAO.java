@@ -68,10 +68,10 @@ public class UsuarioDAO {
         return Optional.ofNullable(usuario);
     }
     
-    public List<Usuario> findByNome(String nome) throws SQLException {
+    public List<Usuario> findAllByNome(String nome) throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
 
-        String sql = "SELECT * FROM usuarios WHERE nome = ?";
+        String sql = "SELECT * FROM usuarios WHERE nome LIKE '%?%'";
         PreparedStatement st = database.getConnnection().prepareStatement(sql);
         st.setString(1, nome);
         ResultSet rs = st.executeQuery();
@@ -90,6 +90,34 @@ public class UsuarioDAO {
         rs.close();
        
         return usuarios;
+    }
+    
+    public Optional<Usuario> findByNomeOrEmail(String texto)throws SQLException{
+        String sql = "SELECT * FROM usuarios WHERE ";
+        if(texto.trim().contains("@") && texto.trim().contains(".com")){
+            sql+= "email = ?;";
+        }else{
+            sql += "nome = ?;";
+        }
+        System.out.println("Passei por aqui1");
+        PreparedStatement st = database.getConnnection().prepareStatement(sql);
+        st.setString(1, texto);
+        ResultSet rs = st.executeQuery();
+
+        Usuario usuario = null;
+        if(rs.next()){
+            usuario = new Usuario();
+            usuario.setId(rs.getInt("id_usuario"));
+            usuario.setNome(rs.getString("nome"));
+            usuario.setEmail(rs.getString("email"));
+            usuario.setSenha(rs.getString("senha"));
+            usuario.setTipoUsuario(TipoUsuario.setInteiro(rs.getInt("tipo_usuario")));
+        }
+        st.close();
+        rs.close();
+        System.out.println(usuario);
+        return Optional.ofNullable(usuario);
+        
     }
     
     public void create(Usuario usuario) throws SQLException {
