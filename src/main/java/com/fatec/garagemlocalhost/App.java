@@ -1,6 +1,9 @@
 package com.fatec.garagemlocalhost;
 
 import com.fatec.garagemlocalhost.database.Database;
+import com.fatec.garagemlocalhost.model.entities.Usuario;
+import com.fatec.garagemlocalhost.model.enums.TipoUsuario;
+import com.fatec.garagemlocalhost.utils.Verificar;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,13 +21,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Database db = new Database();
-        scene = new Scene(loadFXML("home"));
+
+        scene = new Scene(loadFXML("login"));
         stage.setScene(scene);
-        stage.setMinWidth(1125);
-        stage.setMaximized(true);
+        stage.setWidth(354);
+        stage.setHeight(534);
+        stage.setResizable(false);
         stage.show();
-    
+         
     }
 
     static void setRoot(String fxml) throws IOException {

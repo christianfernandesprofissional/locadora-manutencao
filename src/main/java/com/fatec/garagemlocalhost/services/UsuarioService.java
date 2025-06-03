@@ -5,11 +5,14 @@
 package com.fatec.garagemlocalhost.services;
 
 import com.fatec.garagemlocalhost.database.DBException;
+import com.fatec.garagemlocalhost.database.Database;
 import com.fatec.garagemlocalhost.exceptions.CampoVazioException;
 import com.fatec.garagemlocalhost.model.dao.UsuarioDAO;
 import com.fatec.garagemlocalhost.model.entities.Usuario;
+import com.fatec.garagemlocalhost.utils.Verificar;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -18,6 +21,11 @@ import java.util.List;
 public class UsuarioService {
 
     private UsuarioDAO usuarioDao;
+    
+    public UsuarioService(){
+        Database db = new Database();
+        usuarioDao = new UsuarioDAO(db);
+    }
 
     public List<Usuario> buscarTodosUsuarios() throws DBException {
         try {
@@ -27,22 +35,26 @@ public class UsuarioService {
         }
     }
     
-    public List<Usuario> buscarPorNome(String nome)throws DBException{
+    public Optional<Usuario> buscarPorNome(String nome)throws DBException{
         try {
-            return usuarioDao.findByNome(nome);
+            return usuarioDao.findByNomeOrEmail(nome);
         } catch (SQLException e) {
             throw new DBException("Erro ao encontrar usuário!");
         }
     }
     
-    public void criarUsuario(Usuario u)throws DBException{
+    public void criarUsuario(Usuario u)throws DBException, CampoVazioException{
         u.setId(null);
         try{
+            if(!Verificar.todosAtributosPreenchidos(u, "getId")){
+                throw new CampoVazioException("A classe contém dados vazios!");
+            }
+            usuarioDao.create(u);
+            
             if(u.getId() == null){
                 throw new DBException("Erro! Usuário não foi criado! ");
             }
-            usuarioDao.create(u);
-
+            
         }catch(SQLException e){
             throw new DBException("Erro ao criar usuário!");
         }
@@ -50,7 +62,7 @@ public class UsuarioService {
     
      public void atualizarUsuario(Usuario u)throws DBException, CampoVazioException{
         try{    
-            if(!checkNull(u)){
+            if(!Verificar.todosAtributosPreenchidos(u)){
                 throw new CampoVazioException("O usuário não pode ter campos vazios! ");
             }
             usuarioDao.update(u);
@@ -69,9 +81,4 @@ public class UsuarioService {
         }
     }
     
-     
-    private Boolean checkNull(Usuario u){
-         return !(u.getId() == null || u.getEmail().trim().isEmpty() || u.getNome().trim().isEmpty() || 
-                 u.getSenha().trim().isEmpty() || u.getTipoUsuario() == null);
-     }
 }
