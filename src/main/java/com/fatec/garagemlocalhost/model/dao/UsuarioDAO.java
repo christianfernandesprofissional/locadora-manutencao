@@ -77,8 +77,7 @@ public class UsuarioDAO {
         ResultSet rs = st.executeQuery();
 
         while(rs.next()){
-            Usuario usuario = null;
-            usuario = new Usuario();
+            Usuario usuario = new Usuario();
             usuario.setId(rs.getInt("id_usuario"));
             usuario.setNome(rs.getString("nome"));
             usuario.setEmail(rs.getString("email"));
@@ -99,7 +98,7 @@ public class UsuarioDAO {
         }else{
             sql += "nome = ?;";
         }
-        System.out.println("Passei por aqui1");
+    
         PreparedStatement st = database.getConnnection().prepareStatement(sql);
         st.setString(1, texto);
         ResultSet rs = st.executeQuery();
@@ -115,7 +114,7 @@ public class UsuarioDAO {
         }
         st.close();
         rs.close();
-        System.out.println(usuario);
+
         return Optional.ofNullable(usuario);
         
     }
