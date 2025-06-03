@@ -22,7 +22,7 @@
                   <Insets right="50.0" />
                </HBox.margin>
             </ImageView>
-            <Button fx:id="bntInicio" maxWidth="200.0" mnemonicParsing="false" text="Início" HBox.hgrow="ALWAYS">
+            <Button fx:id="bntInicio" maxWidth="200.0" mnemonicParsing="false" onAction="#menuInicio" text="Início" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -30,7 +30,7 @@
                   <Font name="Calibri Bold Italic" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="btnSaidas" maxWidth="200.0" mnemonicParsing="false" text="Saídas" HBox.hgrow="ALWAYS">
+            <Button fx:id="btnSaidas" maxWidth="200.0" mnemonicParsing="false" onAction="#menuSaidas" text="Saídas" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -38,7 +38,7 @@
                   <Font name="Calibri Bold Italic" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="btnDevolucoes" maxWidth="200.0" mnemonicParsing="false" text="Devoluções" HBox.hgrow="ALWAYS">
+            <Button fx:id="btnDevolucoes" maxWidth="200.0" mnemonicParsing="false" onAction="#menuDevolucoes" text="Devoluções" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -46,7 +46,7 @@
                   <Font name="Calibri Bold Italic" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="btnManutencoes" maxWidth="200.0" mnemonicParsing="false" text="Manutenções" HBox.hgrow="ALWAYS">
+            <Button fx:id="btnManutencoes" maxWidth="200.0" mnemonicParsing="false" onAction="#menuManutencoes" text="Manutenções" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -56,8 +56,8 @@
             </Button>
             <MenuButton maxWidth="200.0" mnemonicParsing="false" text="Veículos" HBox.hgrow="ALWAYS">
               <items>
-                <MenuItem fx:id="btnListarVeiculos" mnemonicParsing="false" text="Listar Veículos" />
-                <MenuItem fx:id="btnCadastrarVeiculo" mnemonicParsing="false" text="Cadastrar Veículo" />
+                <MenuItem fx:id="btnListarVeiculos" mnemonicParsing="false" onAction="#menuListarVeiculos" text="Listar Veículos" />
+                <MenuItem fx:id="btnCadastrarVeiculo" mnemonicParsing="false" onAction="#menuCadastrarVeiculo" text="Cadastrar Veículo" />
               </items>
                <HBox.margin>
                   <Insets />
@@ -66,7 +66,7 @@
                   <Font name="Calibri Bold Italic" size="25.0" />
                </font>
             </MenuButton>
-            <Button fx:id="btnUsuarios" maxWidth="200.0" mnemonicParsing="false" text="Usuários" HBox.hgrow="ALWAYS">
+            <Button fx:id="btnUsuarios" maxWidth="200.0" mnemonicParsing="false" onAction="#menuUsuarios" text="Usuários" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -74,7 +74,7 @@
                   <Font name="Calibri Bold Italic" size="25.0" />
                </font>
             </Button>
-            <Button fx:id="btnSair" maxWidth="200.0" mnemonicParsing="false" text="Sair" HBox.hgrow="ALWAYS">
+            <Button fx:id="btnSair" maxWidth="200.0" mnemonicParsing="false" onAction="#sair" text="Sair" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="Calibri Bold Italic" size="25.0" />
                </font>
