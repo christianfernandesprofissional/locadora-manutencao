@@ -68,7 +68,7 @@ public class UsuarioService {
             usuarioDao.update(u);
             
         }catch(SQLException e){
-            throw new DBException("Erro ao criar usuário!");
+            throw new DBException("Erro ao atualizar usuário! ");
         }
     }
      

@@ -40,6 +40,8 @@ public class UsuarioDAO {
             usuario.setEmail(rs.getString("email"));
             usuario.setSenha(rs.getString("senha"));
             usuario.setTipoUsuario(TipoUsuario.setInteiro(rs.getInt("tipo_usuario")));
+            usuario.setAtivo(rs.getBoolean("ativo"));
+            usuarios.add(usuario);
         }
         rs.close();
         st.close();
@@ -62,6 +64,7 @@ public class UsuarioDAO {
             usuario.setEmail(rs.getString("email"));
             usuario.setSenha(rs.getString("senha"));
             usuario.setTipoUsuario(TipoUsuario.setInteiro(rs.getInt("tipo_usuario")));
+            usuario.setAtivo(rs.getBoolean("ativo"));
         }
         st.close();
         rs.close();
@@ -83,6 +86,7 @@ public class UsuarioDAO {
             usuario.setEmail(rs.getString("email"));
             usuario.setSenha(rs.getString("senha"));
             usuario.setTipoUsuario(TipoUsuario.setInteiro(rs.getInt("tipo_usuario")));
+            usuario.setAtivo(rs.getBoolean("ativo"));
             usuarios.add(usuario);
         }
         st.close();
@@ -111,6 +115,7 @@ public class UsuarioDAO {
             usuario.setEmail(rs.getString("email"));
             usuario.setSenha(rs.getString("senha"));
             usuario.setTipoUsuario(TipoUsuario.setInteiro(rs.getInt("tipo_usuario")));
+            usuario.setAtivo(rs.getBoolean("ativo"));
         }
         st.close();
         rs.close();
@@ -143,14 +148,15 @@ public class UsuarioDAO {
     
     public void update(Usuario usuario) throws SQLException {
 
-        String sql = "UPDATE usuarios SET id_usuario = ?, nome = ?, email = ?, senha = ?, tipo_usuario = ?";
+        String sql = "UPDATE usuarios SET nome = ?, email = ?, senha = ?, tipo_usuario = ?, ativo = ? WHERE id_usuario = ?;";
         PreparedStatement st = database.getConnnection().prepareStatement(sql);
 
-        st.setInt(1, usuario.getId());
-        st.setString(2, usuario.getNome());
-        st.setString(3, usuario.getEmail());
-        st.setString(4, usuario.getSenha());
-        st.setInt(5, usuario.getTipoUsuario().getNumero());
+        st.setString(1, usuario.getNome());
+        st.setString(2, usuario.getEmail());
+        st.setString(3, usuario.getSenha());
+        st.setInt(4, usuario.getTipoUsuario().getNumero());
+        st.setBoolean(5, usuario.getAtivo());
+        st.setInt(6, usuario.getId());
 
         int linhasAfetadas = st.executeUpdate();
 

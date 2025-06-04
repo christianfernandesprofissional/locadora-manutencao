@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,21 +14,41 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="1004.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.UsuariosController">
+<VBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="737.0" prefWidth="1183.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.UsuariosController">
    <children>
       <HBox alignment="BOTTOM_CENTER" prefHeight="171.0" prefWidth="801.0" VBox.vgrow="NEVER">
          <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="342.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER_LEFT" prefHeight="171.0" prefWidth="342.0" HBox.hgrow="ALWAYS">
                <children>
-                  <TextField prefHeight="31.0" prefWidth="311.0" promptText="Nome" VBox.vgrow="SOMETIMES">
+                  <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#limparCampos" prefHeight="34.0" prefWidth="95.0" text="Limpar">
                      <font>
-                        <Font size="18.0" />
+                        <Font name="Calibri Bold" size="18.0" />
                      </font>
                      <VBox.margin>
-                        <Insets bottom="15.0" left="15.0" right="15.0" />
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                      </VBox.margin>
-                  </TextField>
-                  <TextField promptText="Nome de usuário" VBox.vgrow="SOMETIMES">
+                  </Button>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="93.0" prefWidth="480.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <TextField fx:id="txtID" disable="true" prefHeight="39.0" prefWidth="89.0" promptText="ID">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <ComboBox fx:id="cbTipoUsuario" prefHeight="39.0" prefWidth="189.0" promptText="TIPO DE USUÁRIO">
+                           <HBox.margin>
+                              <Insets bottom="15.0" left="15.0" right="15.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                     </children>
+                  </HBox>
+                  <TextField fx:id="txtNomeUsuario" promptText="Nome de usuário" VBox.vgrow="SOMETIMES">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -36,9 +58,9 @@
                   </TextField>
                </children>
             </VBox>
-            <VBox alignment="CENTER_LEFT" prefHeight="106.0" prefWidth="305.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="106.0" prefWidth="305.0" HBox.hgrow="ALWAYS">
                <children>
-                  <TextField promptText="Email" VBox.vgrow="SOMETIMES">
+                  <TextField fx:id="txtEmail" promptText="Email" VBox.vgrow="SOMETIMES">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -46,18 +68,18 @@
                         <Insets bottom="15.0" left="15.0" right="15.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField promptText="Senha" VBox.vgrow="SOMETIMES">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
+                  <PasswordField fx:id="txtSenha" promptText="Senha">
                      <VBox.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" />
                      </VBox.margin>
-                  </TextField>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </PasswordField>
                </children></VBox>
             <VBox alignment="BOTTOM_LEFT" prefHeight="81.0" prefWidth="175.0">
                <children>
-                  <Label text="TIPO DE USUÁRIO">
+                  <Label text="Situação do Usuário">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
@@ -65,7 +87,7 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                   </Label>
-                  <RadioButton fx:id="rbGerente" mnemonicParsing="false" text="GERENTE">
+                  <RadioButton fx:id="rbAtivo" mnemonicParsing="false" text="ATIVO">
                      <font>
                         <Font name="Calibri Bold" size="15.0" />
                      </font>
@@ -73,10 +95,10 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                      <toggleGroup>
-                        <ToggleGroup fx:id="tipoUsuario" />
+                        <ToggleGroup fx:id="statusUsuario" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="rbAuxiliar" mnemonicParsing="false" text="AUXILIAR" toggleGroup="$tipoUsuario">
+                  <RadioButton fx:id="rbInativo" mnemonicParsing="false" text="INATIVO" toggleGroup="$statusUsuario">
                      <font>
                         <Font name="Calibri Bold" size="15.0" />
                      </font>
@@ -84,7 +106,7 @@
                         <Insets bottom="15.0" />
                      </VBox.margin>
                   </RadioButton>
-                  <Button fx:id="btnSalvar" mnemonicParsing="false" prefHeight="38.0" prefWidth="107.0" text="Salvar">
+                  <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#salvarUsuario" prefHeight="38.0" prefWidth="107.0" text="Salvar">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
@@ -101,9 +123,8 @@
       </HBox>
       <TableView fx:id="tabelaUsuarios" prefHeight="437.0" prefWidth="924.0" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn fx:id="colunaFuncao" prefWidth="75.0" text="FUNÇÃO" />
+          <TableColumn fx:id="colunaFuncao" prefWidth="75.0" text="TIPO DE USUÁRIO" />
           <TableColumn fx:id="colunaNome" prefWidth="75.0" text="NOME" />
-            <TableColumn fx:id="colunaNomeUsuario" prefWidth="75.0" text="NOME DE USUÁRIO" />
             <TableColumn fx:id="colunaEmail" prefWidth="75.0" text="EMAIL" />
             <TableColumn fx:id="colunaSituacao" prefWidth="75.0" text="SITUAÇÃO" />
         </columns>

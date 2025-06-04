@@ -1,6 +1,7 @@
 com\fatec\garagemlocalhost\utils\Verificar.class
 com\fatec\garagemlocalhost\ManutencoesController.class
 com\fatec\garagemlocalhost\SaidasController.class
+com\fatec\garagemlocalhost\TelaInicialController.class
 com\fatec\garagemlocalhost\model\entities\Servico.class
 com\fatec\garagemlocalhost\model\entities\Usuario.class
 com\fatec\garagemlocalhost\VeiculosController.class

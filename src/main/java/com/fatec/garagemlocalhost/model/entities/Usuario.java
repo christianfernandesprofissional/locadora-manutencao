@@ -18,17 +18,19 @@ public class Usuario {
     private String email;
     private String senha;
     private TipoUsuario tipoUsuario;
+    private Boolean ativo;
     
     public Usuario(){
         
     }
     
-    public Usuario(String nome, String email, String senha, TipoUsuario tipoUsuario) throws LoginValidacaoException {
+    public Usuario(String nome, String email, String senha, TipoUsuario tipoUsuario, Boolean ativo) throws LoginValidacaoException {
         id = null;
         this.nome = nome;
         setEmail(email);
         setSenha(senha);
         this.tipoUsuario = tipoUsuario;
+        this.ativo = ativo;
     }
 
     public Integer getId() {
@@ -79,6 +81,16 @@ public class Usuario {
         }
         this.tipoUsuario = tipoUsuario;
     }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+    
+    
 
     @Override
     public int hashCode() {
