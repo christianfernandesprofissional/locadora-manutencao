@@ -34,7 +34,7 @@ public class CreateDaoTest extends DaoFactory{
 
     public void createUsuario() {
         try{
-            Usuario usuario = new Usuario("Anderson", "anderson@gmail.com", "12345678", TipoUsuario.AUXILIAR);
+            Usuario usuario = new Usuario("Anderson", "anderson@gmail.com", "12345678", TipoUsuario.AUXILIAR, true);
             usuarioDao.create(usuario);
             System.out.println("Criar usuário OK!");
         }catch(SQLException | LoginValidacaoException e){
