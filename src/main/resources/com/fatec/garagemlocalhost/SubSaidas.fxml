@@ -7,15 +7,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <TextField fx:id="txtAssiteneteSSaidas" promptText="ASSISTENTE">
+            <TextField fx:id="txtAssistenteSaida" promptText="ASSISTENTE">
                <font>
                   <Font size="16.0" />
                </font></TextField>
-            <TextField fx:id="txtPlacaSSaidas" promptText="PLACA">
+            <TextField fx:id="txtPlacaSaida" promptText="PLACA">
                <font>
                   <Font size="16.0" />
                </font></TextField>
@@ -23,11 +23,11 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <TextField fx:id="txtKmSaidaSSaidas" promptText="KMCHEGADA">
+            <TextField fx:id="txtKmSaida" promptText="KMSAÍDA">
                <font>
                   <Font size="16.0" />
                </font></TextField>
-            <TextField fx:id="txtDataSSaidas" promptText="DATA / HORA">
+            <TextField fx:id="txtInstanteSaida" disable="true" promptText="DATA / HORA">
                <font>
                   <Font size="16.0" />
                </font></TextField>
@@ -35,10 +35,15 @@
       </HBox>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button fx:id="btnEntregueSSaidas" mnemonicParsing="false" text="Entregue ao Cliente">
+          <Button fx:id="btnCancelar" mnemonicParsing="false" text="Cancelar">
                <font>
                   <Font size="16.0" />
                </font></Button>
+            <Button fx:id="btnEntregueSSaidas" mnemonicParsing="false" text="Entregue ao Cliente">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
         </buttons>
       </ButtonBar>
    </children>
