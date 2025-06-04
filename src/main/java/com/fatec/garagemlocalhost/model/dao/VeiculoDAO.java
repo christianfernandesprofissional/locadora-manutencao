@@ -7,6 +7,7 @@ package com.fatec.garagemlocalhost.model.dao;
 import com.fatec.garagemlocalhost.database.Database;
 import com.fatec.garagemlocalhost.model.entities.CategoriaVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Veiculo;
+import com.fatec.garagemlocalhost.model.enums.SituacaoVeiculo;
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,6 +49,7 @@ public class VeiculoDAO {
             veiculo.setCategoria(categoria);
             BigDecimal precoBase = new BigDecimal(rs.getDouble("preco_base"));
             veiculo.setPrecoBase(precoBase);
+            veiculo.setSituacao(SituacaoVeiculo.setInteiro(rs.getInt("situacao")));
             veiculos.add(veiculo);
         }
 
@@ -76,6 +78,7 @@ public class VeiculoDAO {
             veiculo.setCategoria(categoria);
             BigDecimal precoBase = new BigDecimal(rs.getDouble("preco_base"));
             veiculo.setPrecoBase(precoBase);
+            veiculo.setSituacao(SituacaoVeiculo.setInteiro(rs.getInt("situacao")));
         }
 
         return Optional.ofNullable(veiculo);
@@ -106,7 +109,7 @@ public class VeiculoDAO {
     
     public void updateVeiculo(Veiculo veiculo)throws SQLException{
 
-        String sql = "UPDATE veiculos SET marca = ?, cor = ?, ano = ?, chassi =?,modelo = ?,quilometragem = ?,id_categoria = ?, preco_base = ?  WHERE placa = ?;";
+        String sql = "UPDATE veiculos SET marca = ?, cor = ?, ano = ?, chassi =?,modelo = ?,quilometragem = ?,id_categoria = ?, preco_base = ?, situcao = ?  WHERE placa = ?;";
         PreparedStatement ps = database.getConnnection().prepareStatement(sql);
 
 
@@ -118,7 +121,8 @@ public class VeiculoDAO {
         ps.setInt(6, veiculo.getQuilometragem());
         ps.setInt(7, veiculo.getCategoria().getId());
         ps.setDouble(8, veiculo.getPrecoBase().doubleValue());
-        ps.setString(9, veiculo.getPlaca());
+        ps.setInt(9, veiculo.getSituacao().getNumero());
+        ps.setString(10, veiculo.getPlaca());
 
         int linhas = ps.executeUpdate();
 

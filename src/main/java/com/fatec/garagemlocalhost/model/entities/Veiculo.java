@@ -4,6 +4,7 @@
  */
 package com.fatec.garagemlocalhost.model.entities;
 
+import com.fatec.garagemlocalhost.model.enums.SituacaoVeiculo;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -21,12 +22,13 @@ public class Veiculo {
     private Integer quilometragem; 
     private CategoriaVeiculo categoria; 
     private BigDecimal precoBase;
+    private SituacaoVeiculo situacao;
     
     public Veiculo(){
         
     }
 
-    public Veiculo(String placa, String marca, String cor, Integer ano, String chassi, String modelo, Integer quilometragem, CategoriaVeiculo categoria, BigDecimal precoBase) {
+    public Veiculo(String placa, String marca, String cor, Integer ano, String chassi, String modelo, Integer quilometragem, CategoriaVeiculo categoria, BigDecimal precoBase, SituacaoVeiculo situacao) {
         this.placa = placa;
         this.marca = marca;
         this.cor = cor;
@@ -36,6 +38,7 @@ public class Veiculo {
         this.quilometragem = quilometragem;
         this.categoria = categoria;
         this.precoBase = precoBase;
+        this.situacao = situacao;
     }
 
     public String getPlaca() {
@@ -109,6 +112,16 @@ public class Veiculo {
     public void setPrecoBase(BigDecimal precoBase) {
         this.precoBase = precoBase;
     }
+
+    public SituacaoVeiculo getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(SituacaoVeiculo situacao) {
+        this.situacao = situacao;
+    }
+    
+    
 
     @Override
     public String toString() {

@@ -21,7 +21,11 @@
             <TableColumn fx:id="colunaQuilometragem" prefWidth="126.0" text="QUILOMETRAGEM" />
             <TableColumn fx:id="colunaCategoria" prefWidth="85.0" text="CATEGORIA" />
             <TableColumn fx:id="colunaPrecoBase" prefWidth="116.0" text="PREÇO BASE" />
+            <TableColumn fx:id="colunaStatus" prefWidth="116.0" text="STATUS" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
    </children>
 </VBox>
