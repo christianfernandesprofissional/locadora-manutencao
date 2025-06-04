@@ -58,6 +58,7 @@ CREATE TABLE veiculos (
     quilometragem INT NOT NULL, 
     id_categoria INT, 
     preco_base DECIMAL(10,2) NOT NULL, 
+    situacao INT DEFAULT 1,
     CONSTRAINT fk_veiculo_categoria FOREIGN KEY(id_categoria) REFERENCES categorias_veiculos(id_categoria)
     ON DELETE CASCADE
     ON UPDATE CASCADE
