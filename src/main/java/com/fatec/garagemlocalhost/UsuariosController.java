@@ -106,7 +106,6 @@ public class UsuariosController implements Initializable {
                     } else {
                         rbInativo.setSelected(true);
                     }
-                    //alterarCampos();
                 }
             });
             return row;
@@ -147,11 +146,13 @@ public class UsuariosController implements Initializable {
         txtSenha.setText(null);
         rbAtivo.setSelected(false);
         rbInativo.setSelected(false);
-        cbTipoUsuario.getSelectionModel().clearSelection();
+
     }
 
     /**
      * Cria ou atualiza um usuário
+     * 
+     * @author Christian
      */
     @FXML
     public void salvarUsuario() {
@@ -166,9 +167,9 @@ public class UsuariosController implements Initializable {
                 String texto = selecionado.getText();
                 usuario.setAtivo(texto.equals("ATIVO"));
             }
-            try{
-            usuarioService.criarUsuario(usuario);
-            }catch(DBException e){
+            try {
+                usuarioService.criarUsuario(usuario);
+            } catch (DBException e) {
                 Alert alert = new Alert(AlertType.ERROR, e.getMessage());
                 alert.showAndWait();
             }

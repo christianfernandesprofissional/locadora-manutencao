@@ -3,9 +3,11 @@ C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fat
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\entities\SaidaVeiculo.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\exceptions\CampoVazioException.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\ManutencoesController.java
+C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\exceptions\IdInvalidoException.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\entities\CategoriaVeiculo.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\entities\DevolucaoVeiculo.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\SaidasController.java
+C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\services\CategoriaService.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\LoginController.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\TelaInicialController.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\database\DBException.java
@@ -14,6 +16,7 @@ C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fat
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\dao\VeiculoDAO.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\entities\Usuario.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\database\Database.java
+C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\enums\SituacaoVeiculo.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\UsuariosController.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\CadastroVeiculoController.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\DevolucoesController.java
@@ -27,6 +30,7 @@ C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fat
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\dao\ManutencaoDAO.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\VeiculosController.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\entities\Veiculo.java
+C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\services\VeiculoService.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\dao\CategoriaVeiculoDAO.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\dao\ServicoDAO.java
 C:\Users\chris\Documents\NetBeansProjects\garagemlocalhost\src\main\java\com\fatec\garagemlocalhost\model\dao\UsuarioDAO.java
