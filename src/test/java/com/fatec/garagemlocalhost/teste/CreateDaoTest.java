@@ -14,6 +14,7 @@ import com.fatec.garagemlocalhost.model.entities.SaidaVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Servico;
 import com.fatec.garagemlocalhost.model.entities.Usuario;
 import com.fatec.garagemlocalhost.model.entities.Veiculo;
+import com.fatec.garagemlocalhost.model.enums.SituacaoVeiculo;
 import com.fatec.garagemlocalhost.model.enums.TipoUsuario;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -55,7 +56,7 @@ public class CreateDaoTest extends DaoFactory{
      public void createVeiculo(){
         try{
             CategoriaVeiculo cat = categoriaDao.findById(1).get();
-            Veiculo veiculo = new Veiculo("1426DFG", "Volkswagen", "Branco", 1950,"358654fsdv831","Fusca",532165,cat, new BigDecimal("204.89") );
+            Veiculo veiculo = new Veiculo("1426DFG", "Volkswagen", "Branco", 1950,"358654fsdv831","Fusca",532165,cat, new BigDecimal("204.89"), SituacaoVeiculo.DISPONÍVEL);
             veiculoDao.createVeiculo(veiculo);
             System.out.println("Criar veiculo OK!");
         }catch(SQLException e){
