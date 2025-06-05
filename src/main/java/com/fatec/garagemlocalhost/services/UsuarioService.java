@@ -26,7 +26,7 @@ public class UsuarioService {
             throw new DBException("Falha ao encontrar usuários!");
         }
     }
-    
+
     public List<Usuario> buscarPorNome(String nome)throws DBException{
         try {
             return usuarioDao.findByNome(nome);
