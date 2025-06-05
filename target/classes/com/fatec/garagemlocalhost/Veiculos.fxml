@@ -29,21 +29,32 @@
             <RadioButton fx:id="rbCor" mnemonicParsing="false" text="COR" toggleGroup="$tipoBusca" />
             <ComboBox fx:id="cbAno" prefWidth="150.0" promptText="ANO" />
             <ComboBox fx:id="cbCategoria" prefWidth="150.0" promptText="CATEGORIA" />
+            <VBox>
+               <children>
+                  <RadioButton fx:id="rbDisponivel" mnemonicParsing="false" text="Disponível">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="situacao" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="rbAlugado" mnemonicParsing="false" text="Alugado" toggleGroup="$situacao" />
+                  <RadioButton fx:id="rbEmManutencao" mnemonicParsing="false" text="Em manutenção" toggleGroup="$situacao" />
+               </children>
+            </VBox>
             <Button fx:id="btnLimparFiltros" mnemonicParsing="false" text="LIMPAR FILTROS" />
          </children>
       </HBox>
       <TableView fx:id="tabelaVeiculos" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="452.0" prefWidth="782.0" VBox.vgrow="ALWAYS">
         <columns>
-          <TableColumn fx:id="colunaPlaca" prefWidth="75.0" text="PLACA" />
-          <TableColumn fx:id="colunaMarca" prefWidth="75.0" text="MARCA" />
-            <TableColumn fx:id="colunaCor" prefWidth="75.0" text="COR" />
-            <TableColumn fx:id="colunaAno" prefWidth="75.0" text="ANO" />
-            <TableColumn fx:id="colunaChassi" prefWidth="111.0" text="CHASSI" />
-            <TableColumn fx:id="colunaModelo" prefWidth="75.0" text="MODELO" />
-            <TableColumn fx:id="colunaQuilometragem" prefWidth="126.0" text="QUILOMETRAGEM" />
-            <TableColumn fx:id="colunaCategoria" prefWidth="85.0" text="CATEGORIA" />
-            <TableColumn fx:id="colunaPrecoBase" prefWidth="116.0" text="PREÇO BASE" />
-            <TableColumn fx:id="colunaSituacao" prefWidth="116.0" text="SITUAÇÃO" />
+          <TableColumn fx:id="colunaPlaca" editable="false" prefWidth="75.0" text="PLACA" />
+          <TableColumn fx:id="colunaMarca" editable="false" prefWidth="75.0" text="MARCA" />
+            <TableColumn fx:id="colunaCor" editable="false" prefWidth="75.0" text="COR" />
+            <TableColumn fx:id="colunaAno" editable="false" prefWidth="75.0" text="ANO" />
+            <TableColumn fx:id="colunaChassi" editable="false" prefWidth="111.0" text="CHASSI" />
+            <TableColumn fx:id="colunaModelo" editable="false" prefWidth="75.0" text="MODELO" />
+            <TableColumn fx:id="colunaQuilometragem" editable="false" prefWidth="126.0" text="QUILOMETRAGEM" />
+            <TableColumn fx:id="colunaCategoria" editable="false" prefWidth="85.0" text="CATEGORIA" />
+            <TableColumn fx:id="colunaPrecoBase" editable="false" prefWidth="116.0" text="PREÇO BASE" />
+            <TableColumn fx:id="colunaSituacao" editable="false" prefWidth="116.0" text="SITUAÇÃO" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

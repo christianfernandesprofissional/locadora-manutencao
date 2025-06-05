@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -93,6 +92,16 @@ public class VeiculosController implements Initializable {
 
     @FXML
     private RadioButton rbPlaca;
+    
+    @FXML
+    private RadioButton rbDisponivel;
+
+    @FXML
+    private RadioButton rbAlugado;
+
+    @FXML
+    private RadioButton rbEmManutencao;
+
 
     @FXML
     private TextField txtBusca;
@@ -159,6 +168,15 @@ public class VeiculosController implements Initializable {
 
         rbModelo.selectedProperty().addListener((obs, oldVal, newVal)
                 -> aplicarFiltroNaListaDeVeiculos(listaFiltrada));
+        
+        rbDisponivel.selectedProperty().addListener((obs, oldVal, newVal)
+                -> aplicarFiltroNaListaDeVeiculos(listaFiltrada));
+
+        rbAlugado.selectedProperty().addListener((obs, oldVal, newVal)
+                -> aplicarFiltroNaListaDeVeiculos(listaFiltrada));
+
+        rbEmManutencao.selectedProperty().addListener((obs, oldVal, newVal)
+                -> aplicarFiltroNaListaDeVeiculos(listaFiltrada));
 
         btnLimparFiltros.setOnAction(e -> {
             limparCampos();
@@ -169,6 +187,9 @@ public class VeiculosController implements Initializable {
     public void limparCampos() {
         txtBusca.setText("");
         rbModelo.setSelected(true);
+        rbDisponivel.setSelected(false);
+        rbAlugado.setSelected(false);
+        rbEmManutencao.setSelected(false);
         cbAno.setValue(null);
         cbCategoria.setValue(null);
     }
@@ -207,8 +228,17 @@ public class VeiculosController implements Initializable {
             if (ano != null) {
                 anoCorresponde = veiculo.getAno().equals(ano);
             }
+            
+            Boolean situacao = true;
+            if(rbDisponivel.isSelected()){
+                situacao = veiculo.getSituacao() == SituacaoVeiculo.DISPONÍVEL;
+            }else if(rbAlugado.isSelected()){
+                situacao = veiculo.getSituacao() == SituacaoVeiculo.ALUGADO;
+            }else if(rbEmManutencao.isSelected()){
+                situacao = veiculo.getSituacao() == SituacaoVeiculo.EM_MANUTENÇÃO;
+            }
 
-            return textoCorresponde && categoriaCorresponde && anoCorresponde;
+            return textoCorresponde && categoriaCorresponde && anoCorresponde && situacao;
         });
     }
 
