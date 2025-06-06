@@ -2,12 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.CadastroVeiculoController">
   <columnConstraints>
@@ -24,14 +26,50 @@
       <ComboBox fx:id="cmbCategoria" promptText="Categoria" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" />
       <HBox GridPane.rowIndex="1">
          <children>
-            <TextField fx:id="txtPlaca" promptText="Placa" HBox.hgrow="ALWAYS" />
-            <TextField fx:id="txtCor" promptText="Cor" HBox.hgrow="ALWAYS" />
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Placa">
+                     <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtPlaca" promptText="Placa" />
+               </children>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Cor">
+                     <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtCor" promptText="Cor" />
+               </children>
+            </VBox>
          </children>
       </HBox>
       <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <TextField fx:id="txtAno" promptText="Ano" HBox.hgrow="ALWAYS" />
-            <TextField fx:id="txtChassi" promptText="Chassi" HBox.hgrow="ALWAYS" />
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Ano">
+                     <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtAno" promptText="Ano" />
+               </children>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Chassi">
+                     <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtChassi" promptText="Chassi" />
+               </children>
+            </VBox>
          </children>
       </HBox>
       <VBox GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -42,14 +80,50 @@
       </VBox>
       <HBox>
          <children>
-            <TextField fx:id="txtMarca" promptText="Marca" HBox.hgrow="ALWAYS" />
-            <TextField fx:id="txtModelo" promptText="Modelo" HBox.hgrow="ALWAYS" />
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Marca">
+                     <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtMarca" promptText="Marca" />
+               </children>
+            </VBox>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Modelo">
+                     <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtModelo" promptText="Modelo" />
+               </children>
+            </VBox>
          </children>
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
          <children>
-            <TextField fx:id="txtQuilometragem" promptText="Quilometragem" />
-            <TextField fx:id="txtPreco" promptText="Preço" />
+            <VBox>
+               <children>
+                  <Label text="Quilometragem">
+                     <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtQuilometragem" promptText="Quilometragem" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Preço">
+                     <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtPreco" promptText="Preço" />
+               </children>
+            </VBox>
          </children>
       </HBox>
    </children>

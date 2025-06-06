@@ -215,7 +215,7 @@ public class VeiculosController implements Initializable {
                 textoCorresponde = veiculo.getCor().toLowerCase().contains(textoBusca);
             } else if (rbMarca.isSelected() && textoBusca != null && !textoBusca.isEmpty()) {
                 textoCorresponde = veiculo.getMarca().toLowerCase().contains(textoBusca);
-            } else if (textoBusca != null && !textoBusca.isEmpty()) {
+            } else if (rbModelo.isSelected() && textoBusca != null && !textoBusca.isEmpty()) {
                 textoCorresponde = veiculo.getModelo().toLowerCase().contains(textoBusca);
             }
 
