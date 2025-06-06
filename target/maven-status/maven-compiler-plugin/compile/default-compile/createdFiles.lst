@@ -1,11 +1,13 @@
 com\fatec\garagemlocalhost\utils\Verificar.class
 com\fatec\garagemlocalhost\VeiculosController$1.class
+com\fatec\garagemlocalhost\model\enums\SituacaoSaida.class
 com\fatec\garagemlocalhost\ManutencoesController.class
 com\fatec\garagemlocalhost\SaidasController.class
 com\fatec\garagemlocalhost\TelaInicialController.class
 com\fatec\garagemlocalhost\model\entities\Servico.class
 com\fatec\garagemlocalhost\model\entities\Usuario.class
 com\fatec\garagemlocalhost\VeiculosController.class
+com\fatec\garagemlocalhost\services\DevolucaoService.class
 com\fatec\garagemlocalhost\exceptions\LoginValidacaoException.class
 com\fatec\garagemlocalhost\model\dao\VeiculoDAO.class
 com\fatec\garagemlocalhost\model\dao\CategoriaVeiculoDAO.class
@@ -26,6 +28,7 @@ com\fatec\garagemlocalhost\model\entities\CategoriaVeiculo.class
 com\fatec\garagemlocalhost\model\entities\Veiculo.class
 com\fatec\garagemlocalhost\services\VeiculoService.class
 com\fatec\garagemlocalhost\database\DBException.class
+com\fatec\garagemlocalhost\services\SaidaService.class
 com\fatec\garagemlocalhost\exceptions\IdInvalidoException.class
 com\fatec\garagemlocalhost\model\dao\UsuarioDAO.class
 com\fatec\garagemlocalhost\services\CategoriaService.class
@@ -38,3 +41,4 @@ com\fatec\garagemlocalhost\exceptions\CampoVazioException.class
 com\fatec\garagemlocalhost\model\enums\TipoUsuario.class
 com\fatec\garagemlocalhost\model\dao\SaidaVeiculoDAO.class
 com\fatec\garagemlocalhost\UsuariosController.class
+com\fatec\garagemlocalhost\utils\UsuarioHolder.class
