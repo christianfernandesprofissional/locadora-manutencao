@@ -8,6 +8,7 @@ import com.fatec.garagemlocalhost.database.DBException;
 import com.fatec.garagemlocalhost.exceptions.LoginValidacaoException;
 import com.fatec.garagemlocalhost.model.entities.Usuario;
 import com.fatec.garagemlocalhost.services.UsuarioService;
+import com.fatec.garagemlocalhost.utils.UsuarioHolder;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -86,6 +87,7 @@ public class LoginController implements Initializable {
                 Stage stageAtual = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stageAtual.close();
 
+                UsuarioHolder.getInstance().setUsuario(usuarioBuscado.get());
                 //Carrega a tela home
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("home.fxml"));
                 Parent root = loader.load();
