@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -11,120 +12,212 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.CadastroVeiculoController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="407.0" minWidth="10.0" prefWidth="243.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="497.0" minWidth="10.0" prefWidth="187.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="497.0" minWidth="10.0" prefWidth="209.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="398.0" minHeight="10.0" prefHeight="143.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="238.0" minHeight="0.0" prefHeight="137.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+<VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="537.0" prefWidth="1057.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.CadastroVeiculoController">
    <children>
-      <ComboBox fx:id="cmbCategoria" promptText="Categoria" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" />
-      <HBox GridPane.rowIndex="1">
+      <GridPane alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="268.0" prefWidth="1063.0" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="680.0" minWidth="10.0" prefWidth="342.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="636.0" minWidth="10.0" prefWidth="355.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="497.0" minWidth="10.0" prefWidth="311.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="398.0" minHeight="10.0" prefHeight="99.0" vgrow="NEVER" />
+          <RowConstraints maxHeight="238.0" minHeight="0.0" prefHeight="184.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <VBox HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
                <children>
-                  <Label text="Placa">
-                     <font>
-                        <Font name="Calibri Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtPlaca" promptText="Placa" />
+                  <HBox>
+                     <children>
+                        <ComboBox fx:id="cmbCategoria" prefHeight="39.0" prefWidth="170.0" promptText="Categoria">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </ComboBox>
+                        <Button fx:id="btnAdicionarCategoria" mnemonicParsing="false" prefHeight="28.0" prefWidth="35.0" text="+">
+                           <font>
+                              <Font name="System Bold" size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-            <VBox HBox.hgrow="ALWAYS">
+            <HBox GridPane.rowIndex="1">
                <children>
-                  <Label text="Cor">
-                     <font>
-                        <Font name="Calibri Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtCor" promptText="Cor" />
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Placa">
+                           <font>
+                              <Font name="Calibri Bold" size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="txtPlaca" prefHeight="39.0" prefWidth="286.0" promptText="Placa">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets right="15.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Cor">
+                           <font>
+                              <Font name="Calibri Bold" size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="txtCor" promptText="Cor">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
-         </children>
-      </HBox>
-      <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <children>
-            <VBox HBox.hgrow="ALWAYS">
+            </HBox>
+            <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label text="Ano">
-                     <font>
-                        <Font name="Calibri Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtAno" promptText="Ano" />
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Ano">
+                           <font>
+                              <Font name="Calibri Bold" size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="15.0" top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="txtAno" maxWidth="-Infinity" prefHeight="39.0" prefWidth="126.0" promptText="Ano">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="15.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
-            <VBox HBox.hgrow="ALWAYS">
+            </HBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="179.0" prefWidth="396.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <HBox>
                <children>
-                  <Label text="Chassi">
-                     <font>
-                        <Font name="Calibri Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtChassi" promptText="Chassi" />
+                  <VBox prefHeight="80.0" prefWidth="350.0" HBox.hgrow="NEVER">
+                     <children>
+                        <Label text="Marca">
+                           <font>
+                              <Font name="Calibri Bold" size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="txtMarca" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="39.0" prefWidth="289.0" promptText="Marca" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
-         </children>
-      </HBox>
-      <VBox GridPane.columnIndex="2" GridPane.rowIndex="2">
-         <children>
-            <Button fx:id="btnLimpar" mnemonicParsing="false" text="Limpar" VBox.vgrow="ALWAYS" />
-            <Button fx:id="btnSalvar" mnemonicParsing="false" text="Salvar" VBox.vgrow="ALWAYS" />
-         </children>
-      </VBox>
-      <HBox>
-         <children>
-            <VBox HBox.hgrow="ALWAYS">
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <Label text="Marca">
-                     <font>
-                        <Font name="Calibri Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtMarca" promptText="Marca" />
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Quilometragem">
+                           <font>
+                              <Font name="Calibri Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtQuilometragem" prefHeight="39.0" prefWidth="354.0" promptText="Quilometragem">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets right="15.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Preço">
+                           <font>
+                              <Font name="Calibri Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtPreco" prefHeight="39.0" prefWidth="317.0" promptText="Preço">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
                </children>
-            </VBox>
-            <VBox HBox.hgrow="ALWAYS">
+            </HBox>
+            <VBox prefHeight="80.0" prefWidth="448.0" GridPane.columnIndex="1">
                <children>
                   <Label text="Modelo">
                      <font>
                         <Font name="Calibri Bold" size="16.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </VBox.margin>
                   </Label>
-                  <TextField fx:id="txtModelo" promptText="Modelo" />
+                  <TextField fx:id="txtModelo" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="39.0" prefWidth="334.0" promptText="Modelo">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="127.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Chassi">
+                     <font>
+                        <Font name="Calibri Bold" size="16.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="txtChassi" prefHeight="39.0" prefWidth="414.0" promptText="Chassi">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="15.0" />
+                     </VBox.margin>
+                  </TextField>
                </children>
             </VBox>
          </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+      </GridPane>
+      <HBox alignment="TOP_CENTER" prefHeight="211.0" prefWidth="1057.0" VBox.vgrow="ALWAYS">
          <children>
-            <VBox>
-               <children>
-                  <Label text="Quilometragem">
-                     <font>
-                        <Font name="Calibri Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtQuilometragem" promptText="Quilometragem" />
-               </children>
-            </VBox>
-            <VBox>
-               <children>
-                  <Label text="Preço">
-                     <font>
-                        <Font name="Calibri Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtPreco" promptText="Preço" />
-               </children>
-            </VBox>
+            <Button fx:id="btnEditar" disable="true" mnemonicParsing="false" prefHeight="42.0" prefWidth="109.0" text="Editar" />
+            <Button fx:id="btnDeletar" mnemonicParsing="false" prefHeight="42.0" prefWidth="109.0" text="Deletar veículo" />
+            <Button fx:id="btnLimpar" mnemonicParsing="false" prefHeight="42.0" prefWidth="109.0" text="Limpar" />
+            <Button fx:id="btnSalvar" mnemonicParsing="false" prefHeight="41.0" prefWidth="109.0" text="Salvar" />
          </children>
       </HBox>
    </children>
-</GridPane>
+</VBox>

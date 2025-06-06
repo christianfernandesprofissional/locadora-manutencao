@@ -18,7 +18,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -88,7 +87,7 @@ public class HomeController implements Initializable {
     public void menuCadastrarVeiculo() {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("CadastroVeiculo.fxml"));
         try {
-            GridPane v = fxmlLoader.load();
+            VBox v = fxmlLoader.load();
             borderPane.setCenter(v);
         } catch (IOException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);

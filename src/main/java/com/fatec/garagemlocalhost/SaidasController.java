@@ -27,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -90,6 +91,7 @@ public class SaidasController implements Initializable {
                
                         Stage stage = new Stage();
                         stage.setScene(new Scene(root));
+                        stage.initStyle(StageStyle.UNDECORATED);
                         //Bloqueia o acesso a tela de trás
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.showAndWait();
