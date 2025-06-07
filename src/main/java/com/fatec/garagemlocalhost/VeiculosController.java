@@ -10,6 +10,7 @@ import com.fatec.garagemlocalhost.model.entities.Veiculo;
 import com.fatec.garagemlocalhost.model.enums.SituacaoVeiculo;
 import com.fatec.garagemlocalhost.services.CategoriaService;
 import com.fatec.garagemlocalhost.services.VeiculoService;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.NumberFormat;
@@ -21,7 +22,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -29,16 +32,19 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 /**
  *
  * @author chris
  */
 public class VeiculosController implements Initializable {
-
+   
     @FXML
     private Button btnLimparFiltros;
 
@@ -121,6 +127,7 @@ public class VeiculosController implements Initializable {
         preencherTodasComboBox();
         configurarListenersDeBusca();
         aplicarFiltroNaListaDeVeiculos(listaFiltrada);
+        editarVeiculoDoubleclick();
 
     }
 
@@ -215,7 +222,7 @@ public class VeiculosController implements Initializable {
                 textoCorresponde = veiculo.getCor().toLowerCase().contains(textoBusca);
             } else if (rbMarca.isSelected() && textoBusca != null && !textoBusca.isEmpty()) {
                 textoCorresponde = veiculo.getMarca().toLowerCase().contains(textoBusca);
-            } else if (textoBusca != null && !textoBusca.isEmpty()) {
+            } else if (rbModelo.isSelected() && textoBusca != null && !textoBusca.isEmpty()) {
                 textoCorresponde = veiculo.getModelo().toLowerCase().contains(textoBusca);
             }
 
@@ -275,4 +282,31 @@ public class VeiculosController implements Initializable {
             System.out.println("Erro ao carregar tabela: " + e.getMessage());
         }
     }
+    
+    public void editarVeiculoDoubleclick() {
+        tabelaVeiculos.setRowFactory(t -> {
+            TableRow<Veiculo> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    Veiculo veiculo = row.getItem();
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("CadastroVeiculo.fxml"));
+                        Parent root = loader.load();
+                        
+                        CadastroVeiculoController controller = loader.getController();
+                        
+                        controller.setVeiculo(veiculo);
+               
+                        BorderPane bp = (BorderPane)tabelaVeiculos.getParent().getParent();
+                        bp.setCenter(root);
+                    }catch(IOException e){
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+            return row;
+        });
+    }
+    
 }

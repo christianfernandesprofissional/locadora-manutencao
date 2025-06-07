@@ -4,6 +4,7 @@
  */
 package com.fatec.garagemlocalhost.model.entities;
 
+import com.fatec.garagemlocalhost.model.enums.SituacaoSaida;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -18,6 +19,9 @@ public class SaidaVeiculo {
     private Veiculo veiculo;
     private LocalDateTime instanteSaida; 
     private Integer kmSaida;
+    
+    private SituacaoSaida situacao;
+   
     
     public SaidaVeiculo(){
         
@@ -78,6 +82,14 @@ public class SaidaVeiculo {
 
     public void setKmSaida(Integer kmSaida) {
         this.kmSaida = kmSaida;
+    }
+
+    public SituacaoSaida getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(SituacaoSaida situacao) {
+        this.situacao = situacao;
     }
 
     @Override

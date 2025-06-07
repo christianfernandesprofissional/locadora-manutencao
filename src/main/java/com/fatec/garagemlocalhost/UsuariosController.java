@@ -5,6 +5,7 @@
 package com.fatec.garagemlocalhost;
 
 import com.fatec.garagemlocalhost.database.DBException;
+import com.fatec.garagemlocalhost.exceptions.LoginValidacaoException;
 import com.fatec.garagemlocalhost.model.entities.Usuario;
 import com.fatec.garagemlocalhost.model.enums.TipoUsuario;
 import com.fatec.garagemlocalhost.services.UsuarioService;
@@ -19,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -79,6 +81,12 @@ public class UsuariosController implements Initializable {
     @FXML
     private PasswordField txtSenha;
 
+    @FXML
+    private Label lblErroEmail;
+
+    @FXML
+    private Label lblErroSenha;
+
     private ObservableList<Usuario> listaDeUsuarios = FXCollections.observableArrayList();
 
     private final UsuarioService usuarioService = new UsuarioService();
@@ -87,10 +95,10 @@ public class UsuariosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         preencherTabela();
         preencherCmb();
-        preencherCampos();
+        preencherCamposComClick();
     }
 
-    public void preencherCampos() {
+    public void preencherCamposComClick() {
         tabelaUsuarios.setRowFactory(t -> {
             TableRow<Usuario> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
@@ -140,10 +148,10 @@ public class UsuariosController implements Initializable {
     @FXML
     public void limparCampos() {
 
-        txtID.setText(null);
-        txtNomeUsuario.setText(null);
-        txtEmail.setText(null);
-        txtSenha.setText(null);
+        txtID.setText("");
+        txtNomeUsuario.setText("");
+        txtEmail.setText("");
+        txtSenha.setText("");
         rbAtivo.setSelected(false);
         rbInativo.setSelected(false);
 
@@ -151,50 +159,87 @@ public class UsuariosController implements Initializable {
 
     /**
      * Cria ou atualiza um usuário
-     * 
+     *
      * @author Christian
      */
     @FXML
     public void salvarUsuario() {
+        lblErroEmail.setVisible(false);
+        lblErroSenha.setVisible(false);
         if (txtID.getText().isEmpty()) {
-            Usuario usuario = new Usuario();
-            usuario.setNome(txtNomeUsuario.getText());
+            criarUsuario();
+        } else {
+            atualizarUsuario();
+        }     
+    }
+
+    public Boolean atualizarUsuario() {
+        Usuario usuario = new Usuario();
+        usuario.setId(Integer.valueOf(txtID.getText()));
+        usuario.setNome(txtNomeUsuario.getText());
+         try{
             usuario.setEmail(txtEmail.getText());
+        }catch(LoginValidacaoException e){
+            lblErroEmail.setVisible(true);
+            return false;
+        }
+        
+         try{
             usuario.setSenha(txtSenha.getText());
-            usuario.setTipoUsuario(cbTipoUsuario.getValue());
-            if (statusUsuario.getSelectedToggle() != null) {
-                RadioButton selecionado = (RadioButton) statusUsuario.getSelectedToggle();
-                String texto = selecionado.getText();
-                usuario.setAtivo(texto.equals("ATIVO"));
-            }
-            try {
-                usuarioService.criarUsuario(usuario);
-            } catch (DBException e) {
-                Alert alert = new Alert(AlertType.ERROR, e.getMessage());
-                alert.showAndWait();
-            }
+        }catch(LoginValidacaoException e){
+            lblErroSenha.setVisible(true);
+            return false;
+        }
+        usuario.setTipoUsuario(cbTipoUsuario.getValue());
+        if (statusUsuario.getSelectedToggle() != null) {
+            RadioButton selecionado = (RadioButton) statusUsuario.getSelectedToggle();
+            String texto = selecionado.getText();
+            usuario.setAtivo(texto.equals("ATIVO"));
+        }
+        try {
+            usuarioService.atualizarUsuario(usuario);
             preencherTabela();
             limparCampos();
-        } else {
-            Usuario usuario = new Usuario();
-            usuario.setId(Integer.valueOf(txtID.getText()));
-            usuario.setNome(txtNomeUsuario.getText());
-            usuario.setEmail(txtEmail.getText());
-            usuario.setSenha(txtSenha.getText());
-            usuario.setTipoUsuario(cbTipoUsuario.getValue());
-            if (statusUsuario.getSelectedToggle() != null) {
-                RadioButton selecionado = (RadioButton) statusUsuario.getSelectedToggle();
-                String texto = selecionado.getText();
-                usuario.setAtivo(texto.equals("ATIVO"));
-            }
-            try {
-                usuarioService.atualizarUsuario(usuario);
-                preencherTabela();
-                limparCampos();
-            } catch (DBException e) {
-                Alert alert = new Alert(AlertType.ERROR, e.getMessage());
-                alert.showAndWait();
-            }
+        } catch (DBException e) {
+            Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+            alert.showAndWait();
         }
+
+        return true;
+    }
+
+    public Boolean criarUsuario() {
+        Usuario usuario = new Usuario();
+        usuario.setNome(txtNomeUsuario.getText());
+        try{
+            usuario.setEmail(txtEmail.getText());
+        }catch(LoginValidacaoException e){
+            lblErroEmail.setVisible(true);
+            return false;
+        }
+        
+         try{
+            usuario.setSenha(txtSenha.getText());
+        }catch(LoginValidacaoException e){
+            lblErroSenha.setVisible(true);
+            return false;
+        }
+        
+        usuario.setTipoUsuario(cbTipoUsuario.getValue());
+        if (statusUsuario.getSelectedToggle() != null) {
+            RadioButton selecionado = (RadioButton) statusUsuario.getSelectedToggle();
+            String texto = selecionado.getText();
+            usuario.setAtivo(texto.equals("ATIVO"));
+        }
+        try {
+            usuarioService.criarUsuario(usuario);
+            preencherTabela();
+            limparCampos();
+        } catch (DBException e) {
+            Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+            alert.showAndWait();
+        }
+
+        return true;
     }
 }
