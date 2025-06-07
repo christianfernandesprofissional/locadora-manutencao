@@ -42,7 +42,7 @@ public class ManutencaoDAO {
         while(rs.next()){
             Manutencao manutencao = new Manutencao();
             manutencao.setId(rs.getInt("id_manutencao"));
-            Veiculo veiculo = veiculoDao.findByPlaca(rs.getString("placa")).get();
+            Veiculo veiculo = veiculoDao.findByPlaca(rs.getString("placa")).orElse(null);
             manutencao.setVeiculo(veiculo);
             manutencao.setDescricao(rs.getString("descricao"));
             manutencao.setIsfinalizado(rs.getBoolean("finalizado"));
@@ -68,7 +68,7 @@ public class ManutencaoDAO {
         if(rs.next()){
             manutencao = new Manutencao();
             manutencao.setId(rs.getInt("id_manutencao"));
-            Veiculo veiculo = veiculoDao.findByPlaca(rs.getString("placa")).get();
+            Veiculo veiculo = veiculoDao.findByPlaca(rs.getString("placa")).orElse(null);
             manutencao.setVeiculo(veiculo);
             manutencao.setDescricao(rs.getString("descricao"));
             manutencao.setIsfinalizado(rs.getBoolean("finalizado"));

@@ -48,15 +48,15 @@ public class DevolucaoVeiculoDAO {
 
             devolucao.setIdDevolucao(rs.getInt("id_devolucao"));
             devolucao.setIdPedido(rs.getInt("id_pedido"));
-            Usuario usuario = usuarioDao.findById(rs.getInt("id_assistente")).get();
+            Usuario usuario = usuarioDao.findById(rs.getInt("id_assistente")).orElse(null);
             devolucao.setAssistente(usuario);
 
             //devolucao.setInstanteDevolucao(rs.getTimestamp("instante_devolucao"));
             devolucao.setKmChegada(rs.getInt("km_chegada"));
-            Manutencao manutencao = manutencaoDao.findById(rs.getInt("id_manutencao")).get();
+            Manutencao manutencao = manutencaoDao.findById(rs.getInt("id_manutencao")).orElse(null);
             devolucao.setManutencao(manutencao);
 
-            Veiculo veiculo = veiculoDao.findByPlaca(rs.getString("placa")).get();
+            Veiculo veiculo = veiculoDao.findByPlaca(rs.getString("placa")).orElse(null);
             devolucao.setVeiculo(veiculo);
             devolucoes.add(devolucao);
         }
@@ -83,11 +83,11 @@ public class DevolucaoVeiculoDAO {
             devolucao = new DevolucaoVeiculo();
             devolucao.setIdDevolucao(rs.getInt("id_devolucao"));
             devolucao.setIdPedido(rs.getInt("id_pedido"));
-            devolucao.setAssistente(usuarioDao.findById(rs.getInt("id_assistente")).get());
+            devolucao.setAssistente(usuarioDao.findById(rs.getInt("id_assistente")).orElse(null));
             devolucao.setInstanteDevolucao(rs.getTimestamp("instante_devolucao").toLocalDateTime());
             devolucao.setKmChegada(rs.getInt("km_chegada"));
-            devolucao.setManutencao(manutencaoDao.findById(rs.getInt("id_manutencao")).get());
-            devolucao.setVeiculo(veiculoDao.findByPlaca(rs.getString("placa")).get());
+            devolucao.setManutencao(manutencaoDao.findById(rs.getInt("id_manutencao")).orElse(null));
+            devolucao.setVeiculo(veiculoDao.findByPlaca(rs.getString("placa")).orElse(null));
         }
 
         rs.close();
