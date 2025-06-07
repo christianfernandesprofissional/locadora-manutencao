@@ -64,6 +64,11 @@
                               <Insets right="15.0" />
                            </VBox.margin>
                         </TextField>
+                        <Label fx:id="lblErroPlaca" text="A placa deve ter 7 dígitos" textFill="RED" visible="false">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                   <VBox HBox.hgrow="ALWAYS">
@@ -108,11 +113,26 @@
                               <Insets left="15.0" />
                            </VBox.margin>
                         </TextField>
+                        <Label fx:id="lblErroAno" text="Ano inválido" textFill="RED" visible="false">
+                           <VBox.margin>
+                              <Insets left="15.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                </children>
             </HBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="179.0" prefWidth="396.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <VBox alignment="CENTER" prefHeight="179.0" prefWidth="396.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <Label fx:id="lblVeiculoSalvo" text="Veículo Salvo" textFill="#00ff38" visible="false">
+                     <font>
+                        <Font name="Calibri Bold" size="28.0" />
+                     </font>
+                  </Label>
+               </children></VBox>
             <HBox>
                <children>
                   <VBox prefHeight="80.0" prefWidth="350.0" HBox.hgrow="NEVER">
@@ -151,11 +171,16 @@
                               <Insets right="15.0" />
                            </VBox.margin>
                         </TextField>
+                        <Label fx:id="lblErroKm" text="Quilometragem inválida" textFill="RED" visible="false">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                   <VBox HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="Preço">
+                        <Label text="Preço R$:">
                            <font>
                               <Font name="Calibri Bold" size="16.0" />
                            </font>
@@ -165,6 +190,11 @@
                               <Font size="18.0" />
                            </font>
                         </TextField>
+                        <Label fx:id="lblErroPreco" text="Preço inválido" textFill="RED" visible="false">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                </children>
@@ -209,8 +239,22 @@
                   </TextField>
                </children>
             </VBox>
+            <VBox GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <Label fx:id="lblErroCategoria" text="Escolha uma categoria" textFill="RED" visible="false">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
          </children>
       </GridPane>
+      <Label fx:id="lblErroCamposVazios" text="Preencha todos os campos" textFill="RED" visible="false">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
       <HBox alignment="TOP_CENTER" prefHeight="211.0" prefWidth="1057.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="btnEditar" disable="true" mnemonicParsing="false" prefHeight="42.0" prefWidth="109.0" text="Editar" />

@@ -67,6 +67,7 @@ public class VeiculoService {
         try{
             veiculoDao.updateVeiculo(veiculo);
         }catch(SQLException e){
+            e.printStackTrace();
             throw new DBException("Erro ao atualizar veículo");
         }
     }

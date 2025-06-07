@@ -109,7 +109,7 @@ public class VeiculoDAO {
     
     public void updateVeiculo(Veiculo veiculo)throws SQLException{
 
-        String sql = "UPDATE veiculos SET marca = ?, cor = ?, ano = ?, chassi =?,modelo = ?,quilometragem = ?,id_categoria = ?, preco_base = ?, situcao = ?  WHERE placa = ?;";
+        String sql = "UPDATE veiculos SET marca = ?, cor = ?, ano = ?, chassi =?,modelo = ?,quilometragem = ?,id_categoria = ?, preco_base = ?, situacao = ?  WHERE placa = ?;";
         PreparedStatement ps = database.getConnnection().prepareStatement(sql);
 
 

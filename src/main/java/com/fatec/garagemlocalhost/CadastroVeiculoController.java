@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -32,6 +33,27 @@ import javafx.stage.Stage;
  * @author Christian
  */
 public class CadastroVeiculoController implements Initializable {
+
+    @FXML
+    private Label lblErroPlaca;
+
+    @FXML
+    private Label lblErroAno;
+
+    @FXML
+    private Label lblErroPreco;
+
+    @FXML
+    private Label lblErroKm;
+
+    @FXML
+    private Label lblErroCamposVazios;
+
+    @FXML
+    private Label lblErroCategoria;
+
+    @FXML
+    private Label lblVeiculoSalvo;
 
     @FXML
     private Button btnLimpar;
@@ -95,10 +117,12 @@ public class CadastroVeiculoController implements Initializable {
     public void configurarBotoes() {
         btnEditar.setOnAction(e -> {
             habilitarCampos(true);
+            esconderLabels();
         });
 
         btnLimpar.setOnAction(e -> {
             limparCampos();
+            esconderLabels();
         });
 
         btnAdicionarCategoria.setOnAction(e -> {
@@ -121,35 +145,45 @@ public class CadastroVeiculoController implements Initializable {
         });
 
         btnSalvar.setOnAction(e -> {
+            esconderLabels();
             try {
                 if (txtPlaca.isDisabled()) {
-                    veiculo.setCategoria(cmbCategoria.getValue());
-                    veiculo.setCor(txtCor.getText());
-                    veiculo.setMarca(txtMarca.getText());
-                    veiculo.setModelo(txtModelo.getText());
-                    //Fazer verificações nos items abaixo
-                    veiculo.setAno(Integer.valueOf(txtAno.getText()));
-                    veiculo.setPrecoBase(new BigDecimal(txtPreco.getText()));
-                    veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
-   
-                    veiculoService.atualizarVeiculo(veiculo);
-                }else{
-                    veiculo.setCategoria(cmbCategoria.getValue());
-                    veiculo.setCor(txtCor.getText());
-                    veiculo.setMarca(txtMarca.getText());
-                    veiculo.setModelo(txtModelo.getText());
-                    //Fazer verificações nos items abaixo
-                    veiculo.setAno(Integer.valueOf(txtAno.getText()));
-                    veiculo.setPrecoBase(new BigDecimal(txtPreco.getText()));
-                    veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
-                    veiculo.setPlaca(txtPlaca.getText());
-                    veiculo.setChassi(txtChassi.getText());
-                    
-                    veiculoService.cadastrarVeiculo(veiculo);
+                    if (verificarValores()) {
+                        veiculo.setCategoria(cmbCategoria.getValue());
+                        veiculo.setCor(txtCor.getText());
+                        veiculo.setMarca(txtMarca.getText());
+                        veiculo.setModelo(txtModelo.getText());
+                        //Fazer verificações nos items abaixo
+                        veiculo.setAno(Integer.valueOf(txtAno.getText()));
+                        veiculo.setPrecoBase(new BigDecimal(txtPreco.getText().trim().replace(",", ".")));
+                        veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
+                        veiculoService.atualizarVeiculo(veiculo);
+                        lblVeiculoSalvo.setVisible(true);
+                        desabilitarCampos();
+                    }
+
+                } else {
+                    if (verificarValores()) {
+                        veiculo.setCategoria(cmbCategoria.getValue());
+                        veiculo.setCor(txtCor.getText());
+                        veiculo.setMarca(txtMarca.getText());
+                        veiculo.setModelo(txtModelo.getText());
+                        //Fazer verificações nos items abaixo
+                        veiculo.setAno(Integer.valueOf(txtAno.getText()));
+                        veiculo.setPrecoBase(new BigDecimal(txtPreco.getText().trim().replace(",", ".")));
+                        veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
+                        veiculo.setPlaca(txtPlaca.getText());
+                        veiculo.setChassi(txtChassi.getText());
+                        veiculoService.cadastrarVeiculo(veiculo);
+                        lblVeiculoSalvo.setVisible(true);
+                        desabilitarCampos();
+                    }
                 }
 
             } catch (DBException error) {
-
+                error.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Erro ao salvar veiculo!");
+                alert.showAndWait();
             }
 
         });
@@ -201,9 +235,8 @@ public class CadastroVeiculoController implements Initializable {
     }
 
     /**
-     * Preenche os campos com os dados do Veículo. 
-     * Tenha certeza de que o veículo está instanciado
-     * antes de chamar este metodo.
+     * Preenche os campos com os dados do Veículo. Tenha certeza de que o
+     * veículo está instanciado antes de chamar este metodo.
      */
     private void preencherCampos() {
         txtAno.setText(veiculo.getAno().toString());
@@ -229,9 +262,9 @@ public class CadastroVeiculoController implements Initializable {
 
     /**
      * Verifica se um valor de texto é inteiro
-     * 
+     *
      * @param numero
-     * @return 
+     * @return
      */
     public Boolean isInteiro(String numero) {
         try {
@@ -241,24 +274,82 @@ public class CadastroVeiculoController implements Initializable {
             return false;
         }
     }
-    
+
     /**
-     * Verifica se um valor de texto é decimal.
-     * Já substitui virgula por ponto.
-     * 
+     * Verifica se um valor de texto é decimal. Já substitui virgula por ponto.
+     *
      * @param numero
-     * @return 
+     * @return
      */
     public Boolean isDecimal(String numero) {
-        if(numero.contains(",")){
-            numero = numero.replace(",", ".");
+        if (numero.contains(",")) {
+            numero = numero.trim().replace(",", ".");
         }
         try {
-            Integer.valueOf(numero);
+            Double.valueOf(numero);
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public Boolean verificarValores() {
+        Boolean valoresValidos = true;
+
+        if (!isInteiro(txtAno.getText())) {
+            lblErroAno.setVisible(true);
+            valoresValidos = false;
+        }
+        if (!isInteiro(txtQuilometragem.getText())) {
+            lblErroKm.setVisible(true);
+            valoresValidos = false;
+        }
+
+        if (!isDecimal(txtPreco.getText())) {
+            lblErroPreco.setVisible(true);
+            valoresValidos = false;
+        }
+
+        if (txtPlaca.getText().length() != 7) {
+            lblErroPlaca.setVisible(true);
+            valoresValidos = false;
+        }
+
+        if (txtChassi.getText().isEmpty()) {
+            lblErroCamposVazios.setVisible(true);
+            valoresValidos = false;
+        }
+
+        if (txtCor.getText().isEmpty()) {
+            lblErroCamposVazios.setVisible(true);
+            valoresValidos = false;
+        }
+
+        if (txtMarca.getText().isEmpty()) {
+            lblErroCamposVazios.setVisible(true);
+            valoresValidos = false;
+        }
+
+        if (txtModelo.getText().isEmpty()) {
+            lblErroCamposVazios.setVisible(true);
+            valoresValidos = false;
+        }
+
+        if (cmbCategoria.getValue() == null) {
+            lblErroCategoria.setVisible(true);
+            valoresValidos = false;
+        }
+        return valoresValidos;
+    }
+
+    public void esconderLabels(){
+        lblVeiculoSalvo.setVisible(false);
+        lblErroAno.setVisible(false);
+        lblErroKm.setVisible(false);
+        lblErroPreco.setVisible(false);
+        lblErroPlaca.setVisible(false);
+        lblErroCamposVazios.setVisible(false);
+        lblErroCategoria.setVisible(false);
     }
     
     public void setVeiculo(Veiculo veiculo) {
@@ -266,7 +357,5 @@ public class CadastroVeiculoController implements Initializable {
         preencherCampos();
         desabilitarCampos();
     }
-    
-    
 
 }
