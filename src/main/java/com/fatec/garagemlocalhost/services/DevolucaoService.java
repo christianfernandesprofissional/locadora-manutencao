@@ -49,7 +49,7 @@ public class DevolucaoService {
         }
     }
 
-    public void crearDevolucao(DevolucaoVeiculo d) throws DBException {
+    public void criarDevolucao(DevolucaoVeiculo d) throws DBException {
         //Ele precisa verificar se o Objeto esta todo preenchido
         try {
             if (!Verificar.todosAtributosPreenchidos(d, "getId")) {

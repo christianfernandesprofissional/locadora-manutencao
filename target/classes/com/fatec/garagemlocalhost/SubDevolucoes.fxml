@@ -69,6 +69,7 @@
                         <Font size="16.0" />
                      </font>
                   </TextField>
+                  <Label fx:id="lblErroKm" text="Quilometragem tem que ser maior que" textFill="RED" visible="false" />
                </children>
             </VBox>
             <VBox prefHeight="112.0" prefWidth="246.0">

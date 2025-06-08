@@ -1,9 +1,5 @@
 package com.fatec.garagemlocalhost;
 
-import com.fatec.garagemlocalhost.database.Database;
-import com.fatec.garagemlocalhost.model.entities.Usuario;
-import com.fatec.garagemlocalhost.model.enums.TipoUsuario;
-import com.fatec.garagemlocalhost.utils.Verificar;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

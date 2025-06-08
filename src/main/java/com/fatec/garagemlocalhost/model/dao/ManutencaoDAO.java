@@ -95,16 +95,14 @@ public class ManutencaoDAO {
     
     public void createManutencao(Manutencao manutencao)throws SQLException{
 
-        String sql = "INSERT INTO manutencoes(placa, descricao, finalizado, instante_chegada, instante_saida, total) VALUES(?,?,?,?,?,?);";
+        String sql = "INSERT INTO manutencoes(placa, descricao, finalizado, instante_chegada) VALUES(?,?,?,?);";
         PreparedStatement ps = database.getConnnection().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
         ps.setString(1, manutencao.getVeiculo().getPlaca());
         ps.setString(2, manutencao.getDescricao());
         ps.setBoolean(3, manutencao.getIsfinalizado());
         ps.setTimestamp(4, Timestamp.valueOf(manutencao.getInstanteChegada()));
-        ps.setTimestamp(5, Timestamp.valueOf(manutencao.getInstanteSaida()));
-        ps.setDouble(6, manutencao.getValorTotal().doubleValue());
-
+        
         int linhas = ps.executeUpdate();
 
         if(linhas > 0){

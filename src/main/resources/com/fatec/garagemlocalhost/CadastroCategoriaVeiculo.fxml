@@ -34,6 +34,7 @@
             </VBox>
             <VBox alignment="BOTTOM_CENTER" prefHeight="84.0" prefWidth="197.0">
                <children>
+                  <Button fx:id="btnEditar" mnemonicParsing="false" text="Editar" />
                   <Button fx:id="btnAdicionar" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Adicionar" />
                   <Button fx:id="btnDeletar" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Deletar" />
                </children>
