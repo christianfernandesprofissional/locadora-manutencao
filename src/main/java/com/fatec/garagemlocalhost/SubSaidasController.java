@@ -15,6 +15,7 @@ import com.fatec.garagemlocalhost.services.SaidaService;
 import com.fatec.garagemlocalhost.utils.UsuarioHolder;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,29 +57,33 @@ public class SubSaidasController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        configurarBotoes();
     }
 
-    public void cancelar(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
+    public void configurarBotoes() {
+        btnCancelar.setOnAction(event -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        });
 
-    public void salvar(ActionEvent event) {
-        try {
-            if (isInteiro(txtKmSaida.getText())) {
-                saida.setKmSaida(Integer.valueOf(txtKmSaida.getText()));
-                saidaService.atualizarSaida(saida);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.close();
-            } else {
-                lblErro.setVisible(true);
+        btnEntregarVeiculo.setOnAction(event -> {
+            try {
+                if (isInteiro(txtKmSaida.getText())) {
+                    saida.setKmSaida(Integer.valueOf(txtKmSaida.getText()));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                    saida.setInstanteSaida(LocalDateTime.parse(txtInstanteSaida.getText(), formatter));
+
+                    saidaService.atualizarSaida(saida);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.close();
+                } else {
+                    lblErro.setVisible(true);
+                }
+            } catch (DBException | CampoVazioException e) {
+                Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+                alert.showAndWait();
             }
-        } catch (DBException | CampoVazioException e) {
-            Alert alert = new Alert(AlertType.ERROR, e.getMessage());
-            alert.showAndWait();
-        }
-
+        });
     }
 
     public SaidaVeiculo getSaida() {
@@ -87,16 +92,19 @@ public class SubSaidasController implements Initializable {
 
     public void setSaida(SaidaVeiculo saida) {
         this.saida = saida;
+
         txtPlacaSaida.setText(saida.getVeiculo().getPlaca());
         if (saida.getUsuario() != null) {
-            txtAssistenteSaida.setText(saida.getUsuario().getEmail());
+            txtAssistenteSaida.setText(saida.getUsuario().getNome());
         } else {
-            txtAssistenteSaida.setText(UsuarioHolder.getInstance().getUsuario().getEmail());
+            saida.setUsuario(UsuarioHolder.getInstance().getUsuario());
+            txtAssistenteSaida.setText(UsuarioHolder.getInstance().getUsuario().getNome());
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         if (saida.getInstanteSaida() == null) {
-            txtInstanteSaida.setText(LocalDateTime.now().toString());
+            txtInstanteSaida.setText(LocalDateTime.now().format(formatter));
         } else {
-            txtInstanteSaida.setText(saida.getInstanteSaida().toString());
+            txtInstanteSaida.setText(saida.getInstanteSaida().format(formatter));
         }
         if (saida.getKmSaida() != null) {
             txtKmSaida.setText(saida.getKmSaida().toString());

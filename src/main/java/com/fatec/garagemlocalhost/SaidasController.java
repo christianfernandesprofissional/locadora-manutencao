@@ -57,7 +57,7 @@ public class SaidasController implements Initializable {
     private TableColumn<SaidaVeiculo, Integer> colunaAno;
 
     @FXML
-    private TableColumn<SaidaVeiculo, Integer> colunaKmSaida;
+    private TableColumn<SaidaVeiculo, String> colunaKmSaida;
 
     @FXML
     private TableColumn<SaidaVeiculo, String> colunaInstante;
@@ -84,11 +84,11 @@ public class SaidasController implements Initializable {
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("SubSaidas.fxml"));
                         Parent root = loader.load();
-                        
+
                         SubSaidasController controller = loader.getController();
-                        
-                        controller.setSaida(saida);   
-               
+
+                        controller.setSaida(saida);
+
                         Stage stage = new Stage();
                         stage.setScene(new Scene(root));
                         stage.initStyle(StageStyle.UNDECORATED);
@@ -96,7 +96,7 @@ public class SaidasController implements Initializable {
                         stage.initModality(Modality.APPLICATION_MODAL);
                         stage.showAndWait();
                         preencherTabela();
-                    }catch(IOException e){
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
@@ -131,10 +131,20 @@ public class SaidasController implements Initializable {
                 return new SimpleIntegerProperty(saida.getVeiculo().getAno()).asObject();
             });
 
-            colunaKmSaida.setCellValueFactory(new PropertyValueFactory<>("kmSaida"));
+            colunaKmSaida.setCellValueFactory(cellData -> {
+                Integer km = cellData.getValue().getKmSaida();
+                if (km == null) {
+                    return new SimpleStringProperty("");
+                }
+                return new SimpleStringProperty(String.valueOf(km));
+            });
+
             colunaInstante.setCellValueFactory(cellData -> {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                 LocalDateTime instante = cellData.getValue().getInstanteSaida();
+                if (instante == null) {
+                    return new SimpleStringProperty("");
+                }
                 return new SimpleStringProperty(instante.format(formatter));
             });
             colunaStatus.setCellValueFactory(cellData -> {

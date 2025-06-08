@@ -21,6 +21,7 @@ com\fatec\garagemlocalhost\App.class
 com\fatec\garagemlocalhost\LoginController.class
 com\fatec\garagemlocalhost\model\dao\ServicoDAO.class
 com\fatec\garagemlocalhost\HomeController.class
+com\fatec\garagemlocalhost\model\enums\SituacaoDevolucao.class
 com\fatec\garagemlocalhost\CadastroCategoriaVeiculoController.class
 com\fatec\garagemlocalhost\services\UsuarioService.class
 com\fatec\garagemlocalhost\database\Database.class
