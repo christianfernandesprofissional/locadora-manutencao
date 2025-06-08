@@ -36,12 +36,12 @@ public class CategoriaService {
         }
     }
 
-    public Optional<CategoriaVeiculo> buscarPorId(Integer id) throws DBException, IdInvalidoException {
+    public Optional<CategoriaVeiculo> buscarPorId(CategoriaVeiculo c) throws DBException, IdInvalidoException {
         try {
-            if (id <= 0) {
+            if (c.getId() <= 0) {
                 throw new IdInvalidoException("ID nao pode ser menor que zero");
             }
-            return categoriaVeiculoDao.findById(id);
+            return categoriaVeiculoDao.findById(c.getId());
         } catch (SQLException e) {
             throw new DBException("Erro ao encontrar ID da Categoria");
         }

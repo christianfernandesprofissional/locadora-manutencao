@@ -37,49 +37,52 @@ public class DevolucaoService {
         }
     }
 
-    public Optional<DevolucaoVeiculo> buscaDevolucaoPorId(Integer id) throws DBException {
+    public Optional<DevolucaoVeiculo> buscaDevolucaoPorId(DevolucaoVeiculo devolucao) throws DBException, IdInvalidoException {
         // A unica verificacao necessaria, e se o ID e negativo ou igual a zero
         try {
-            if (id <= 0) {
+            if (devolucao.getIdDevolucao() <= 0) {
                 throw new IdInvalidoException("Id nao pode ser menor ou igual a 0 (zero)");
             }
-            return devolucaoService.findById(id);
+            return devolucaoService.findById(devolucao.getIdDevolucao());
         } catch (SQLException e) {
             throw new DBException("Erro ao buscar Devolucoes por ID");
         }
     }
 
-    public void crearDevolucao(DevolucaoVeiculo d) throws DBException {
+    public void crearDevolucao(DevolucaoVeiculo devolucao) throws DBException {
         //Ele precisa verificar se o Objeto esta todo preenchido
         try {
-            if (!Verificar.todosAtributosPreenchidos(d, "getId")) {
+            if (!Verificar.todosAtributosPreenchidos(devolucao, "getId")) {
                 throw new DBException("Ha algum dado nao preenchido no Objeto");
             }
-            devolucaoService.createDevolucao(d);
+            devolucaoService.createDevolucao(devolucao);
         }catch(SQLException e){
             throw new DBException("Erro ao criar Devolucao");
         }
     }
     
-    public void atualizarDevolucao(DevolucaoVeiculo d) throws DBException{
+    public void atualizarDevolucao(DevolucaoVeiculo devolucao) throws DBException{
         //aqui ele precisa ver se o objeto esta todo preenchido
         try{
-            if(!Verificar.todosAtributosPreenchidos(d)){
+            if(!Verificar.todosAtributosPreenchidos(devolucao)){
                 throw new DBException("Ha campos vazios ao atualizar");
             }
-            devolucaoService.updateDevolucao(d);
+            devolucaoService.updateDevolucao(devolucao);
         }catch(SQLException e){
             throw new DBException("Erro ao atualizar Devolucao");
         }       
     }
     
-    public void deletarDevolucaoPorId(DevolucaoVeiculo d, Integer id) throws DBException{
+    public void deletarDevolucaoPorId(DevolucaoVeiculo devolucao) throws DBException, IdInvalidoException{
         //Aqui ele precisa verificar se o ID e valido antes de deletar
         try{
-            if(id <=0){
+            if(devolucao.getIdDevolucao() <= 0){
                 throw new IdInvalidoException("Id nao pode ser menor ou igual a 0 (zero)");
             }
-            devolucaoService.deleteDevolucao(id);
+            if(!devolucaoService.findById(devolucao.getIdDevolucao()).isPresent()){
+                throw new DBException("Devolucao Inexistente");
+            }
+            devolucaoService.deleteDevolucao(devolucao.getIdDevolucao());
         }catch(SQLException e){
             throw new DBException("Erro ao deletar Devolucao");
         }
