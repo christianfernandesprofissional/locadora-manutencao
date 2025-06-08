@@ -68,7 +68,14 @@ public class SubSaidasController implements Initializable {
 
         btnEntregarVeiculo.setOnAction(event -> {
             try {
-                if (isInteiro(txtKmSaida.getText())) {
+                
+                if(!isInteiro(txtKmSaida.getText())){
+                    lblErro.setText("Valor inválido!");
+                    lblErro.setVisible(true);
+                }else if(Integer.valueOf(txtKmSaida.getText()) < saida.getVeiculo().getQuilometragem()){
+                    lblErro.setText("Quilometragem deve ser maior ou igual a " + saida.getVeiculo().getQuilometragem());
+                    lblErro.setVisible(true);
+                }else {
                     saida.setKmSaida(Integer.valueOf(txtKmSaida.getText()));
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                     saida.setInstanteSaida(LocalDateTime.parse(txtInstanteSaida.getText(), formatter));
@@ -76,9 +83,7 @@ public class SubSaidasController implements Initializable {
                     saidaService.atualizarSaida(saida);
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.close();
-                } else {
-                    lblErro.setVisible(true);
-                }
+                } 
             } catch (DBException | CampoVazioException e) {
                 Alert alert = new Alert(AlertType.ERROR, e.getMessage());
                 alert.showAndWait();
