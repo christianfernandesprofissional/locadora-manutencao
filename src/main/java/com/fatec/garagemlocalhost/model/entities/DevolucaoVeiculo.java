@@ -4,6 +4,7 @@
  */
 package com.fatec.garagemlocalhost.model.entities;
 
+import com.fatec.garagemlocalhost.model.enums.SituacaoDevolucao;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -20,6 +21,8 @@ public class DevolucaoVeiculo {
     private Usuario assistente;
     private Veiculo veiculo;
     private Manutencao manutencao;
+    
+    private SituacaoDevolucao situacao;
     
     public DevolucaoVeiculo(){
         
@@ -91,6 +94,14 @@ public class DevolucaoVeiculo {
         this.manutencao = manutencao;
     }
 
+    public SituacaoDevolucao getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(SituacaoDevolucao situacao) {
+        this.situacao = situacao;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

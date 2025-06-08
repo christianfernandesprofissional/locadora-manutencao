@@ -8,13 +8,13 @@ package com.fatec.garagemlocalhost.model.enums;
  *
  * @author chris
  */
-public enum SituacaoSaida {
-    AGUARDANDO_ENTREGA(1), 
-    ENTREGUE_AO_CLIENTE(2);
+public enum SituacaoDevolucao {
+    AGUARDANDO_DEVOLUCAO(1), 
+    FINALIZADO(2);
     
     private Integer numero; 
     
-    SituacaoSaida(Integer numero){
+    SituacaoDevolucao(Integer numero){
         this.numero = numero;
     }
     
@@ -22,8 +22,8 @@ public enum SituacaoSaida {
         return numero;
     }
     
-    public static SituacaoSaida setInteiro(Integer numero){
-        for(SituacaoSaida s : SituacaoSaida.values()){
+    public static SituacaoDevolucao setInteiro(Integer numero){
+        for(SituacaoDevolucao s : SituacaoDevolucao.values()){
             if(s.getNumero() == numero){
                 return s;
             }

@@ -11,6 +11,7 @@ import com.fatec.garagemlocalhost.services.CategoriaService;
 import com.fatec.garagemlocalhost.services.VeiculoService;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -245,7 +246,7 @@ public class CadastroVeiculoController implements Initializable {
         txtMarca.setText(veiculo.getMarca());
         txtModelo.setText(veiculo.getModelo());
         txtPlaca.setText(veiculo.getPlaca());
-        txtPreco.setText(veiculo.getPrecoBase().toString());
+        txtPreco.setText(veiculo.getPrecoBase().setScale(2, RoundingMode.CEILING).toString());
         txtQuilometragem.setText(veiculo.getQuilometragem().toString());
     }
 
