@@ -51,7 +51,7 @@ public class DevolucaoVeiculoDAO {
 
             devolucao.setIdDevolucao(rs.getInt("id_devolucao"));
             devolucao.setIdPedido(rs.getInt("id_pedido"));
-            Usuario usuario = usuarioDao.findById(rs.getInt("id_assistente")).get();
+            Usuario usuario = usuarioDao.findById(rs.getInt("id_assistente")).orElse(null);
             devolucao.setAssistente(usuario);
 
             if (rs.getTimestamp("instante_devolucao") == null) {
@@ -114,6 +114,7 @@ public class DevolucaoVeiculoDAO {
             } else {
                 devolucao.setSituacao(SituacaoDevolucao.FINALIZADO);
             }
+
         }
 
         rs.close();
