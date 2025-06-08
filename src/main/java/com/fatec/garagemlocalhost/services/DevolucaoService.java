@@ -63,7 +63,7 @@ public class DevolucaoService {
     public void atualizarDevolucao(DevolucaoVeiculo devolucao) throws DBException{
         //aqui ele precisa ver se o objeto esta todo preenchido
         try{
-            if(!Verificar.todosAtributosPreenchidos(devolucao)){
+            if(!Verificar.todosAtributosPreenchidos(devolucao, "getManutencao")){
                 throw new DBException("Ha campos vazios ao atualizar");
             }
             devolucaoService.updateDevolucao(devolucao);

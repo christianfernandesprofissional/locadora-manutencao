@@ -14,6 +14,7 @@ import com.fatec.garagemlocalhost.model.entities.DevolucaoVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Manutencao;
 import com.fatec.garagemlocalhost.model.enums.SituacaoVeiculo;
 import com.fatec.garagemlocalhost.services.DevolucaoService;
+import com.fatec.garagemlocalhost.services.ManutencaoService;
 import com.fatec.garagemlocalhost.services.VeiculoService;
 import com.fatec.garagemlocalhost.utils.UsuarioHolder;
 import java.net.URL;
@@ -31,7 +32,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class SubDevolucoesController implements Initializable{
+public class SubDevolucoesController implements Initializable {
 
     @FXML
     private Button btnRegistrarDevolucao;
@@ -50,77 +51,85 @@ public class SubDevolucoesController implements Initializable{
 
     @FXML
     private TextField txtPlaca;
-    
+
     @FXML
     private TextField txtChassi;
-    
+
     @FXML
     private TextField txtInstanteDevolucao;
 
     @FXML
     private TextArea txtMotivoManutencao;
-    
+
     @FXML
     private Label lblErroKm;
     
+    @FXML
+    private Label lblErroDescricao;
+
     private DevolucaoVeiculo devolucao;
-    
+
     private DevolucaoService devolucaoService = new DevolucaoService();
-    
+
     private VeiculoService veiculoService = new VeiculoService();
-    
-    //private ManutencaoService manutencaoService = new ManutencaoService();
-    
+
+    private ManutencaoService manutencaoService = new ManutencaoService();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         configurarBotoes();
     }
-    
-    public void habilitarBotoes(){
-        if(devolucao.getInstanteDevolucao() == null){
+
+    public void habilitarBotoes() {
+        if (devolucao.getInstanteDevolucao() == null) {
             cbVaiParaManutencao.setDisable(false);
             txtKmChegada.setEditable(true);
             btnRegistrarDevolucao.setDisable(false);
         }
     }
-    
-    public void configurarBotoes(){
+
+    public void configurarBotoes() {
         btnCancelar.setOnAction(event -> {
-             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
         });
-        
-         btnRegistrarDevolucao.setOnAction(event -> {
+
+        btnRegistrarDevolucao.setOnAction(event -> {
             try {
                 if (!isInteiro(txtKmChegada.getText())) {
 
-                     lblErroKm.setText("Valor inválido!");
+                    lblErroKm.setText("Valor inválido!");
                     lblErroKm.setVisible(true);
-                    
-                } else if(Integer.valueOf(txtKmChegada.getText()) <= devolucao.getVeiculo().getQuilometragem()) {
-   
+
+                } else if (Integer.valueOf(txtKmChegada.getText()) <= devolucao.getVeiculo().getQuilometragem()) {
+
                     lblErroKm.setText("Quilometragem deve ser maior que " + devolucao.getVeiculo().getQuilometragem());
                     lblErroKm.setVisible(true);
-                    
-                }else {
-                    
+
+                } else if (cbVaiParaManutencao.isSelected() && txtMotivoManutencao.getText().isBlank()) {
+                    lblErroDescricao.setVisible(true);
+                } else {
+
                     devolucao.setKmChegada(Integer.valueOf(txtKmChegada.getText()));
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                     devolucao.setInstanteDevolucao(LocalDateTime.parse(txtInstanteDevolucao.getText(), formatter));
-                    devolucaoService.buscaDevolucaoPorId(2);
-                    
-                    int novaKm = devolucao.getVeiculo().getQuilometragem() + Integer.valueOf(txtKmChegada.getText());
+
+                    int novaKm = Integer.valueOf(txtKmChegada.getText()) - devolucao.getVeiculo().getQuilometragem() + devolucao.getVeiculo().getQuilometragem();
                     devolucao.getVeiculo().setQuilometragem(novaKm);
-                    
-                    if(cbVaiParaManutencao.isSelected()){
+
+                    if (cbVaiParaManutencao.isSelected()) {
                         Manutencao manutencao = new Manutencao();
                         manutencao.setDescricao(txtMotivoManutencao.getText());
                         manutencao.setInstanteChegada(LocalDateTime.parse(txtInstanteDevolucao.getText(), formatter));
                         manutencao.setIsfinalizado(Boolean.FALSE);
                         devolucao.getVeiculo().setSituacao(SituacaoVeiculo.EM_MANUTENÇÃO);
                         manutencao.setVeiculo(devolucao.getVeiculo());
+                        devolucao.setManutencao(manutencao);
                     }
-                    
+                    manutencaoService.cadastrarManutencao(devolucao.getManutencao());
+                    devolucaoService.atualizarDevolucao(devolucao);
+                    veiculoService.atualizarVeiculo(devolucao.getVeiculo());
+
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.close();
                 }
@@ -129,20 +138,19 @@ public class SubDevolucoesController implements Initializable{
                 alert.showAndWait();
             }
         });
-         
-         cbVaiParaManutencao.setOnAction(e -> {
-             if(txtMotivoManutencao.isDisabled()){
-                 txtMotivoManutencao.setDisable(false);
-             }else{
-                 txtMotivoManutencao.setDisable(true);
-             }
-         });
+
+        cbVaiParaManutencao.setOnAction(e -> {
+            if (txtMotivoManutencao.isDisabled()) {
+                txtMotivoManutencao.setDisable(false);
+            } else {
+                txtMotivoManutencao.setDisable(true);
+            }
+        });
     }
-    
-    
-      public void setDevolucao(DevolucaoVeiculo devolucao) {
+
+    public void setDevolucao(DevolucaoVeiculo devolucao) {
         this.devolucao = devolucao;
-        
+
         txtPlaca.setText(devolucao.getVeiculo().getPlaca());
         if (devolucao.getAssistente() != null) {
             txtAuxiliar.setText(devolucao.getAssistente().getNome());
@@ -153,23 +161,23 @@ public class SubDevolucoesController implements Initializable{
         if (devolucao.getKmChegada() != null) {
             txtKmChegada.setEditable(false);
             txtKmChegada.setText(devolucao.getKmChegada().toString());
-        } 
+        }
         txtChassi.setText(devolucao.getVeiculo().getChassi());
         txtPlaca.setText(devolucao.getVeiculo().getPlaca());
-        
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        if(devolucao.getInstanteDevolucao() == null){
+        if (devolucao.getInstanteDevolucao() == null) {
             cbVaiParaManutencao.setDisable(false);
             btnRegistrarDevolucao.setDisable(false);
             txtKmChegada.setEditable(true);
             txtInstanteDevolucao.setText(LocalDateTime.now().format(formatter));
-        }else{
+        } else {
             cbVaiParaManutencao.setDisable(true);
             txtInstanteDevolucao.setText(devolucao.getInstanteDevolucao().format(formatter));
         }
     }
 
-     public Boolean isInteiro(String numero) {
+    public Boolean isInteiro(String numero) {
         try {
             Integer.valueOf(numero);
             return true;
@@ -178,4 +186,3 @@ public class SubDevolucoesController implements Initializable{
         }
     }
 }
-

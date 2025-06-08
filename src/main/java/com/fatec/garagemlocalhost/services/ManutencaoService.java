@@ -47,8 +47,8 @@ public class ManutencaoService {
 }
     public void cadastrarManutencao(Manutencao manutencao) throws DBException, IdInvalidoException{
         try{
-            if(!Verificar.todosAtributosPreenchidos(manutencao, "getId")){
-                throw new IdInvalidoException("Existem campos vazios !");
+            if(manutencao.getInstanteChegada() ==  null ||  manutencao.getIsfinalizado() == null || manutencao.getVeiculo() == null || manutencao.getDescricao() == null){
+                throw new IdInvalidoException("Erro! Para criar uma manutenção preencha Instante de chegada, Veiculo, isFinalizado e Descrição !");
             }
             manutencaoServiceDao.createManutencao(manutencao);
         }catch(SQLException e){
@@ -57,7 +57,7 @@ public class ManutencaoService {
     }
     public void atualizarManutencao(Manutencao manutencao) throws DBException, IdInvalidoException{
           try{
-            if(!Verificar.todosAtributosPreenchidos(manutencao, "getId")){
+            if(!Verificar.todosAtributosPreenchidos(manutencao)){
                 throw new IdInvalidoException("Existem campos vazios !");
             }
             manutencaoServiceDao.updateManutencao(manutencao);
