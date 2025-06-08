@@ -57,32 +57,33 @@ public class SubSaidasController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        configurarBotoes();
     }
 
-    public void cancelar(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-    }
+    public void configurarBotoes() {
+        btnCancelar.setOnAction(event -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.close();
+        });
 
-    public void salvar(ActionEvent event) {
-        try {
-            if (isInteiro(txtKmSaida.getText())) {
-                saida.setKmSaida(Integer.valueOf(txtKmSaida.getText()));
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-                saida.setInstanteSaida(LocalDateTime.parse(txtInstanteSaida.getText(), formatter));
-                
-                saidaService.atualizarSaida(saida);
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.close();
-            } else {
-                lblErro.setVisible(true);
+        btnEntregarVeiculo.setOnAction(event -> {
+            try {
+                if (isInteiro(txtKmSaida.getText())) {
+                    saida.setKmSaida(Integer.valueOf(txtKmSaida.getText()));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                    saida.setInstanteSaida(LocalDateTime.parse(txtInstanteSaida.getText(), formatter));
+
+                    saidaService.atualizarSaida(saida);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.close();
+                } else {
+                    lblErro.setVisible(true);
+                }
+            } catch (DBException | CampoVazioException e) {
+                Alert alert = new Alert(AlertType.ERROR, e.getMessage());
+                alert.showAndWait();
             }
-        } catch (DBException | CampoVazioException e) {
-            Alert alert = new Alert(AlertType.ERROR, e.getMessage());
-            alert.showAndWait();
-        }
-
+        });
     }
 
     public SaidaVeiculo getSaida() {
@@ -91,7 +92,7 @@ public class SubSaidasController implements Initializable {
 
     public void setSaida(SaidaVeiculo saida) {
         this.saida = saida;
-        
+
         txtPlacaSaida.setText(saida.getVeiculo().getPlaca());
         if (saida.getUsuario() != null) {
             txtAssistenteSaida.setText(saida.getUsuario().getNome());

@@ -81,11 +81,11 @@
       </HBox>
       <ButtonBar prefHeight="40.0" prefWidth="200.0">
         <buttons>
-          <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
+          <Button fx:id="btnCancelar" mnemonicParsing="false" text="Cancelar">
                <font>
                   <Font size="16.0" />
                </font></Button>
-            <Button fx:id="btnEntregarVeiculo" mnemonicParsing="false" onAction="#salvar" text="Salvar">
+            <Button fx:id="btnEntregarVeiculo" mnemonicParsing="false" text="Salvar">
                <font>
                   <Font size="16.0" />
                </font>
