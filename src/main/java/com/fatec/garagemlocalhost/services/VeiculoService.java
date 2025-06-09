@@ -48,7 +48,7 @@ public class VeiculoService {
     }
     
     public void cadastrarVeiculo(Veiculo veiculo) throws DBException, CampoVazioException{
-        if(!Verificar.todosAtributosPreenchidos(veiculo,"getPlaca")){
+        if(!Verificar.todosAtributosPreenchidos(veiculo)){
             throw new CampoVazioException("Faltam informações para cadastrar veículo!");
         }
         
@@ -67,7 +67,6 @@ public class VeiculoService {
         try{
             veiculoDao.updateVeiculo(veiculo);
         }catch(SQLException e){
-            e.printStackTrace();
             throw new DBException("Erro ao atualizar veículo");
         }
     }

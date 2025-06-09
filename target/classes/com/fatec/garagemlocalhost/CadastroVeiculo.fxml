@@ -22,24 +22,43 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="80.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="398.0" minHeight="10.0" prefHeight="99.0" vgrow="NEVER" />
-          <RowConstraints maxHeight="238.0" minHeight="0.0" prefHeight="184.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="398.0" minHeight="10.0" prefHeight="81.0" vgrow="NEVER" />
+          <RowConstraints maxHeight="238.0" minHeight="0.0" prefHeight="150.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
                <children>
-                  <HBox>
+                  <HBox prefHeight="68.0" prefWidth="360.0">
                      <children>
-                        <ComboBox fx:id="cmbCategoria" prefHeight="39.0" prefWidth="170.0" promptText="Categoria">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="64.0" prefWidth="170.0">
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
-                        </ComboBox>
-                        <Button fx:id="btnAdicionarCategoria" mnemonicParsing="false" prefHeight="28.0" prefWidth="35.0" text="+">
-                           <font>
-                              <Font name="System Bold" size="17.0" />
-                           </font>
-                        </Button>
+                           <children>
+                              <Label text="Categoria do veículo">
+                                 <font>
+                                    <Font name="Calibri Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="cmbCategoria" prefHeight="39.0" prefWidth="170.0" promptText="Categoria">
+                                 <VBox.margin>
+                                    <Insets bottom="4.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                           </children>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="68.0" prefWidth="51.0">
+                           <children>
+                              <Button fx:id="btnAdicionarCategoria" mnemonicParsing="false" prefHeight="41.0" prefWidth="41.0" text="+">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="3.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
                      </children>
                   </HBox>
                </children>
@@ -219,7 +238,7 @@
                   </TextField>
                </children>
             </VBox>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="127.0" prefWidth="337.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="355.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <Label text="Chassi">
                      <font>
@@ -239,7 +258,7 @@
                   </TextField>
                </children>
             </VBox>
-            <VBox GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <VBox prefHeight="64.0" prefWidth="360.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <children>
                   <Label fx:id="lblErroCategoria" text="Escolha uma categoria" textFill="RED" visible="false">
                      <font>

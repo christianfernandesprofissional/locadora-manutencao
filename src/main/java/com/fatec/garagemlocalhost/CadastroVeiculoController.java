@@ -141,6 +141,8 @@ public class CadastroVeiculoController implements Initializable {
                 //Bloqueia o acesso a tela de trás
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
+                cmbCategoria.getItems().clear();
+                preencherCmbCategorias();
             } catch (IOException erro) {
                 erro.printStackTrace();
             }
@@ -251,6 +253,9 @@ public class CadastroVeiculoController implements Initializable {
         txtPlaca.setText(veiculo.getPlaca());
         txtPreco.setText(veiculo.getPrecoBase().setScale(2, RoundingMode.CEILING).toString());
         txtQuilometragem.setText(veiculo.getQuilometragem().toString());
+        if(veiculo.getCategoria() != null){
+            cmbCategoria.setValue(veiculo.getCategoria());
+        }
     }
 
     private void preencherCmbCategorias() {
