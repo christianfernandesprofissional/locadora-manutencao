@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,12 +24,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -38,6 +41,9 @@ public class CadastroVeiculoController implements Initializable {
 
     @FXML
     private Label lblErroPlaca;
+
+    @FXML
+    private Label lblErroChassi;
 
     @FXML
     private Label lblErroAno;
@@ -177,12 +183,32 @@ public class CadastroVeiculoController implements Initializable {
                         veiculo.setAno(Integer.valueOf(txtAno.getText()));
                         veiculo.setPrecoBase(new BigDecimal(txtPreco.getText().trim().replace(",", ".")));
                         veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
-                        veiculo.setPlaca(txtPlaca.getText().toUpperCase());
-                        veiculo.setChassi(txtChassi.getText().toUpperCase());
                         veiculo.setSituacao(SituacaoVeiculo.DISPONÍVEL);
-                        veiculoService.cadastrarVeiculo(veiculo);
-                        lblVeiculoSalvo.setVisible(true);
-                        desabilitarCampos();
+
+                        if (!txtPlaca.getText().replaceAll("\\s+", "").toUpperCase().equals(txtPlaca.getText().trim().toUpperCase())) {
+                            lblErroPlaca.setVisible(true);
+                        } else if (!txtChassi.getText().replaceAll("\\s+", "").toUpperCase().equals(txtChassi.getText().trim().toUpperCase())) {
+                            lblErroChassi.setVisible(true);
+                        } else {
+                            veiculo.setChassi(txtChassi.getText().replaceAll("\\s+", "").toUpperCase());
+                            veiculo.setPlaca(txtPlaca.getText().replaceAll("\\s+", "").toUpperCase());
+                        }
+
+                        Optional<Veiculo> v = veiculoService.encontrarPelaPlaca(veiculo);
+
+                        if (v.isPresent()) {
+                            Alert alert = new Alert(AlertType.WARNING, "Veículo já cadastrado!");
+                            alert.setContentText("O Veículo da placa " + veiculo.getPlaca() + " já está cadastrado!");
+                            alert.initStyle(StageStyle.UNDECORATED);
+                            alert.initModality(Modality.APPLICATION_MODAL);
+                            txtPlaca.setText("");
+                            alert.showAndWait();
+                        } else {
+                            veiculoService.cadastrarVeiculo(veiculo);
+                            lblVeiculoSalvo.setVisible(true);
+                            desabilitarCampos();
+                        }
+
                     }
                 }
 
@@ -253,7 +279,7 @@ public class CadastroVeiculoController implements Initializable {
         txtPlaca.setText(veiculo.getPlaca());
         txtPreco.setText(veiculo.getPrecoBase().setScale(2, RoundingMode.CEILING).toString());
         txtQuilometragem.setText(veiculo.getQuilometragem().toString());
-        if(veiculo.getCategoria() != null){
+        if (veiculo.getCategoria() != null) {
             cmbCategoria.setValue(veiculo.getCategoria());
         }
     }
@@ -351,7 +377,7 @@ public class CadastroVeiculoController implements Initializable {
         return valoresValidos;
     }
 
-    public void esconderLabels(){
+    public void esconderLabels() {
         lblVeiculoSalvo.setVisible(false);
         lblErroAno.setVisible(false);
         lblErroKm.setVisible(false);
@@ -360,7 +386,7 @@ public class CadastroVeiculoController implements Initializable {
         lblErroCamposVazios.setVisible(false);
         lblErroCategoria.setVisible(false);
     }
-    
+
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
         preencherCampos();
