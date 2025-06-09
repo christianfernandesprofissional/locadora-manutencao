@@ -7,6 +7,7 @@ package com.fatec.garagemlocalhost;
 import com.fatec.garagemlocalhost.database.DBException;
 import com.fatec.garagemlocalhost.model.entities.CategoriaVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Veiculo;
+import com.fatec.garagemlocalhost.model.enums.SituacaoVeiculo;
 import com.fatec.garagemlocalhost.services.CategoriaService;
 import com.fatec.garagemlocalhost.services.VeiculoService;
 import java.io.IOException;
@@ -165,6 +166,7 @@ public class CadastroVeiculoController implements Initializable {
 
                 } else {
                     if (verificarValores()) {
+                        veiculo = new Veiculo();
                         veiculo.setCategoria(cmbCategoria.getValue());
                         veiculo.setCor(txtCor.getText());
                         veiculo.setMarca(txtMarca.getText());
@@ -173,8 +175,9 @@ public class CadastroVeiculoController implements Initializable {
                         veiculo.setAno(Integer.valueOf(txtAno.getText()));
                         veiculo.setPrecoBase(new BigDecimal(txtPreco.getText().trim().replace(",", ".")));
                         veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
-                        veiculo.setPlaca(txtPlaca.getText());
-                        veiculo.setChassi(txtChassi.getText());
+                        veiculo.setPlaca(txtPlaca.getText().toUpperCase());
+                        veiculo.setChassi(txtChassi.getText().toUpperCase());
+                        veiculo.setSituacao(SituacaoVeiculo.DISPONÍVEL);
                         veiculoService.cadastrarVeiculo(veiculo);
                         lblVeiculoSalvo.setVisible(true);
                         desabilitarCampos();

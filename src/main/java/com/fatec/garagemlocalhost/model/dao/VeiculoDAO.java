@@ -18,17 +18,18 @@ import java.util.Optional;
 
 /**
  * Classe contendo o CRUD relacionado a tabela veiculos
- * 
+ *
  * @author Christian
  */
 public class VeiculoDAO {
+
     private final Database database;
-    
-    public VeiculoDAO(Database database){
+
+    public VeiculoDAO(Database database) {
         this.database = database;
     }
-    
-    public List<Veiculo> findAll()throws SQLException{
+
+    public List<Veiculo> findAll() throws SQLException {
         List<Veiculo> veiculos = new ArrayList<>();
 
         String sql = "SELECT * FROM veiculos INNER JOIN categorias_veiculos ON veiculos.id_categoria = categorias_veiculos.id_categoria;";
@@ -36,7 +37,7 @@ public class VeiculoDAO {
 
         ResultSet rs = ps.executeQuery();
 
-        while(rs.next()){
+        while (rs.next()) {
             Veiculo veiculo = new Veiculo();
             veiculo.setPlaca(rs.getString("placa"));
             veiculo.setMarca(rs.getString("marca"));
@@ -55,8 +56,8 @@ public class VeiculoDAO {
 
         return veiculos;
     }
-    
-    public Optional<Veiculo> findByPlaca(String placa)throws SQLException{
+
+    public Optional<Veiculo> findByPlaca(String placa) throws SQLException {
 
         String sql = "SELECT * FROM veiculos INNER JOIN categorias_veiculos ON veiculos.id_categoria = categorias_veiculos.id_categoria WHERE placa = ?;";
         PreparedStatement ps = database.getConnnection().prepareStatement(sql);
@@ -65,7 +66,7 @@ public class VeiculoDAO {
         ResultSet rs = ps.executeQuery();
 
         Veiculo veiculo = null;
-        if(rs.next()){
+        if (rs.next()) {
             veiculo = new Veiculo();
             veiculo.setPlaca(rs.getString("placa"));
             veiculo.setMarca(rs.getString("marca"));
@@ -83,8 +84,8 @@ public class VeiculoDAO {
 
         return Optional.ofNullable(veiculo);
     }
-    
-    public void createVeiculo(Veiculo veiculo)throws SQLException{
+
+    public void createVeiculo(Veiculo veiculo) throws SQLException {
 
         String sql = "INSERT INTO veiculos(placa,marca,cor,ano,chassi,modelo,quilometragem,id_categoria, preco_base) VALUES (?,?,?,?,?,?,?,?,?);";
         PreparedStatement ps = database.getConnnection().prepareStatement(sql);
@@ -99,19 +100,17 @@ public class VeiculoDAO {
         ps.setInt(8, veiculo.getCategoria().getId());
         ps.setDouble(9, veiculo.getPrecoBase().doubleValue());
 
-
         int linhas = ps.executeUpdate();
 
-        if(linhas > 0){
+        if (linhas > 0) {
             System.out.println("Linhas afetadas: " + linhas);
         }
     }
-    
-    public void updateVeiculo(Veiculo veiculo)throws SQLException{
+
+    public void updateVeiculo(Veiculo veiculo) throws SQLException {
 
         String sql = "UPDATE veiculos SET marca = ?, cor = ?, ano = ?, chassi =?,modelo = ?,quilometragem = ?,id_categoria = ?, preco_base = ?, situacao = ?  WHERE placa = ?;";
         PreparedStatement ps = database.getConnnection().prepareStatement(sql);
-
 
         ps.setString(1, veiculo.getMarca());
         ps.setString(2, veiculo.getCor());
@@ -126,12 +125,12 @@ public class VeiculoDAO {
 
         int linhas = ps.executeUpdate();
 
-        if(linhas > 0){
+        if (linhas > 0) {
             System.out.println("Linhas afetadas: " + linhas);
         }
     }
-    
-    public void deleteVeiculo(String placa)throws SQLException{
+
+    public void deleteVeiculo(String placa) throws SQLException {
 
         String sql = "DELETE FROM veiculos WHERE placa = ?;";
         PreparedStatement ps = database.getConnnection().prepareStatement(sql);
@@ -140,10 +139,19 @@ public class VeiculoDAO {
 
         int linhas = ps.executeUpdate();
 
-        if(linhas > 0){
+        if (linhas > 0) {
             System.out.println("Linhas afetadas: " + linhas);
         }
     }
-    
-        
+
+    public Boolean existsByPlaca(String placa) throws SQLException {
+
+        String sql = "SELECT placa FROM veiculos WHERE placa = ?;";
+        PreparedStatement ps = database.getConnnection().prepareStatement(sql);
+        ps.setString(1, placa);
+
+        ResultSet rs = ps.executeQuery();
+        return rs.next();
+    }
+
 }
