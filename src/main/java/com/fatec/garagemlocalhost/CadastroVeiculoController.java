@@ -137,13 +137,12 @@ public class CadastroVeiculoController implements Initializable {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("CadastroCategoriaVeiculo.fxml"));
                 Parent root = loader.load();
-
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.setWidth(800);
                 stage.setHeight(551);
                 stage.setResizable(false);
-                //stage.initStyle(StageStyle.UNDECORATED);
+                stage.initStyle(StageStyle.UNDECORATED);
                 //Bloqueia o acesso a tela de trás
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
@@ -158,60 +157,10 @@ public class CadastroVeiculoController implements Initializable {
             esconderLabels();
             try {
                 if (txtPlaca.isDisabled()) {
-                    if (verificarValores()) {
-                        veiculo.setCategoria(cmbCategoria.getValue());
-                        veiculo.setCor(txtCor.getText());
-                        veiculo.setMarca(txtMarca.getText());
-                        veiculo.setModelo(txtModelo.getText());
-                        //Fazer verificações nos items abaixo
-                        veiculo.setAno(Integer.valueOf(txtAno.getText()));
-                        veiculo.setPrecoBase(new BigDecimal(txtPreco.getText().trim().replace(",", ".")));
-                        veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
-                        veiculoService.atualizarVeiculo(veiculo);
-                        lblVeiculoSalvo.setVisible(true);
-                        desabilitarCampos();
-                    }
-
+                    atualizarVeiculo();
                 } else {
-                    if (verificarValores()) {
-                        veiculo = new Veiculo();
-                        veiculo.setCategoria(cmbCategoria.getValue());
-                        veiculo.setCor(txtCor.getText());
-                        veiculo.setMarca(txtMarca.getText());
-                        veiculo.setModelo(txtModelo.getText());
-                        //Fazer verificações nos items abaixo
-                        veiculo.setAno(Integer.valueOf(txtAno.getText()));
-                        veiculo.setPrecoBase(new BigDecimal(txtPreco.getText().trim().replace(",", ".")));
-                        veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
-                        veiculo.setSituacao(SituacaoVeiculo.DISPONÍVEL);
-
-                        if (!txtPlaca.getText().replaceAll("\\s+", "").toUpperCase().equals(txtPlaca.getText().trim().toUpperCase())) {
-                            lblErroPlaca.setVisible(true);
-                        } else if (!txtChassi.getText().replaceAll("\\s+", "").toUpperCase().equals(txtChassi.getText().trim().toUpperCase())) {
-                            lblErroChassi.setVisible(true);
-                        } else {
-                            veiculo.setChassi(txtChassi.getText().replaceAll("\\s+", "").toUpperCase());
-                            veiculo.setPlaca(txtPlaca.getText().replaceAll("\\s+", "").toUpperCase());
-                        }
-
-                        Optional<Veiculo> v = veiculoService.encontrarPelaPlaca(veiculo);
-
-                        if (v.isPresent()) {
-                            Alert alert = new Alert(AlertType.WARNING, "Veículo já cadastrado!");
-                            alert.setContentText("O Veículo da placa " + veiculo.getPlaca() + " já está cadastrado!");
-                            alert.initStyle(StageStyle.UNDECORATED);
-                            alert.initModality(Modality.APPLICATION_MODAL);
-                            txtPlaca.setText("");
-                            alert.showAndWait();
-                        } else {
-                            veiculoService.cadastrarVeiculo(veiculo);
-                            lblVeiculoSalvo.setVisible(true);
-                            desabilitarCampos();
-                        }
-
-                    }
+                    cadastrarVeiculo();
                 }
-
             } catch (DBException error) {
                 error.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Erro ao salvar veiculo!");
@@ -219,6 +168,63 @@ public class CadastroVeiculoController implements Initializable {
             }
 
         });
+      
+    }
+
+    public void cadastrarVeiculo() throws DBException {
+        if (verificarValores()) {
+            veiculo = new Veiculo();
+            veiculo.setCategoria(cmbCategoria.getValue());
+            veiculo.setCor(txtCor.getText());
+            veiculo.setMarca(txtMarca.getText());
+            veiculo.setModelo(txtModelo.getText());
+            //Fazer verificações nos items abaixo
+            veiculo.setAno(Integer.valueOf(txtAno.getText()));
+            veiculo.setPrecoBase(new BigDecimal(txtPreco.getText().trim().replace(",", ".")));
+            veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
+            veiculo.setSituacao(SituacaoVeiculo.DISPONÍVEL);
+
+            if (!txtPlaca.getText().replaceAll("\\s+", "").toUpperCase().equals(txtPlaca.getText().trim().toUpperCase())) {
+                lblErroPlaca.setVisible(true);
+            } else if (!txtChassi.getText().replaceAll("\\s+", "").toUpperCase().equals(txtChassi.getText().trim().toUpperCase())) {
+                lblErroChassi.setVisible(true);
+            } else {
+                veiculo.setChassi(txtChassi.getText().replaceAll("\\s+", "").toUpperCase());
+                veiculo.setPlaca(txtPlaca.getText().replaceAll("\\s+", "").toUpperCase());
+            }
+
+            Optional<Veiculo> v = veiculoService.encontrarPelaPlaca(veiculo);
+
+            if (v.isPresent()) {
+                Alert alert = new Alert(AlertType.WARNING, "Veículo já cadastrado!");
+                alert.setContentText("O Veículo da placa " + veiculo.getPlaca() + " já está cadastrado!");
+                alert.initStyle(StageStyle.UNDECORATED);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                txtPlaca.setText("");
+                alert.showAndWait();
+            } else {
+                veiculoService.cadastrarVeiculo(veiculo);
+                lblVeiculoSalvo.setVisible(true);
+                desabilitarCampos();
+            }
+
+        }
+    }
+
+    public void atualizarVeiculo() throws DBException {
+        if (verificarValores()) {
+            veiculo.setCategoria(cmbCategoria.getValue());
+            veiculo.setCor(txtCor.getText());
+            veiculo.setMarca(txtMarca.getText());
+            veiculo.setModelo(txtModelo.getText());
+            //Fazer verificações nos items abaixo
+            veiculo.setAno(Integer.valueOf(txtAno.getText()));
+            veiculo.setPrecoBase(new BigDecimal(txtPreco.getText().trim().replace(",", ".")));
+            veiculo.setQuilometragem(Integer.valueOf(txtQuilometragem.getText()));
+            veiculoService.atualizarVeiculo(veiculo);
+            lblVeiculoSalvo.setVisible(true);
+            desabilitarCampos();
+        }
     }
 
     /**
