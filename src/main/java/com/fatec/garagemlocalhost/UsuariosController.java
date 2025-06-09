@@ -96,6 +96,7 @@ public class UsuariosController implements Initializable {
         preencherTabela();
         preencherCmb();
         preencherCamposComClick();
+        rbAtivo.setSelected(true);
     }
 
     public void preencherCamposComClick() {
@@ -143,6 +144,7 @@ public class UsuariosController implements Initializable {
         lista.add(TipoUsuario.GERENTE);
         lista.add(TipoUsuario.AUXILIAR);
         cbTipoUsuario.setItems(lista);
+        cbTipoUsuario.setValue(TipoUsuario.AUXILIAR);
     }
 
     @FXML
@@ -152,7 +154,7 @@ public class UsuariosController implements Initializable {
         txtNomeUsuario.setText("");
         txtEmail.setText("");
         txtSenha.setText("");
-        rbAtivo.setSelected(false);
+        rbAtivo.setSelected(true);
         rbInativo.setSelected(false);
 
     }
