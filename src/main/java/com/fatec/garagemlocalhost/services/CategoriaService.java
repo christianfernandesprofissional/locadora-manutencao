@@ -70,15 +70,15 @@ public class CategoriaService {
         }
     }
 
-    public void deletarCategoriaVeiculoPorId(CategoriaVeiculo c, Integer id) throws DBException {
+    public void deletarCategoriaVeiculoPorId(CategoriaVeiculo categoria) throws DBException {
         try {
-            if(id < 0){
+            if(categoria.getId() < 0){
                 throw new DBException("Erro o ID nao pode ser menor que 0 (zero)");
             }
-            if(!categoriaVeiculoDao.findById(id).isPresent()){
+            if(!categoriaVeiculoDao.findById(categoria.getId()).isPresent()){
                throw new DBException("Categoria nao encontrada");
             }
-                categoriaVeiculoDao.deleteCategoria(id);      
+                categoriaVeiculoDao.deleteCategoria(categoria.getId());      
         } catch (SQLException e) {
             throw new DBException("Erro ao deletar CategoriaVeiculo");
         }

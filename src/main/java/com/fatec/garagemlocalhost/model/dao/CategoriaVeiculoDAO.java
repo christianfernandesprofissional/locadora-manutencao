@@ -92,9 +92,9 @@ public class CategoriaVeiculoDAO {
     
     public void updateCategoria(CategoriaVeiculo categoria)throws SQLException{
       
-        String sql = "UPDATE FROM categorias_veiculos SET descricao = ? WHERE id_categoria = ?;";
+        String sql = "UPDATE categorias_veiculos SET descricao = ? WHERE id_categoria = ?;";
         PreparedStatement ps = database.getConnnection().prepareStatement(sql);
-
+        System.out.println(categoria);
         ps.setString(1, categoria.getDescricao());
         ps.setInt(2, categoria.getId());
 

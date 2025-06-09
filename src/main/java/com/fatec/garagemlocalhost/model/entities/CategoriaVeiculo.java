@@ -41,8 +41,9 @@ public class CategoriaVeiculo {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 47 * hash + Objects.hashCode(this.id);
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.descricao);
         return hash;
     }
 
@@ -58,6 +59,9 @@ public class CategoriaVeiculo {
             return false;
         }
         final CategoriaVeiculo other = (CategoriaVeiculo) obj;
+        if (!Objects.equals(this.descricao, other.descricao)) {
+            return false;
+        }
         return Objects.equals(this.id, other.id);
     }
 

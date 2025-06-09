@@ -1,3 +1,4 @@
+com\fatec\garagemlocalhost\ManutencaoFinalizadaController.class
 com\fatec\garagemlocalhost\utils\Verificar.class
 com\fatec\garagemlocalhost\VeiculosController$1.class
 com\fatec\garagemlocalhost\model\enums\SituacaoSaida.class
@@ -9,10 +10,12 @@ com\fatec\garagemlocalhost\model\entities\Usuario.class
 com\fatec\garagemlocalhost\VeiculosController.class
 com\fatec\garagemlocalhost\services\DevolucaoService.class
 com\fatec\garagemlocalhost\exceptions\LoginValidacaoException.class
+com\fatec\garagemlocalhost\services\ManutencaoService.class
 com\fatec\garagemlocalhost\model\dao\VeiculoDAO.class
 com\fatec\garagemlocalhost\model\dao\CategoriaVeiculoDAO.class
 com\fatec\garagemlocalhost\SubSaidasController.class
 com\fatec\garagemlocalhost\model\dao\ManutencaoServicoDAO.class
+com\fatec\garagemlocalhost\services\ManutencaoServicoService.class
 com\fatec\garagemlocalhost\SubDevolucoesController.class
 com\fatec\garagemlocalhost\model\dao\ManutencaoDAO.class
 com\fatec\garagemlocalhost\DevolucoesController.class
@@ -23,6 +26,7 @@ com\fatec\garagemlocalhost\model\dao\ServicoDAO.class
 com\fatec\garagemlocalhost\HomeController.class
 com\fatec\garagemlocalhost\model\enums\SituacaoDevolucao.class
 com\fatec\garagemlocalhost\CadastroCategoriaVeiculoController.class
+com\fatec\garagemlocalhost\ListaDeServicosController.class
 com\fatec\garagemlocalhost\services\UsuarioService.class
 com\fatec\garagemlocalhost\database\Database.class
 com\fatec\garagemlocalhost\model\dao\DevolucaoVeiculoDAO.class

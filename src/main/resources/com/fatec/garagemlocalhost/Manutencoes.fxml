@@ -26,7 +26,7 @@
           <TableColumn fx:id="colunaPlaca" prefWidth="68.0" text="PLACA" />
             <TableColumn fx:id="colunaModelo" prefWidth="104.0" text="MODELO" />
             <TableColumn fx:id="colunaDescricao" minWidth="0.0" prefWidth="0.0" text="DESCRIÇÃO" />
-            <TableColumn fx:id="colunaServicosRealizados" prefWidth="193.0" text="SERVIÇOS REALIZADOS" />
+            <TableColumn fx:id="colunaServicosRealizados" prefWidth="193.0" text="MOTIVO DA MANUTENÇÃO" />
             <TableColumn fx:id="colunaDataSaida" prefWidth="114.0" text="DATA SAÍDA" />
             <TableColumn fx:id="colunaValorTotal" prefWidth="105.0" text="VALOR TOTAL" />
         </columns>

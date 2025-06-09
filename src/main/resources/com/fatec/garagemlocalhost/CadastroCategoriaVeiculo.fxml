@@ -16,27 +16,34 @@
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <HBox prefHeight="25.0" prefWidth="561.0">
+      <HBox prefHeight="116.0" prefWidth="760.0">
          <children>
             <VBox prefHeight="84.0" prefWidth="224.0">
                <children>
-                  <Label text="ID" />
-                  <TextField fx:id="txtIdCategoria" maxWidth="-Infinity" prefHeight="25.0" prefWidth="50.0">
+                  <Label text="ID">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Label>
+                  <TextField fx:id="txtIdCategoria" disable="true" editable="false" maxWidth="-Infinity" prefHeight="25.0" prefWidth="50.0">
                      <font>
                         <Font name="Calibri" size="15.0" />
                      </font></TextField>
-                  <Label text="Nome da categoria" />
-                  <TextField fx:id="txtDescricao">
+                  <Label text="Nome da categoria">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Label>
+                  <TextField fx:id="txtDescricao" disable="true">
                      <font>
                         <Font name="Calibri" size="15.0" />
                      </font></TextField>
+                  <Label fx:id="lblErroCategoria" text="Preencha o nome da categoria" textFill="RED" visible="false" />
                </children>
             </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="84.0" prefWidth="197.0">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="197.0">
                <children>
-                  <Button fx:id="btnEditar" mnemonicParsing="false" text="Editar" />
-                  <Button fx:id="btnAdicionar" mnemonicParsing="false" prefHeight="25.0" prefWidth="67.0" text="Adicionar" />
-                  <Button fx:id="btnDeletar" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Deletar" />
+                  <Button fx:id="btnEditar" disable="true" mnemonicParsing="false" prefHeight="35.0" prefWidth="135.0" text="Editar" />
+                  <Button fx:id="btnAdicionar" mnemonicParsing="false" prefHeight="43.0" prefWidth="134.0" text="Adicionar" />
+                  <Button fx:id="btnDeletar" disable="true" mnemonicParsing="false" prefHeight="37.0" prefWidth="130.0" text="Deletar Categoria" />
                </children>
             </VBox>
             <ButtonBar prefHeight="90.0" prefWidth="317.0" HBox.hgrow="ALWAYS">
@@ -47,7 +54,7 @@
             </ButtonBar>
          </children>
       </HBox>
-      <TableView fx:id="tabelaCategorias" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tabelaCategorias" prefHeight="375.0" prefWidth="760.0" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="colunaDescricao" maxWidth="1.7976931348623157E308" prefWidth="359.0" text="CATEGORIAS" />
         </columns>
