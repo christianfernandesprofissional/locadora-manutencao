@@ -256,7 +256,7 @@
                         <Insets left="15.0" />
                      </VBox.margin>
                   </TextField>
-                  <Label fx:id="lblErroPlaca1" text="Chassi inválido!  Não deve conter espaços em branco" textFill="RED" visible="false">
+                  <Label fx:id="lblErroChassi" text="Chassi inválido!  Não deve conter espaços em branco" textFill="RED" visible="false">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

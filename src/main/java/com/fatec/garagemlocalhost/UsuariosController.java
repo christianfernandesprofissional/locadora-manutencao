@@ -10,6 +10,7 @@ import com.fatec.garagemlocalhost.model.entities.Usuario;
 import com.fatec.garagemlocalhost.model.enums.TipoUsuario;
 import com.fatec.garagemlocalhost.services.UsuarioService;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -29,6 +30,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -86,6 +89,8 @@ public class UsuariosController implements Initializable {
 
     @FXML
     private Label lblErroSenha;
+    
+    private String mensagemNomeOuEmailCadastrado = "";
 
     private ObservableList<Usuario> listaDeUsuarios = FXCollections.observableArrayList();
 
@@ -172,23 +177,23 @@ public class UsuariosController implements Initializable {
             criarUsuario();
         } else {
             atualizarUsuario();
-        }     
+        }
     }
 
     public Boolean atualizarUsuario() {
         Usuario usuario = new Usuario();
         usuario.setId(Integer.valueOf(txtID.getText()));
         usuario.setNome(txtNomeUsuario.getText());
-         try{
+        try {
             usuario.setEmail(txtEmail.getText());
-        }catch(LoginValidacaoException e){
+        } catch (LoginValidacaoException e) {
             lblErroEmail.setVisible(true);
             return false;
         }
-        
-         try{
+
+        try {
             usuario.setSenha(txtSenha.getText());
-        }catch(LoginValidacaoException e){
+        } catch (LoginValidacaoException e) {
             lblErroSenha.setVisible(true);
             return false;
         }
@@ -199,9 +204,18 @@ public class UsuariosController implements Initializable {
             usuario.setAtivo(texto.equals("ATIVO"));
         }
         try {
-            usuarioService.atualizarUsuario(usuario);
-            preencherTabela();
-            limparCampos();
+            if (!usuarioOuEmailJaExiste(usuario)) {
+                usuarioService.atualizarUsuario(usuario);
+                preencherTabela();
+                limparCampos();
+            } else {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setContentText(mensagemNomeOuEmailCadastrado);
+                alert.initStyle(StageStyle.UNDECORATED);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.showAndWait();
+            }
+
         } catch (DBException e) {
             Alert alert = new Alert(AlertType.ERROR, e.getMessage());
             alert.showAndWait();
@@ -213,20 +227,20 @@ public class UsuariosController implements Initializable {
     public Boolean criarUsuario() {
         Usuario usuario = new Usuario();
         usuario.setNome(txtNomeUsuario.getText());
-        try{
+        try {
             usuario.setEmail(txtEmail.getText());
-        }catch(LoginValidacaoException e){
+        } catch (LoginValidacaoException e) {
             lblErroEmail.setVisible(true);
             return false;
         }
-        
-         try{
+
+        try {
             usuario.setSenha(txtSenha.getText());
-        }catch(LoginValidacaoException e){
+        } catch (LoginValidacaoException e) {
             lblErroSenha.setVisible(true);
             return false;
         }
-        
+
         usuario.setTipoUsuario(cbTipoUsuario.getValue());
         if (statusUsuario.getSelectedToggle() != null) {
             RadioButton selecionado = (RadioButton) statusUsuario.getSelectedToggle();
@@ -234,14 +248,62 @@ public class UsuariosController implements Initializable {
             usuario.setAtivo(texto.equals("ATIVO"));
         }
         try {
-            usuarioService.criarUsuario(usuario);
-            preencherTabela();
-            limparCampos();
+            if (!usuarioOuEmailJaExiste(usuario)) {
+                usuarioService.criarUsuario(usuario);
+                preencherTabela();
+                limparCampos();
+            } else {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setContentText(mensagemNomeOuEmailCadastrado);
+                alert.initStyle(StageStyle.UNDECORATED);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.showAndWait();
+            }
         } catch (DBException e) {
             Alert alert = new Alert(AlertType.ERROR, e.getMessage());
             alert.showAndWait();
         }
 
         return true;
+    }
+
+    /**
+     * Verifica se o usuário ou email estão cadastrados no banco de dados. 
+     * Caso encontre atualiza a mensagem de erro.
+     * Verifica tanto para casos de atualização de usuário quanto para 
+     * criação de usuário.
+     * OBS: o email e o nome do parâmetro Usuário, devem estar preenchidos
+     * 
+     * @param usuario
+     * @return
+     * @throws DBException 
+     */
+    public boolean usuarioOuEmailJaExiste(Usuario usuario) throws DBException {
+        Boolean existe = false;
+        if (txtID.getText().isBlank()) {
+            Optional<Usuario> encontradoPorEmail = usuarioService.buscarPorNome(usuario.getEmail());
+            Optional<Usuario> encontradoPorNome = usuarioService.buscarPorNome(usuario.getNome());
+
+            if (encontradoPorEmail.isPresent()) {
+                mensagemNomeOuEmailCadastrado = "Email já cadastrado!";
+                existe = true;
+            }else if(encontradoPorNome.isPresent()){
+                mensagemNomeOuEmailCadastrado = "Nome de usuário já cadastrado!";
+                existe = true;
+            }
+        } else {
+            Optional<Usuario> encontradoPorEmail = usuarioService.buscarPorNome(usuario.getEmail());
+            Optional<Usuario> encontradoPorNome = usuarioService.buscarPorNome(usuario.getNome());
+
+            if (encontradoPorEmail.isPresent() && encontradoPorEmail.get().getId() != usuario.getId()) {
+                mensagemNomeOuEmailCadastrado = "Email já cadastrado!";
+                existe = true;
+            }else if (encontradoPorNome.isPresent() && encontradoPorNome.get().getId() != usuario.getId()) {
+                mensagemNomeOuEmailCadastrado = "Nome de usuário já cadastrado!";
+                existe = true;
+            }
+        }
+
+        return existe;
     }
 }
