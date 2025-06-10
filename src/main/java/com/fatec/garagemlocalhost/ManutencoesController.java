@@ -4,6 +4,7 @@
  */
 package com.fatec.garagemlocalhost;
 
+
 import com.fatec.garagemlocalhost.database.DBException;
 import com.fatec.garagemlocalhost.model.entities.Manutencao;
 import com.fatec.garagemlocalhost.services.ManutencaoService;
@@ -37,7 +38,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- *
+ * Controller responsável por exibir as manutenções
+ * na tela e chamar as respectivas subTelas.
+ * 
  * @author chris
  */
 public class ManutencoesController implements Initializable {
@@ -65,15 +68,6 @@ public class ManutencoesController implements Initializable {
 
     @FXML
     private TableColumn<Manutencao, BigDecimal> colunaValorTotal;
-
-    @FXML
-    private RadioButton rbFinalizadas;
-
-    @FXML
-    private RadioButton rbPendentes;
-
-    @FXML
-    private Button btnAtualizar;
 
     private ObservableList<Manutencao> listaManutencoes = FXCollections.observableArrayList();
 

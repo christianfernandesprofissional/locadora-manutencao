@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" prefHeight="580.0" prefWidth="933.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.ManutencoesController">
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
    <children>
-      <HBox prefHeight="35.0" prefWidth="786.0">
+      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="786.0">
          <children>
-            <RadioButton fx:id="rbFinalizadas" mnemonicParsing="false" text="Finalizadas" HBox.hgrow="ALWAYS" />
-            <RadioButton fx:id="rbPendentes" mnemonicParsing="false" text="Pendentes" HBox.hgrow="ALWAYS" />
-            <Button fx:id="btnAtualizar" mnemonicParsing="false" text="Atualizar" HBox.hgrow="ALWAYS" />
+            <Label text="LISTA DE MANUTENÇÕES">
+               <font>
+                  <Font name="Calibri Bold Italic" size="25.0" />
+               </font>
+            </Label>
          </children>
       </HBox>
       <TableView fx:id="tabelaManutencoes" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="452.0" prefWidth="782.0" VBox.vgrow="ALWAYS">

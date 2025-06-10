@@ -14,7 +14,9 @@ import java.sql.SQLException;
 
 
 /**
- *
+ * Responsável por fazer o CRUD da tabela de relacionamento
+ * de Manutenção com Serviços
+ * 
  * @author gustavo
  */
 public class ManutencaoServicoService {

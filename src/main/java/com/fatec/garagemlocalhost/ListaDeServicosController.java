@@ -4,10 +4,7 @@
  */
 package com.fatec.garagemlocalhost;
 
-/**
- *
- * @author gustavo
- */
+
 import com.fatec.garagemlocalhost.database.DBException;
 import com.fatec.garagemlocalhost.model.entities.Manutencao;
 import com.fatec.garagemlocalhost.model.entities.Servico;
@@ -42,6 +39,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+/**
+ *Controller responsável pela tela de finalização de
+ * uma manutenção
+ * 
+ * @author gustavo
+ */
 
 public class ListaDeServicosController implements Initializable {
 

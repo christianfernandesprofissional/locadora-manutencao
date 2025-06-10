@@ -38,8 +38,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
- *
- * @author chris
+ * Classe responsável pela criação e 
+ * edição de serviços cadastrados no 
+ * banco.
+ * 
+ * @author Christian
  */
 public class EdicaoServicosController implements Initializable {
 
