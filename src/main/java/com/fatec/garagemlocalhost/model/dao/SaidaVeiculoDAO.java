@@ -187,4 +187,24 @@ public class SaidaVeiculoDAO {
         return null;
     }
 
+    
+    public String buscarNomeDoCliente(SaidaVeiculo saida) throws SQLException {
+
+        String sql = "SELECT clientes.nome "
+                + "FROM clientes "
+                + "INNER JOIN pedidos_locacao "
+                + "ON clientes.id_cliente = pedidos_locacao.id_cliente "
+                + "WHERE pedidos_locacao.id_saida = ?; ";
+        PreparedStatement ps = database.getConnnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, saida.getId());
+        
+
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            return rs.getString("nome");
+        }else{
+            return "";
+        }
+    }
+
 }

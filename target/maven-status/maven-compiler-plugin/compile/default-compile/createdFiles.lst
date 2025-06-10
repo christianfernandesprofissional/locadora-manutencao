@@ -6,6 +6,7 @@ com\fatec\garagemlocalhost\ManutencoesController.class
 com\fatec\garagemlocalhost\SaidasController.class
 com\fatec\garagemlocalhost\TelaInicialController.class
 com\fatec\garagemlocalhost\ListaDeServicosController$1.class
+com\fatec\garagemlocalhost\TelaInicialController$1.class
 com\fatec\garagemlocalhost\model\entities\Servico.class
 com\fatec\garagemlocalhost\ManutencoesController$1.class
 com\fatec\garagemlocalhost\model\entities\Usuario.class
@@ -15,6 +16,7 @@ com\fatec\garagemlocalhost\exceptions\LoginValidacaoException.class
 com\fatec\garagemlocalhost\services\ManutencaoService.class
 com\fatec\garagemlocalhost\model\dao\VeiculoDAO.class
 com\fatec\garagemlocalhost\model\dao\CategoriaVeiculoDAO.class
+com\fatec\garagemlocalhost\NovaManutencaoController.class
 com\fatec\garagemlocalhost\ListaDeServicosController$2.class
 com\fatec\garagemlocalhost\SubSaidasController.class
 com\fatec\garagemlocalhost\model\dao\ManutencaoServicoDAO.class

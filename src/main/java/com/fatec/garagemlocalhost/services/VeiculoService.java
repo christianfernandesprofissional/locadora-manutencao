@@ -47,6 +47,18 @@ public class VeiculoService {
         }
     }
     
+    public Optional<Veiculo> encontrarPelaPlaca(String veiculo) throws DBException, CampoVazioException{
+        try{
+            if(veiculo == null || veiculo.isEmpty()){
+                throw new CampoVazioException("Sem informações da placa do veículo!");
+            }
+            
+            return veiculoDao.findByPlaca(veiculo);
+        }catch(SQLException e){
+            throw new DBException("Falha ao encontrar veículo!");
+        }
+    }
+    
     public void cadastrarVeiculo(Veiculo veiculo) throws DBException, CampoVazioException{
         if(!Verificar.todosAtributosPreenchidos(veiculo)){
             throw new CampoVazioException("Faltam informações para cadastrar veículo!");

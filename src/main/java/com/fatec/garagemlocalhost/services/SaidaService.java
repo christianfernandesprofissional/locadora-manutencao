@@ -59,6 +59,12 @@ public class SaidaService {
     }
     
     
-    
+    public String buscarNomeDoCliente(SaidaVeiculo saida) throws DBException{
+        try{
+            return saidasDao.buscarNomeDoCliente(saida);
+        }catch(SQLException e){
+            throw new DBException("Erro ao buscar nome do cliente!");
+        }
+    }
     
 }
