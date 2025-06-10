@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="735.0" prefWidth="1019.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.EdicaoServicosController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="735.0" prefWidth="1019.0" styleClass="container-menor" stylesheets="@style/containers-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.EdicaoServicosController">
    <children>
       <HBox prefHeight="204.0" prefWidth="1010.0">
          <children>
@@ -31,6 +32,9 @@
                                  <font>
                                     <Font size="15.0" />
                                  </font>
+                                 <VBox.margin>
+                                    <Insets right="15.0" />
+                                 </VBox.margin>
                               </TextField>
                            </children>
                         </VBox>
@@ -87,16 +91,27 @@
                      <font>
                         <Font size="15.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="18.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                   <Button fx:id="btnAdicionarServico" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="181.0" text="Adicionar Serviço">
                      <font>
                         <Font size="15.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Button>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="182.0" prefWidth="200.0" HBox.hgrow="NEVER" />
          </children>
+         <VBox.margin>
+            <Insets left="5.0" />
+         </VBox.margin>
       </HBox>
       <HBox alignment="CENTER" prefHeight="438.0" prefWidth="1010.0" VBox.vgrow="ALWAYS">
          <children>
@@ -116,27 +131,48 @@
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </TableView>
                </children>
+               <HBox.margin>
+                  <Insets top="15.0" />
+               </HBox.margin>
             </VBox>
          </children>
+         <VBox.margin>
+            <Insets left="5.0" />
+         </VBox.margin>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="110.0" prefWidth="1157.0">
          <children>
-            <ButtonBar prefHeight="159.0" prefWidth="1157.0">
-               <buttons>
+            <HBox>
+               <children>
                   <Button fx:id="btnCancelar" mnemonicParsing="false" prefHeight="49.0" prefWidth="181.0" text="Cancelar">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="15.0" top="15.0" />
+                     </HBox.margin>
                   </Button>
                   <Button fx:id="btnSalvar" mnemonicParsing="false" prefHeight="49.0" prefWidth="181.0" text="Salvar alterações">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="15.0" top="15.0" />
+                     </HBox.margin>
                   </Button>
-               </buttons>
-            </ButtonBar>
+               </children>
+            </HBox>
          </children>
       </HBox>
    </children>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="1194.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.ListaDeServicosController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="1194.0" styleClass="container-menor" stylesheets="@style/containers-style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fatec.garagemlocalhost.ListaDeServicosController">
    <children>
       <HBox alignment="CENTER" prefHeight="611.0" prefWidth="1278.0" VBox.vgrow="ALWAYS">
          <children>
@@ -57,6 +58,9 @@
          <font>
             <Font size="15.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <HBox alignment="CENTER_RIGHT">
          <children>
@@ -76,19 +80,31 @@
             </VBox>
          </children>
       </HBox>
-      <ButtonBar prefHeight="142.0" prefWidth="1194.0">
-         <buttons>
+      <HBox alignment="CENTER_RIGHT" prefHeight="54.0" prefWidth="1188.0">
+         <children>
             <Button fx:id="btnCancelar" mnemonicParsing="false" prefHeight="49.0" prefWidth="181.0" text="Cancelar">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
             </Button>
             <Button fx:id="btnFinalizarManutencao" mnemonicParsing="false" prefHeight="49.0" prefWidth="181.0" text="Finalizar manutenção">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
             </Button>
-         </buttons>
-      </ButtonBar>
+         </children>
+      </HBox>
    </children>
 </VBox>

@@ -1,0 +1,68 @@
+.container{
+    -fx-background-color: #Fcffff;
+    -fx-border-color: #1da1f2;
+    -fx-border-width: 1px 1px 1px 1px;
+}
+
+.container-menor{
+    -fx-background-color: #ffa72610;
+    -fx-border-color: #ffa726;
+    -fx-border-width: 3px;
+}
+
+
+.info{
+    -fx-border-radius: 10px;
+    -fx-border-color: #ffa726;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-background-radius: 10px;
+     -fx-background-color: linear-gradient(to bottom, #ffa72605, #ffa72620);
+}
+
+.table-view{
+    -fx-background-color: #1da1f208;
+    -fx-border-color: #1da1f250;
+    -fx-font-family: Calibri;
+    -fx-font-size: 15px;
+}
+
+.table-row-cell{
+    -fx-font-size: 18px;
+}
+
+.button{
+    -fx-border-color: #1da1f2;
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #1da1f240);
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px;
+     -fx-border-radius: 3px;
+}
+
+.button:hover{
+     -fx-background-color: linear-gradient(to bottom, #ffffff, #1da1f280);
+}
+
+.combo-box{
+    -fx-border-color: #1da1f2;
+    -fx-background-color: linear-gradient(to bottom, #ffffff, #1da1f240);
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px;
+     -fx-border-radius: 3px;
+}
+
+.combo-box:hover{
+     -fx-background-color: linear-gradient(to bottom, #ffffff, #1da1f280);
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #1da1f299;
+    -fx-border-radius: 0 0 8 8;
+}
+
+.radio-button{
+     -fx-border-color: #1da1f2;
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px;
+     -fx-border-radius: 50px;
+}
+
