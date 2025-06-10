@@ -168,7 +168,7 @@ public class CadastroVeiculoController implements Initializable {
             }
 
         });
-      
+
     }
 
     public void cadastrarVeiculo() throws DBException {

@@ -20,17 +20,18 @@ import java.util.Optional;
 
 /**
  * Classe responsável por fazer o CRUD da classe Manutenção
- * 
+ *
  * @author Christian
  */
 public class ManutencaoDAO {
+
     private Database database;
-    
-    public ManutencaoDAO(Database database){
+
+    public ManutencaoDAO(Database database) {
         this.database = database;
     }
-    
-    public List<Manutencao> findAll() throws SQLException{
+
+    public List<Manutencao> findAll() throws SQLException {
         List<Manutencao> manutencoes = new ArrayList<>();
 
         String sql = "SELECT * FROM manutencoes;";
@@ -39,23 +40,40 @@ public class ManutencaoDAO {
         ResultSet rs = ps.executeQuery();
 
         VeiculoDAO veiculoDao = new VeiculoDAO(database);
-        while(rs.next()){
+        while (rs.next()) {
             Manutencao manutencao = new Manutencao();
             manutencao.setId(rs.getInt("id_manutencao"));
             Veiculo veiculo = veiculoDao.findByPlaca(rs.getString("placa")).orElse(null);
             manutencao.setVeiculo(veiculo);
             manutencao.setDescricao(rs.getString("descricao"));
             manutencao.setIsfinalizado(rs.getBoolean("finalizado"));
-            manutencao.setInstanteChegada(LocalDateTime.parse(rs.getString("instante_chegada")));
-            manutencao.setInstanteSaida(LocalDateTime.parse(rs.getString("instante_saida")));
+
+            if (rs.getString("instante_chegada") == null) {
+                manutencao.setInstanteChegada(null);
+            } else {
+                manutencao.setInstanteChegada(rs.getTimestamp("instante_chegada").toLocalDateTime());
+            }
+
+            if (rs.getString("instante_saida") == null) {
+                manutencao.setInstanteSaida(null);
+            } else {
+                manutencao.setInstanteSaida(rs.getTimestamp("instante_saida").toLocalDateTime());
+            }
+
             BigDecimal total = new BigDecimal(rs.getDouble("total"));
-            manutencao.setValorTotal(total);
+            if (rs.wasNull()) {
+                manutencao.setValorTotal(null);
+            } else {
+                manutencao.setValorTotal(total);
+
+            }
+            manutencoes.add(manutencao);
         }
-         
+
         return manutencoes;
     }
-    
-    public Optional<Manutencao> findById(Integer id)throws SQLException{
+
+    public Optional<Manutencao> findById(Integer id) throws SQLException {
 
         String sql = "SELECT * FROM manutencoes WHERE id_manutencao = ?;";
         PreparedStatement ps = database.getConnnection().prepareStatement(sql);
@@ -65,7 +83,7 @@ public class ManutencaoDAO {
 
         VeiculoDAO veiculoDao = new VeiculoDAO(database);
         Manutencao manutencao = null;
-        if(rs.next()){
+        if (rs.next()) {
             manutencao = new Manutencao();
             manutencao.setId(rs.getInt("id_manutencao"));
             Veiculo veiculo = veiculoDao.findByPlaca(rs.getString("placa")).orElse(null);
@@ -73,17 +91,15 @@ public class ManutencaoDAO {
             manutencao.setDescricao(rs.getString("descricao"));
             manutencao.setIsfinalizado(rs.getBoolean("finalizado"));
 
-            if (rs.getTimestamp("instante_chegada") == null){
+            if (rs.getTimestamp("instante_chegada") == null) {
                 manutencao.setInstanteSaida(null);
-            }
-            else{
+            } else {
                 manutencao.setInstanteChegada(rs.getTimestamp("instante_chegada").toLocalDateTime());
             }
 
-            if (rs.getTimestamp("instante_saida") == null){
+            if (rs.getTimestamp("instante_saida") == null) {
                 manutencao.setInstanteSaida(null);
-            }
-            else{
+            } else {
                 manutencao.setInstanteSaida(rs.getTimestamp("instante_saida").toLocalDateTime());
             }
 
@@ -92,29 +108,29 @@ public class ManutencaoDAO {
         }
         return Optional.ofNullable(manutencao);
     }
-    
-    public void createManutencao(Manutencao manutencao)throws SQLException{
+
+    public void createManutencao(Manutencao manutencao) throws SQLException {
 
         String sql = "INSERT INTO manutencoes(placa, descricao, finalizado, instante_chegada) VALUES(?,?,?,?);";
-        PreparedStatement ps = database.getConnnection().prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement ps = database.getConnnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
         ps.setString(1, manutencao.getVeiculo().getPlaca());
         ps.setString(2, manutencao.getDescricao());
         ps.setBoolean(3, manutencao.getIsfinalizado());
         ps.setTimestamp(4, Timestamp.valueOf(manutencao.getInstanteChegada()));
-        
+
         int linhas = ps.executeUpdate();
 
-        if(linhas > 0){
+        if (linhas > 0) {
             System.out.println("Linhas afetadas: " + linhas);
             ResultSet rs = ps.getGeneratedKeys();
-            if(rs.next()){
+            if (rs.next()) {
                 manutencao.setId(rs.getInt(1));
             }
         }
     }
-    
-    public void updateManutencao(Manutencao manutencao)throws SQLException{
+
+    public void updateManutencao(Manutencao manutencao) throws SQLException {
 
         String sql = "UPDATE manutencoes SET "
                 + "placa = ?, "
@@ -136,11 +152,11 @@ public class ManutencaoDAO {
 
         int linhas = ps.executeUpdate();
 
-        if(linhas > 0){
+        if (linhas > 0) {
             System.out.println("Linhas afetadas: " + linhas);
         }
     }
-    
+
     public void deleteManutencao(Integer id) throws SQLException {
 
         String sql = "DELETE FROM manutencoes WHERE id_manutencao = ?;";
@@ -149,9 +165,9 @@ public class ManutencaoDAO {
         ps.setInt(1, id);
 
         int linhas = ps.executeUpdate();
-         if(linhas > 0){
+        if (linhas > 0) {
             System.out.println("Linhas afetadas: " + linhas);
         }
     }
-    
+
 }

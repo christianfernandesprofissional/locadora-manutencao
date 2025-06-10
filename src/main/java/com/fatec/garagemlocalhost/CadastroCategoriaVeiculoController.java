@@ -190,7 +190,11 @@ public class CadastroCategoriaVeiculoController implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && !row.isEmpty()) {
                     CategoriaVeiculo categoria = row.getItem();
-                    txtIdCategoria.setText(categoria.getId().toString());
+                    if(categoria.getId() == 0){
+                        txtIdCategoria.setText("");
+                    }else{
+                        txtIdCategoria.setText(categoria.getId().toString());
+                    }
                     txtDescricao.setText(categoria.getDescricao());
                     listaCategorias.remove(categoria);
                     btnEditar.setDisable(false);
@@ -223,6 +227,7 @@ public class CadastroCategoriaVeiculoController implements Initializable {
         tabelaCategorias.setDisable(false);
         btnDeletar.setDisable(true);
         btnEditar.setText("Editar");
+        btnEditar.setDisable(true);
         lblErroCategoria.setVisible(false);
     }
 

@@ -50,12 +50,12 @@ public class ManutencaoServicoDAO {
                 servico.setIdServico(null);
             }
             else{
-                servico.setIdServico(rs.getInt("id_servico"));
+                servico.setIdServico(id);
             }
             
             servico.setDescricao(rs.getString("descricao"));
             
-            BigDecimal preco = new BigDecimal(rs.getDouble("preco"));
+            BigDecimal preco = new BigDecimal(rs.getString("preco"));
             if (rs.wasNull()){
                 servico.setPreco(null);
             }
@@ -64,10 +64,9 @@ public class ManutencaoServicoDAO {
             }
             
             servico.setIsComum(rs.getBoolean("isComum"));
-            
             servicos.add(servico);
         }
-        
+
         manutencao.setServicos(servicos);
         
     }

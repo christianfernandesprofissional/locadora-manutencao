@@ -26,7 +26,7 @@ public class ManutencaoServicoService {
 }
     public void preencherManutencaoServico(Manutencao manutencao) throws DBException, CampoVazioException {
         try{
-            if(!Verificar.todosAtributosPreenchidos(manutencao)){
+            if(manutencao.getId() == null || manutencao.getDescricao() == null || manutencao.getInstanteChegada() == null || manutencao.getVeiculo() == null){
                 throw new CampoVazioException("Existem Campos vazios no objeto MANUTENCAO, ou ela nao existe");
             }
             manutencaoServicoDao.preencherServicos(manutencao);
