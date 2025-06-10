@@ -192,5 +192,18 @@ public class DevolucaoVeiculoDAO {
         }
         ps.close();
     }
+    
+     public void atualizarPedido(int idDevolucao) throws SQLException {
+
+        String sql = "UPDATE pedidos_locacao set finalizado = 1 WHERE id_devolucao = ?;";
+        PreparedStatement ps = database.getConnnection().prepareStatement(sql);
+        ps.setInt(1, idDevolucao);
+
+        int linhas = ps.executeUpdate();
+        if (linhas > 0) {
+            System.out.println("Linah afetadas: " + linhas);
+        }
+        ps.close();
+    }
 
 }

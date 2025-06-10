@@ -67,6 +67,7 @@ public class DevolucaoService {
                 throw new DBException("Ha campos vazios ao atualizar");
             }
             devolucaoService.updateDevolucao(devolucao);
+            devolucaoService.atualizarPedido(devolucao.getIdDevolucao());
         }catch(SQLException e){
             throw new DBException("Erro ao atualizar Devolucao");
         }       
