@@ -11,17 +11,19 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -31,7 +33,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -55,7 +59,7 @@ public class EdicaoServicosController implements Initializable {
     private TableColumn<Servico, String> colunaDescricao;
 
     @FXML
-    private TableColumn<Servico, Integer> colunaIdServico;
+    private TableColumn<Servico, String> colunaIdServico;
 
     @FXML
     private TableColumn<Servico, BigDecimal> colunaPreco;
@@ -74,18 +78,16 @@ public class EdicaoServicosController implements Initializable {
 
     @FXML
     private TextField txtValorServico;
-    
+
     @FXML
     private Label lblValorInvalido;
-    
+
     @FXML
     private Label lblErroDescricao;
 
     private ObservableList<Servico> listaDeServicos = FXCollections.observableArrayList();
 
     private ServicoService servicoService = new ServicoService();
-
-    private ArrayList<Servico> servicosEditados = new ArrayList<>();
 
     private String descricaoAntiga;
 
@@ -95,6 +97,7 @@ public class EdicaoServicosController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         preencherCampos();
         editarServicoDoubleclick();
+        configurarBotoes();
     }
 
     public void preencherCampos() {
@@ -106,7 +109,12 @@ public class EdicaoServicosController implements Initializable {
         }
         colunaIdServico.setCellValueFactory(cellData -> {
             Servico servico = cellData.getValue();
-            return new SimpleIntegerProperty(servico.getIdServico()).asObject();
+            if (servico.getIdServico() == null) {
+                return new SimpleStringProperty("");
+            } else {
+                return new SimpleStringProperty(servico.getIdServico().toString());
+            }
+
         });
 
         colunaDescricao.setCellValueFactory(cellData -> {
@@ -139,6 +147,8 @@ public class EdicaoServicosController implements Initializable {
             TableRow<Servico> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    lblErroDescricao.setVisible(false);
+                    lblValorInvalido.setVisible(false);
                     Servico servico = row.getItem();
 
                     if (servico.getIdServico() == null || servico.getIdServico() == 0) {
@@ -153,11 +163,46 @@ public class EdicaoServicosController implements Initializable {
                     } else {
                         cbIsComum.setSelected(false);
                     }
+
+                    txtDescricaoServico.setText(servico.getDescricao());
+
                     desabilitarCampos();
                     listaDeServicos.remove(servico);
                 }
             });
             return row;
+        });
+
+        btnSalvar.setOnAction(e -> {
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+
+            alert.setTitle("Salvar alterações");
+            alert.setHeaderText("Tem certeza que deseja salvar as alterações?");
+            alert.setContentText("As alterações e criações serão salvas!\n");
+            ButtonType sim = new ButtonType("Sim");
+            alert.getButtonTypes().setAll(sim, new ButtonType("Não"));
+            alert.initStyle(StageStyle.UNDECORATED);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            Optional<ButtonType> resultado = alert.showAndWait();
+
+            if (resultado.get() == sim) {
+                listaDeServicos.forEach(servico -> {
+
+                    try {
+                        if (servico.getIdServico() == null || servico.getIdServico() == 0) {
+                            servicoService.cadastrarServico(servico);
+                        } else {
+                            servicoService.atualizarServico(servico);
+                        }
+                    } catch (DBException error) {
+                        Alert errorMessage = new Alert(AlertType.ERROR, "Erro ao salvar serviços!");
+                        errorMessage.showAndWait();
+                    }
+                    btnCancelar.fire();
+                });
+
+            }
+
         });
     }
 
@@ -168,30 +213,64 @@ public class EdicaoServicosController implements Initializable {
             if (!txtId.getText().isBlank()) {
                 servico.setIdServico(Integer.valueOf(txtId.getText()));
             }
-            
-            if(isDecimal(txtValorServico.getText().trim())){
-                servico.setPreco(new BigDecimal(txtValorServico.getText().trim()));
-            }else{
+
+            if (isDecimal(txtValorServico.getText())) {
+                if (txtValorServico.getText().contains(",")) {
+                    servico.setPreco(new BigDecimal(txtValorServico.getText().replace(",", ".")));
+                } else {
+                    servico.setPreco(new BigDecimal(txtValorServico.getText()));
+                }
+                lblValorInvalido.setVisible(false);
+            } else {
                 lblValorInvalido.setVisible(true);
             }
-            
-           if(txtDescricaoServico.getText().isBlank()){
-               lblErroDescricao.setVisible(true);
-           }else{
-               servico.setDescricao(txtDescricaoServico.getText().trim());
-           }
-           
-           if(cbIsComum.isSelected()){
-               servico.setIsComum(Boolean.TRUE);
-           }else{
-               servico.setIsComum(Boolean.FALSE);
-           }
-           listaDeServicos.add(servico);
+
+            if (txtDescricaoServico.getText().isBlank()) {
+                lblErroDescricao.setVisible(true);
+            } else {
+                servico.setDescricao(txtDescricaoServico.getText().trim());
+                lblErroDescricao.setVisible(false);
+            }
+
+            if (cbIsComum.isSelected()) {
+                servico.setIsComum(Boolean.TRUE);
+            } else {
+                servico.setIsComum(Boolean.FALSE);
+            }
+
+            System.out.println(servico);
+            if (!lblErroDescricao.isVisible() && !lblValorInvalido.isVisible()) {
+                listaDeServicos.add(servico);
+                btnEditar.setText("Editar");
+                btnEditar.setDisable(true);
+                HabilitarCampos();
+                limparCampos();
+            }
         });
-        
+
         btnCancelar.setOnAction(event -> {
-              Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.close();
+        });
+
+        btnEditar.setOnAction(e -> {
+            if (txtDescricaoServico.isDisabled()) {
+                txtDescricaoServico.setDisable(false);
+                txtValorServico.setDisable(false);
+                cbIsComum.setDisable(false);
+                btnEditar.setText("Cancelar edição");
+                descricaoAntiga = txtDescricaoServico.getText();
+                valorAntigo = txtValorServico.getText();
+            } else {
+                txtDescricaoServico.setDisable(true);
+                txtValorServico.setDisable(true);
+                cbIsComum.setDisable(true);
+                btnEditar.setText("Editar");
+                txtDescricaoServico.setText(descricaoAntiga);
+                txtValorServico.setText(valorAntigo);
+                lblErroDescricao.setVisible(false);
+                lblValorInvalido.setVisible(false);
+            }
         });
     }
 
@@ -201,18 +280,13 @@ public class EdicaoServicosController implements Initializable {
         cbIsComum.setDisable(true);
         tabelaServicos.setDisable(true);
         btnEditar.setDisable(false);
-        lblValorInvalido.setVisible(false);
-        lblErroDescricao.setVisible(false);
     }
 
     public void HabilitarCampos() {
         txtDescricaoServico.setDisable(false);
         txtValorServico.setDisable(false);
         cbIsComum.setDisable(false);
-        btnEditar.setDisable(true);
         tabelaServicos.setDisable(false);
-        lblValorInvalido.setVisible(false);
-        lblErroDescricao.setVisible(false);
     }
 
     public void limparCampos() {

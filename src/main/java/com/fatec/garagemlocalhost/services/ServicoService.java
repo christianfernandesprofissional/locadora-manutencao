@@ -47,8 +47,8 @@ public class ServicoService {
         }
     }
     
-    public void cadsatrarServico(Servico servico) throws DBException, CampoVazioException{
-        if(!Verificar.todosAtributosPreenchidos(servico,"getIdServico")){
+    public void cadastrarServico(Servico servico) throws DBException, CampoVazioException{
+        if(servico.getDescricao() == null || servico.getPreco() == null || servico.getIsComum() == null){
             throw new CampoVazioException("Faltam informações para cadastrar serviço!");
         }        
         try{
@@ -59,7 +59,7 @@ public class ServicoService {
     }  
     
     public void atualizarServico(Servico servico) throws DBException, CampoVazioException{
-        if(!Verificar.todosAtributosPreenchidos(servico)){
+        if(!Verificar.todosAtributosPreenchidos(servico, "getManutencao")){
             throw new CampoVazioException("Faltam informações para atualizar serviço!");
         }
         

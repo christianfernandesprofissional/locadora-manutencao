@@ -125,9 +125,10 @@ public class Manutencao {
         final Manutencao other = (Manutencao) obj;
         return Objects.equals(this.id, other.id);
     }
-    
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "Manutencao{" + "id=" + id + ", veiculo=" + veiculo + ", descricao=" + descricao + ", isfinalizado=" + isfinalizado + ", instanteChegada=" + instanteChegada + ", instanteSaida=" + instanteSaida + ", valorTotal=" + valorTotal + ", servicos=" + servicos + "\n";
+    }
     
 }
