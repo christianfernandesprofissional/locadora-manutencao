@@ -113,6 +113,49 @@ public class SaidaVeiculoDAO {
 
         return Optional.ofNullable(saida);
     }
+    
+    public Optional<SaidaVeiculo> findByPlacaAndPedido(String placa, Integer idPedido) throws SQLException {
+
+        String sql = "SELECT * FROM saidas_veiculos WHERE placa = ? AND id_pedido = ?;";
+        PreparedStatement ps = database.getConnnection().prepareStatement(sql);
+        ps.setString(1, placa);
+        ps.setInt(2, idPedido);
+
+        ResultSet rs = ps.executeQuery();
+
+        VeiculoDAO vDAO = new VeiculoDAO(database);
+        UsuarioDAO uDAO = new UsuarioDAO(database);
+        SaidaVeiculo saida = null;
+        if (rs.next()) {
+            saida = new SaidaVeiculo();
+            saida.setId(rs.getInt("id_saida"));
+            saida.setIdPedido(rs.getInt("id_pedido"));
+            Usuario usuario = uDAO.findById(rs.getInt("id_assistente")).orElse(null);
+            saida.setUsuario(usuario);
+            Veiculo veiculo = vDAO.findByPlaca(rs.getString("placa")).orElse(null);
+            saida.setVeiculo(veiculo);
+            if (rs.getTimestamp("instante_saida") == null) {
+                saida.setInstanteSaida(null);
+            } else {
+                saida.setInstanteSaida(rs.getTimestamp("instante_saida").toLocalDateTime());
+            }
+
+            int valor = rs.getInt("km_saida");
+            if (rs.wasNull()) {
+                saida.setKmSaida(null);
+            } else {
+                saida.setKmSaida(valor);
+            }
+            
+            if (saida.getInstanteSaida() == null) {
+                saida.setSituacao(SituacaoSaida.AGUARDANDO_ENTREGA);
+            } else {
+                saida.setSituacao(SituacaoSaida.ENTREGUE_AO_CLIENTE);
+            }
+        }
+
+        return Optional.ofNullable(saida);
+    }
 
     public void createSaida(SaidaVeiculo saida) throws SQLException {
 

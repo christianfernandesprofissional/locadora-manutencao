@@ -12,14 +12,17 @@ import com.fatec.garagemlocalhost.database.DBException;
 import com.fatec.garagemlocalhost.exceptions.CampoVazioException;
 import com.fatec.garagemlocalhost.model.entities.DevolucaoVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Manutencao;
+import com.fatec.garagemlocalhost.model.entities.SaidaVeiculo;
 import com.fatec.garagemlocalhost.model.enums.SituacaoVeiculo;
 import com.fatec.garagemlocalhost.services.DevolucaoService;
 import com.fatec.garagemlocalhost.services.ManutencaoService;
+import com.fatec.garagemlocalhost.services.SaidaService;
 import com.fatec.garagemlocalhost.services.VeiculoService;
 import com.fatec.garagemlocalhost.utils.UsuarioHolder;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,13 +66,14 @@ public class SubDevolucoesController implements Initializable {
 
     @FXML
     private Label lblErroKm;
-    
+
     @FXML
     private Label lblErroDescricao;
 
     private DevolucaoVeiculo devolucao;
 
     private DevolucaoService devolucaoService = new DevolucaoService();
+    private SaidaService saidaService = new SaidaService();
 
     private VeiculoService veiculoService = new VeiculoService();
 
@@ -95,46 +99,52 @@ public class SubDevolucoesController implements Initializable {
         });
 
         btnRegistrarDevolucao.setOnAction(event -> {
-            try {
-                if (!isInteiro(txtKmChegada.getText())) {
+            if (verificarSaida()) {
+                try {
+                    if (!isInteiro(txtKmChegada.getText())) {
 
-                    lblErroKm.setText("Valor inválido!");
-                    lblErroKm.setVisible(true);
+                        lblErroKm.setText("Valor inválido!");
+                        lblErroKm.setVisible(true);
 
-                } else if (Integer.valueOf(txtKmChegada.getText()) <= devolucao.getVeiculo().getQuilometragem()) {
+                    } else if (Integer.valueOf(txtKmChegada.getText()) <= devolucao.getVeiculo().getQuilometragem()) {
 
-                    lblErroKm.setText("Quilometragem deve ser maior que " + devolucao.getVeiculo().getQuilometragem());
-                    lblErroKm.setVisible(true);
+                        lblErroKm.setText("Quilometragem deve ser maior que " + devolucao.getVeiculo().getQuilometragem());
+                        lblErroKm.setVisible(true);
 
-                } else if (cbVaiParaManutencao.isSelected() && txtMotivoManutencao.getText().isBlank()) {
-                    lblErroDescricao.setVisible(true);
-                } else {
+                    } else if (cbVaiParaManutencao.isSelected() && txtMotivoManutencao.getText().isBlank()) {
+                        lblErroDescricao.setVisible(true);
+                    } else {
 
-                    devolucao.setKmChegada(Integer.valueOf(txtKmChegada.getText()));
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-                    devolucao.setInstanteDevolucao(LocalDateTime.parse(txtInstanteDevolucao.getText(), formatter));
+                        devolucao.setKmChegada(Integer.valueOf(txtKmChegada.getText()));
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                        devolucao.setInstanteDevolucao(LocalDateTime.parse(txtInstanteDevolucao.getText(), formatter));
 
-                    int novaKm = Integer.valueOf(txtKmChegada.getText()) - devolucao.getVeiculo().getQuilometragem() + devolucao.getVeiculo().getQuilometragem();
-                    devolucao.getVeiculo().setQuilometragem(novaKm);
+                        int novaKm = Integer.valueOf(txtKmChegada.getText()) - devolucao.getVeiculo().getQuilometragem() + devolucao.getVeiculo().getQuilometragem();
+                        devolucao.getVeiculo().setQuilometragem(novaKm);
 
-                    if (cbVaiParaManutencao.isSelected()) {
-                        Manutencao manutencao = new Manutencao();
-                        manutencao.setDescricao(txtMotivoManutencao.getText());
-                        manutencao.setInstanteChegada(LocalDateTime.parse(txtInstanteDevolucao.getText(), formatter));
-                        manutencao.setIsfinalizado(Boolean.FALSE);
-                        devolucao.getVeiculo().setSituacao(SituacaoVeiculo.EM_MANUTENÇÃO);
-                        manutencao.setVeiculo(devolucao.getVeiculo());
-                        devolucao.setManutencao(manutencao);
+                        if (cbVaiParaManutencao.isSelected()) {
+                            Manutencao manutencao = new Manutencao();
+                            manutencao.setDescricao(txtMotivoManutencao.getText());
+                            manutencao.setInstanteChegada(LocalDateTime.parse(txtInstanteDevolucao.getText(), formatter));
+                            manutencao.setIsfinalizado(Boolean.FALSE);
+                            devolucao.getVeiculo().setSituacao(SituacaoVeiculo.EM_MANUTENÇÃO);
+                            manutencao.setVeiculo(devolucao.getVeiculo());
+                            devolucao.setManutencao(manutencao);
+                            manutencaoService.cadastrarManutencao(devolucao.getManutencao());
+                        }
+
+                        devolucaoService.atualizarDevolucao(devolucao);
+                        veiculoService.atualizarVeiculo(devolucao.getVeiculo());
+
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        stage.close();
                     }
-                    manutencaoService.cadastrarManutencao(devolucao.getManutencao());
-                    devolucaoService.atualizarDevolucao(devolucao);
-                    veiculoService.atualizarVeiculo(devolucao.getVeiculo());
-
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.close();
+                } catch (DBException | CampoVazioException e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+                    alert.showAndWait();
                 }
-            } catch (DBException | CampoVazioException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            }else{
+                 Alert alert = new Alert(Alert.AlertType.ERROR, "Não é possível fechar uma devolução que ainda não saiu!!!");
                 alert.showAndWait();
             }
         });
@@ -184,5 +194,23 @@ public class SubDevolucoesController implements Initializable {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public Boolean verificarSaida() {
+        boolean veiculoSaiu = true;
+        try {
+            Optional<SaidaVeiculo> saida = saidaService.buscarSaidaPlacaEPedido(devolucao.getVeiculo().getPlaca(), devolucao.getIdPedido());
+
+            if (saida.isPresent()) {
+                if (saida.get().getInstanteSaida() == null) {
+                    veiculoSaiu = false;
+                }
+            }
+        } catch (DBException e) {
+            veiculoSaiu = false;
+            e.printStackTrace();
+        }
+
+        return veiculoSaiu;
     }
 }

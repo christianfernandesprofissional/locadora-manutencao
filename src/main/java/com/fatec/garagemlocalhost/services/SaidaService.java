@@ -47,6 +47,18 @@ public class SaidaService {
            }
     }
     
+      public Optional<SaidaVeiculo> buscarSaidaPlacaEPedido(String placa, Integer idPedido)throws DBException, IdInvalidoException{
+           if(idPedido <= 0){
+               throw new IdInvalidoException("Id inválido!");
+           }
+           try{
+               return saidasDao.findByPlacaAndPedido(placa, idPedido);
+           }catch(SQLException e){
+               e.printStackTrace();
+               throw new DBException("Erro ao encontrar as saídas");
+           }
+    }
+    
     public void atualizarSaida(SaidaVeiculo saida)throws DBException, CampoVazioException{
         if(!Verificar.todosAtributosPreenchidos(saida)){
             throw new CampoVazioException("Não podem existir campos vazios");

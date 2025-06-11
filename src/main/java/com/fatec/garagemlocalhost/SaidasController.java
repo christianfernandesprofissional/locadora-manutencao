@@ -114,6 +114,9 @@ public class SaidasController implements Initializable {
             colunaIdPedido.setCellValueFactory(new PropertyValueFactory<>("idPedido"));
             colunaAuxiliar.setCellValueFactory(cellData -> {
                 SaidaVeiculo saida = cellData.getValue();
+                if(saida.getUsuario() == null){
+                    return new SimpleStringProperty("");
+                }
                 return new SimpleStringProperty(saida.getUsuario().getNome());
             });
 
