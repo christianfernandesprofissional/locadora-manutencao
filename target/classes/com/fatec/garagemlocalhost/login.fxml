@@ -26,11 +26,11 @@
          </font></TextField>
       <Pane>
          <children>
-            <PasswordField fx:id="txtMaskSenha" prefHeight="25.0" prefWidth="175.0" promptText="Senha">
+            <PasswordField fx:id="txtMaskSenha" prefHeight="31.0" prefWidth="175.0" promptText="Senha">
                <font>
                   <Font size="15.0" />
                </font></PasswordField>
-            <TextField fx:id="txtUnmaskSenha" prefHeight="25.0" prefWidth="175.0" promptText="Senha" visible="false" />
+            <TextField fx:id="txtUnmaskSenha" prefHeight="31.0" prefWidth="175.0" promptText="Senha" visible="false" />
          </children>
       </Pane>
       <CheckBox fx:id="cbExibirSenha" mnemonicParsing="false" prefHeight="25.0" prefWidth="175.0" text="Exibir senha">
