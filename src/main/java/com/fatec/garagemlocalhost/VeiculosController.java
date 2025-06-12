@@ -8,8 +8,10 @@ import com.fatec.garagemlocalhost.database.DBException;
 import com.fatec.garagemlocalhost.model.entities.CategoriaVeiculo;
 import com.fatec.garagemlocalhost.model.entities.Veiculo;
 import com.fatec.garagemlocalhost.model.enums.SituacaoVeiculo;
+import com.fatec.garagemlocalhost.model.enums.TipoUsuario;
 import com.fatec.garagemlocalhost.services.CategoriaService;
 import com.fatec.garagemlocalhost.services.VeiculoService;
+import com.fatec.garagemlocalhost.utils.UsuarioHolder;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -37,14 +39,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 
 /**
  *
  * @author chris
  */
 public class VeiculosController implements Initializable {
-   
+
     @FXML
     private Button btnLimparFiltros;
 
@@ -98,7 +99,7 @@ public class VeiculosController implements Initializable {
 
     @FXML
     private RadioButton rbPlaca;
-    
+
     @FXML
     private RadioButton rbDisponivel;
 
@@ -107,7 +108,6 @@ public class VeiculosController implements Initializable {
 
     @FXML
     private RadioButton rbEmManutencao;
-
 
     @FXML
     private TextField txtBusca;
@@ -148,9 +148,8 @@ public class VeiculosController implements Initializable {
     }
 
     /**
-     * Adiciona Listeners a todos os elementos
-     * relacionados a busca de veículos.
-     * 
+     * Adiciona Listeners a todos os elementos relacionados a busca de veículos.
+     *
      * @author Christian
      */
     public void configurarListenersDeBusca() {
@@ -175,7 +174,7 @@ public class VeiculosController implements Initializable {
 
         rbModelo.selectedProperty().addListener((obs, oldVal, newVal)
                 -> aplicarFiltroNaListaDeVeiculos(listaFiltrada));
-        
+
         rbDisponivel.selectedProperty().addListener((obs, oldVal, newVal)
                 -> aplicarFiltroNaListaDeVeiculos(listaFiltrada));
 
@@ -187,7 +186,7 @@ public class VeiculosController implements Initializable {
 
         btnLimparFiltros.setOnAction(e -> {
             limparCampos();
-            aplicarFiltroNaListaDeVeiculos(listaFiltrada);         
+            aplicarFiltroNaListaDeVeiculos(listaFiltrada);
         });
     }
 
@@ -202,11 +201,10 @@ public class VeiculosController implements Initializable {
     }
 
     /**
-     * Filtra a lista de veículos to vez 
-     * que é chamado.
-     * 
+     * Filtra a lista de veículos to vez que é chamado.
+     *
      * @author Christian
-     * @param listaFiltrada 
+     * @param listaFiltrada
      */
     public void aplicarFiltroNaListaDeVeiculos(FilteredList<Veiculo> listaFiltrada) {
         listaFiltrada.setPredicate(veiculo -> {
@@ -235,13 +233,13 @@ public class VeiculosController implements Initializable {
             if (ano != null) {
                 anoCorresponde = veiculo.getAno().equals(ano);
             }
-            
+
             Boolean situacao = true;
-            if(rbDisponivel.isSelected()){
+            if (rbDisponivel.isSelected()) {
                 situacao = veiculo.getSituacao() == SituacaoVeiculo.DISPONÍVEL;
-            }else if(rbAlugado.isSelected()){
+            } else if (rbAlugado.isSelected()) {
                 situacao = veiculo.getSituacao() == SituacaoVeiculo.ALUGADO;
-            }else if(rbEmManutencao.isSelected()){
+            } else if (rbEmManutencao.isSelected()) {
                 situacao = veiculo.getSituacao() == SituacaoVeiculo.EM_MANUTENÇÃO;
             }
 
@@ -282,31 +280,33 @@ public class VeiculosController implements Initializable {
             System.out.println("Erro ao carregar tabela: " + e.getMessage());
         }
     }
-    
-    public void editarVeiculoDoubleclick() {
-        tabelaVeiculos.setRowFactory(t -> {
-            TableRow<Veiculo> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && !row.isEmpty()) {
-                    Veiculo veiculo = row.getItem();
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("CadastroVeiculo.fxml"));
-                        Parent root = loader.load();
-                        
-                        CadastroVeiculoController controller = loader.getController();
-                        
-                        controller.setVeiculo(veiculo);
-               
-                        BorderPane bp = (BorderPane)tabelaVeiculos.getParent().getParent();
-                        bp.setCenter(root);
-                    }catch(IOException e){
-                        e.printStackTrace();
-                    }
 
-                }
+    public void editarVeiculoDoubleclick() {
+        if (UsuarioHolder.getInstance().getUsuario().getTipoUsuario().equals(TipoUsuario.GERENTE)) {
+            tabelaVeiculos.setRowFactory(t -> {
+                TableRow<Veiculo> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && !row.isEmpty()) {
+                        Veiculo veiculo = row.getItem();
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("CadastroVeiculo.fxml"));
+                            Parent root = loader.load();
+
+                            CadastroVeiculoController controller = loader.getController();
+
+                            controller.setVeiculo(veiculo);
+
+                            BorderPane bp = (BorderPane) tabelaVeiculos.getParent().getParent();
+                            bp.setCenter(root);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+                return row;
             });
-            return row;
-        });
+        }
     }
-    
+
 }

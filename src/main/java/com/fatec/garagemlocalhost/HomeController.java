@@ -4,6 +4,8 @@
  */
 package com.fatec.garagemlocalhost;
 
+import com.fatec.garagemlocalhost.model.enums.TipoUsuario;
+import com.fatec.garagemlocalhost.utils.UsuarioHolder;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -109,6 +111,14 @@ public class HomeController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         VBox v = loadFXML("TelaInicial");
         borderPane.setCenter(v);
+        if(UsuarioHolder.getInstance().getUsuario().getTipoUsuario().equals(TipoUsuario.GERENTE)){
+            btnUsuarios.setDisable(false);
+            btnCadastrarVeiculo.setDisable(false);
+            
+        }else{
+            btnUsuarios.setDisable(false);
+            btnCadastrarVeiculo.setDisable(false);
+        }
 
     }
 
