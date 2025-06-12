@@ -21,7 +21,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("login"));
         stage.setScene(scene);
         stage.setWidth(354);
-        stage.setHeight(534);
+        stage.setHeight(570);
         stage.setResizable(false);
         stage.show();
          
