@@ -119,19 +119,19 @@ Para executar os testes no NetBeans:
 
 **Tela de Login:**
 
-![Tela de Login do Sistema LocalHost](./img/telaLogin.png)
+![Tela de Login do Sistema LocalHost](src/main/resources/com/fatec/garagemlocalhost/img/telaLogin.png)
 
 **Tela inicial:**
 
-![Tela inicial](./img/telaInicial.png)
+![Tela inicial](src/main/resources/com/fatec/garagemlocalhost/img/telaInicial.png)
 
 **Tela de devoluções:**
 
-![Tela de devoluções](./img/devolucoes.png)
+![Tela de devoluções](src/main/resources/com/fatec/garagemlocalhost/img/devolucoes.png)
 
 **Tela de busca avançada:**
 
-![Tela de busca avançada de veículos](./img/busca-avancada.png)
+![Tela de busca avançada de veículos](src/main/resources/com/fatec/garagemlocalhost/img/busca-avancada.png)
 
 ---
 
