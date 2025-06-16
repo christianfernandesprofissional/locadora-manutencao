@@ -1,4 +1,11 @@
-Claro! Aqui está uma sugestão de arquivo `README.md` bem estruturado e detalhado para o seu projeto, utilizando a sintaxe Markdown.
+
+---
+
+  Codificado com ☕ e dedicação por:
+  <br>
+  <strong>Linkedin:</strong> https://linkedin.com/in/christian-fernandes-50810527b. <br>
+  <strong>Github-page:</strong>  https://github.com/christianfernandesprofissional
+
 
 ---
 
@@ -142,9 +149,6 @@ Para executar os testes no NetBeans:
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
----
-
-Codificado com ☕ e dedicação por https://github.com/christianfernandesprofissional | Linkedin: linkedin.com/in/christian-fernandes-50810527b.
 
 
 
