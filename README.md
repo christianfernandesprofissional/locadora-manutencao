@@ -15,7 +15,8 @@
 
 Este repositório contém o módulo de **Gerenciamento de Frotas** do sistema da locadora de veículos **LocalHost**. Este projeto foi desenvolvido como uma aplicação desktop utilizando Java e JavaFX.
 
-É importante notar que o sistema LocalHost é dividido em dois módulos principais que utilizam o mesmo banco de dados. O módulo de **Aluguel de Veículos**, destinado aos clientes finais e atendentes, encontra-se em um repositório separado.
+É importante notar que o sistema LocalHost é dividido em dois módulos principais que utilizam o mesmo banco de dados. O módulo de **Aluguel de Veículos**, destinado aos clientes finais e atendentes, encontra-se em um repositório separado
+localizado em https://github.com/FabioBritto/locadora-javafx.
 
 ## 📝 Sobre o Projeto
 
