@@ -64,7 +64,10 @@ Este projeto foi uma oportunidade para praticar e desenvolver habilidades em:
 
 - **Programação Orientada a Objetos (POO):** Aplicação de conceitos como encapsulamento, herança, polimorfismo e abstração para modelar o domínio do problema.
 - **Java Collections Framework:** Uso eficiente de listas, mapas e conjuntos para gerenciar dados em memória.
-- **Streams e Expressões Lambda:** Utilização da API de Streams para realizar operações de filtro, mapa e redução de forma declarativa e concisa, tornando o código mais limpo e legível.
+- **Streams e Expressões Lambda:** Utilização da API de Streams para realizar operações de filtro, mapa e redução de forma declarativa e concisa.
+- **Tratamento de Exceções:** Implementação de rotinas de tratamento de erros para garantir a robustez e a estabilidade da aplicação, fornecendo feedback claro ao usuário em caso de falhas (como entradas inválidas ou problemas de conexão com o banco de dados) e evitando o encerramento inesperado do sistema.
+
+---
 
 ---
 
@@ -132,17 +135,6 @@ Para executar os testes no NetBeans:
 **Tela de busca avançada:**
 
 ![Tela de busca avançada de veículos](src/main/resources/com/fatec/garagemlocalhost/img/busca-avancada.png)
-
----
-
-## 🎯 Objetivos Acadêmicos
-
-Este projeto foi uma oportunidade para praticar e desenvolver habilidades em:
-
-- **Programação Orientada a Objetos (POO):** Aplicação de conceitos como encapsulamento, herança, polimorfismo e abstração para modelar o domínio do problema.
-- **Java Collections Framework:** Uso eficiente de listas, mapas e conjuntos para gerenciar dados em memória.
-- **Streams e Expressões Lambda:** Utilização da API de Streams para realizar operações de filtro, mapa e redução de forma declarativa e concisa.
-- **Tratamento de Exceções:** Implementação de rotinas de tratamento de erros para garantir a robustez e a estabilidade da aplicação, fornecendo feedback claro ao usuário em caso de falhas (como entradas inválidas ou problemas de conexão com o banco de dados) e evitando o encerramento inesperado do sistema.
 
 ---
 
