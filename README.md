@@ -150,7 +150,7 @@ Para executar os testes no NetBeans:
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 
-
+---
 
 
 ### Como contribuir
@@ -159,7 +159,6 @@ Faça um fork no repositório, crie uma branch com o nome da feature ou fix que 
 
 Use os seguintes padrões de commit para cada tipo antes da mensagem:
 
-***
 
 **feat** - Commits do tipo feat indicam que seu trecho de código está incluindo um novo recurso (se relaciona com o MINOR do versionamento semântico).
 
